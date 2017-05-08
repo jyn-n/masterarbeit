@@ -1,0 +1,330 @@
+\section{Turing machines}
+
+\begin{Definition}
+	A \emph{Turing machine} $M$ consists of the following data:
+	\begin{itemize}
+		\item{some $n \in \N$}, the \emph{number of tapes}
+		\item{a finite set $A$ called the \emph{alphabet}, its elements are called \emph{symbols}}
+		\item{a finite set $S$ called the \emph{states}}
+		\item{a map $T_{write}: A^n \times S \to A^n$}
+		\item{a map $T_{state}: A^n \times S \to S$}
+		\item{a map $T_{direction}: A^n \times S \to D^n$ where $D := \{-1,0,1\}$}
+		\item{distinct states $\{\INI,\ACC,\REJ\} \subseteq S$}
+		\item{a symbol $\EMP \in A$}
+	\end{itemize}
+	Of this we require
+	\begin{itemize}
+		\item{$\INI \notin T_{state}(A^n \times S)$}
+		\item{$(T_{write} \times T_{state} \times T_{direction}) (a,s) = (a,s,0)~\forall a \in A^n , s \in \STOPS$}
+	\end{itemize}
+\end{Definition}
+When talking about Turing machines we will always use the denominations as in the definition.
+For example the alphabet will always be called $A$ and $A$ will usually be the alphabet of some Turing machine.
+If it is not obvious to which Turing machine $A$ belongs, we clarify by writing $A(M)$.
+
+An element $(a,s) \in (A^\Z)^n \times S =: C$ is called a \emph{configuration} of $M$. The $(a_i) \in A^\Z$ are called the \emph{tapes}.
+
+A configuration is said to be \emph{finite}, if only finitely many entries on each tape are not \EMP.
+
+A configuration $(a,s)$ is called an \emph{initial configuration}, if all of the following are true:
+\begin{itemize}
+	\item{$(a,s)$ is finite}
+	\item{$s = \INI$}
+	\item{$a_{z,i} = \EMP~\forall z < 0, i \in \{1,...,n\}$}
+\end{itemize}
+The sets of finite and initial configurations are denoted by $FC$ and $IC$ respectively.
+
+We will now define the \emph{transition map} which shall be a map on $C$ which in a sense combines the behaviour of $T_{write}$, $T_{state}$ and $T_{direction}$.
+To this end we first extend the domains of $T_{write}$, $T_{state}$ and $T_{direction}$ to $C$:
+Let 
+\begin{align*}
+	pr_0: (A^\Z)^n &\to A^n \\
+	 (pr_0(a))_i &:= a_{0,i}~\forall i \in \{1,...,n\}
+\end{align*}
+Now define
+\begin{align*}
+	T_{write}^\prime &:= T_{write} \circ (pr_0 \times id_S) \\
+	T_{state}^\prime &:= T_{state} \circ (pr_0 \times id_S) \\
+	T_{direction}^\prime &:= T_{direction} \circ (pr_0 \times id_S)
+\end{align*}
+Further let
+\begin{align*}
+	T_{write}^{\prime\prime}: (A^\Z)^n \times S &\to (A^\Z)^n \\
+	(a,s) &\mapsto T_{write}^{\prime\prime}(a,s) \\
+\end{align*}
+where
+\begin{align*}
+	(T_{write}^{\prime\prime}(a,s))_{z,i} =
+	\begin{cases}
+		(T_{write}^\prime(a,s))_i &\text{, if}~z = 0 \\
+		a_{z,i} &\text{, if}~z \neq 0
+	\end{cases}
+\end{align*}
+As it should become clear from the context which map is being referred to, we will just say $T_{write}$ instead of $T_{write}^{\prime\prime}$
+and $T_{state}$ instead of $T_{state}^{\prime}$
+and the same for $T_{direction}$.
+
+Further we require the map $T_{tape}$, which shall be defined thus:
+Let
+\begin{align*}
+	sh: A^\Z \times \Z &\to A^\Z \\
+	(a,z) &\mapsto sh(a,z)~\text{where}~sh(a,z)_i = a_{i+z}
+\end{align*}
+Now let
+\begin{align*}
+	T_{shift}: (A^\Z)^n \times C &\to (A^\Z)^n \\
+	(b,c) &\mapsto ( sh(b_1,(T_{direction}(c))_1) , ... , sh(b_n,(T_{direction}(c))_n) )
+\end{align*}
+and
+\begin{align*}
+	T_{tape}: (A^\Z)^n \times S &\to (A^\Z)^n \\
+	(a,s) &\mapsto T_{shift} ( a, (T_{write} (a,s) , s))
+\end{align*}
+Finally we can define the \emph{transition map} $T:C\to C$ nicely:
+\begin{align*}
+	T = T_{tape} \times T_{state}
+\end{align*}
+\remark $T(FC) \subseteq FC$.
+
+If for some $c \in C$ and $k \in \N$ we have that $T^k(c) = T^{k+1}(c)$ we define $T^\infty(c) := T^k(c)$ and leave it undefined otherwise.
+
+We also abuse notation a bit and define
+\begin{align*}
+	T_{state}^0: C &\to S \\
+	(a,s) &\mapsto s
+\end{align*}
+as well as
+\begin{align*}
+	T_{tape}^0: C &\to (A^\Z)^n \\
+	(a,s) &\mapsto a
+\end{align*}
+and also
+\begin{align*}
+	T_{tape}^k := T_{tape}^0 \circ T^k
+\end{align*}
+and
+\begin{align*}
+	T_{state}^k := T_{state}^0 \circ T^k
+\end{align*}
+for all $k \in \N \cup \{\infty\}$.
+To justify this notation, observe that $T^k = T_{tape}^k \times T_{state}^k$.
+
+A Turing machine is said to
+\begin{itemize}
+	\item{\emph{accept $c$}, if $T_{state}^\infty(c)$ is defined and equals \ACC}
+	\item{\emph{reject $c$}, if $T_{state}^\infty(c)$ is defined and equals \REJ}
+	\item{\emph{stop for $c$}, if it accepts $c$ or rejects $c$}
+	\item{\emph{stop}, if it stops for any initial configuration}
+	\item{be \emph{foolproof}, if it stops for any finite configuration}
+	\item{be \emph{readonly}, if $T_{write}(a,s) = a~\forall a \in A^n, s \in S$}
+\end{itemize}
+Of a readonly Turing machine we will further require that it does not ``cross'' the \EMP-symbol, that is for every $N \in \N$ and $a \in (A^\Z)^n$ the following holds:
+\begin{align*}
+	a_{l,i} \neq \EMP~\forall~l \in \{0,...,(\sum_{j=1}^N T_{direction}^j(a,s)_i) -1\}
+\end{align*}
+if the sum is positive and analogous if the sum is negative.
+
+The subsets of $IC$ that $M$ accepts, rejects and stops for will be denoted by $AC$, $RC$ and $SC$ respectively.
+
+\remark $M$ stops for $c$ if and only if there is some $k \in \N_0$ such that \IM{T_{state}^k(c) \in \STOPS}
+
+Now let us present a method of turning multiple Turing machines into one by ``first executing one, then the other one''. This will be useful later as it gives us a method to divide a large Turing machine into more managable parts.
+
+\begin{Definition}
+	Let $M$ and $N$ be Turing machines such that $A(M) = A(N)$ and $n(M) = n(N)$. Then we define their \emph{concatenation} $N \circ M$ as the Turing machine defined by the following data:
+	\begin{itemize}
+		\item{$n = n(M) = n(N)$}
+		\item{$A = A(M) = A(N)$}
+		\item{$\EMP = \EMP(M) = \EMP(N)$}
+		\item{$S = S(M) \dot\cup S(N)$}
+		\item{$\INI = \INI(M)$}
+		\item{$\ACC = \ACC(N)$}
+		\item{$\REJ = \REJ(N)$}
+		\item{$T_{write} = T_{write}(M) \dot\cup T_{write}(N)$}
+		\item{$T_{direction} = T_{direction}(M) \dot\cup T_{direction}(M)$}
+		\item{$T_{state} (a,s) =
+			\begin{cases}
+				T_{state}(N) (a,s) &\text{, if}~s \in S(N) \\
+				\INI(N) &\text{, if}~s \in S(M) \\&\text{and}~T_{state}(M)(a,s) \in \{\ACC(M),\REJ(M)\} \\
+				T_{state}(M) (a,s) &\text{, if}~s \in S(M) \\&\text{and}~T_{state}(M)(a,s) \notin \{\ACC(M),\REJ(M)\}
+			\end{cases}
+		$}
+	\end{itemize}
+\end{Definition}
+Clearly, if $M$ and $N$ are both readonly, then so is $N \circ M$. But the same can be said for foolproofness:
+
+\begin{Lemma}
+	Let $M$ and $N$ be foolproof Turing machines. Then $N \circ M$ is also foolproof.
+\end{Lemma}
+\proof
+Note that
+\begin{align*}
+	&C(N \circ M) \\
+	=~&(A^\Z)^n \times S(N \circ M) \\
+	=~&(A^\Z)^n \times (S(N) \dot\cup S(M)) \\
+	=~&((A^\Z)^n \times S(N)) \dot\cup ((A^\Z)^n \times S(M)) \\
+	=~&C(N) \dot\cup C(M)
+\end{align*}
+and thus
+\begin{align*}
+	&FC(N \circ M) \\
+	=~&FC(N \circ M) \cap C(N \circ M) \\
+	=~&FC(N \circ M) \cap (C(N) \dot\cup C(M)) \\
+	=~&(FC(N \circ M) \cap C(N)) \dot\cup (FC(N \circ M) \cap C(M)) \\
+	=~&FC(N) \dot\cup FC(M)
+\end{align*}
+Let $c \in FC(N \circ M)$.
+\paragraph{Case 1: $c \in FC(N)$}
+We have
+$T(N \circ M)^k (c) = T(N)^k (c) ~\forall k \in \N \cup \{\infty\}$
+and therefore $T(N \circ M)_{state}^\infty(c) = T(N)_{state}^\infty(c) \in \STOPS$
+since $N$ is foolproof.
+\paragraph{Case 2: $c \in FC(M)$}
+As $M$ is foolproof we know there is some $k \in \N$ such that $T(M)_{state}^k(c) \in \STOPS$.
+For this $k$ we therefore can deduce
+$T(N \circ M)^k(c) = (T(M)_{tape}^k,\INI(N)) =: c^\prime \in FC(N)$.
+
+Thus for $l \geq k$ we have
+\begin{align*}
+	&T(N \circ M)^l(c) \\
+	=~&T(N \circ M)^{l-k}(c^\prime) \\
+	=~&T(N)^{l-k}(c^\prime)
+\end{align*}
+and thus $N \circ M$ stops for $c$ if and only if $N$ stops for $c^\prime$ which is the case as $c^\prime \in FC(N)$ and $N$ is foolproof.
+\endproof
+
+\begin{Lemma}
+	Let $M$ be a readonly Turing machine satisfying
+	\begin{align*}
+		T_{direction} (\_,s)_i = 1~\forall s \in S \setminus \STOPS
+	\end{align*}
+	or
+	\begin{align*}
+		T_{direction} (\_,s)_i = -1~\forall s \in S \setminus \STOPS
+	\end{align*}
+	for some $i \in \{1,...,n\}$.
+	Then $M$ is foolproof.
+\end{Lemma}
+\proof
+We will only show the case that all directions are positive. The negative case can be proven analogously.
+Wlog $i=1$ and further $n=1$. This allows us to leave out the index $i$ wherever it occurs.
+
+Let $c \in FC$. Because of finiteness there is some $k > 0$ such that \IM{a_k = \EMP}.
+Thus, since $M$ is readonly we have
+\begin{align*}
+	&\sum_{j=1}^{k+1} T_{direction}^j (c) < k+1 \\
+	\Rightarrow~&\exists~0 < l \leq k: T_{direction}^l (c) \neq 1 \\
+	\Rightarrow~&T_{state}^l-1 (c) \in \STOPS \\
+	\Rightarrow~&c \in SC
+\end{align*}
+\endproof
+
+\begin{Definition}
+	If $\mathcal{M}$ and $\mathcal{N}$ are classes of Turing machines, $\mathcal{N}$ has \emph{no lesser computability} than $\mathcal{M}$,
+	if for every $M \in \mathcal{M}$ there is an $N \in \mathcal{N}$ and a computable map $F: IC(M) \to C(N)$ such that \IM{F(AC(M) = AC(N)}.
+\end{Definition}
+
+%\begin{Theorem}\label{thm_computability}
+%	The following classes have the same computability:
+%
+%	\begin{enumerate}
+%		\item{Turing machines on 1 tape}
+%			\label{thm_computability:tm1}
+%		\item{readonly Turing machines on 2 tapes}
+%			\label{thm_computability:r2}
+%		\item{readonly Turing machines on any number of tapes}
+%			\label{thm_computability:r}
+%		\item{foolproof readonly Turing machines on 2 tapes}
+%			\label{thm_computability:fr2}
+%	\end{enumerate}
+%\end{Theorem}
+%
+%Later we will only actually need
+%\mbox{\ref{thm_computability:tm1} $\rightsquigarrow$ \ref{thm_computability:fr2}}
+%but \ref{thm_computability:r2} is a useful step in the proof,
+%\ref{thm_computability:r} we basically get for free
+%and \mbox{\ref{thm_computability:fr2} $\rightsquigarrow$ \ref{thm_computability:tm1}} 
+%shall be proven for sake of completeness.
+%
+%\proof
+%\mbox{\ref{thm_computability:r2} $\rightsquigarrow$ \ref{thm_computability:r}} is clear ($N = M$ and $F = id$).
+%We will prove
+%\mbox{\ref{thm_computability:tm1} $\rightsquigarrow$ \ref{thm_computability:r2}},
+%\mbox{\ref{thm_computability:r} $\rightsquigarrow$ \ref{thm_computability:fr2}} and
+%\mbox{\ref{thm_computability:fr2} $\rightsquigarrow$ \ref{thm_computability:tm1}}
+%each by first providing the map $F$ which should preserve acceptance and then the Turing machine $N$, making sure $N$ rejects every \IM{c \in IC(N) \setminus F(IC(M))}.
+%
+%\subsubsection*{\ref{thm_computability:tm1} $\rightsquigarrow$ \ref{thm_computability:r2}}
+%
+%Let $M$ be a Turing machine on 1 tape. Consider a tape over the alphabet \IM{A(M) \cup S(M)}. This tape may contain a finite configuration $(a_{-l},\cdots,a_k,s) \in FC(M)$ by putting $s$ leftmost, followed by the $a_i$ and marking $a_0$ and no other symbol. The marking is important so we can tell the position of the $a_i$ on the tape.
+%If we add to the alphabet some separator symbol $|$ a tape can contain a whole sequence of configurations. We shall now try to create a readonly Turing machine on 2 tapes $N$ that checks if such a sequence is of the form 
+%\begin{align*}
+%	(c_0, T(c_0), T^2(c_0), ... T^m(c_0))
+%\end{align*}
+%where \IM{T^m(c_0) = T^{m+1}(c_0)} and \IM{T = T^M}.
+%
+%In order to do this we should first check that both tapes contain the same input. At the same time we can check whether the input is of the form
+%\begin{align*}
+%	|c|c^\prime|c^{\prime\prime}|\cdots
+%\end{align*}
+%for some finite configurations \IM{c,c^\prime,c^{\prime\prime}} etc
+%and reject if any of these conditions are not met.
+%
+%Checking if some word bounded by separators actually describes a configuration can be done by checking if the first symbol is in $S$, every other symbol is in $A$ and when encountering a marking memorizing the fact and rejecting if another marking is met.
+%
+%Afterwards we move both tapes to their original positions and advance the second tape by one configuration.
+%
+%Now we only need to check that if the first tape is at some configuration $\tilde{c}$, the second tape is at the start of $T^M(\tilde{c})$, advancing both tapes by one configuration in the process and repeat until either this is not true, in which case we reject, or we reach the end of the second tape, in which case we accept if an only if the configurations we considered last are identical and have state $ACCEPT$.
+%
+%To achieve this let $(a,s)$ and $(b,t)$ be the configurations on the first and second tape respectively. We first read the states $s$ and $t$ and memorize them.
+%Then we have both tapes skip any initial unmarked $EMPTY$ symbols, as those may or may not be specified explicitly without affecting equality of configurations.
+%Then both tapes are advanced one step at a time until we find a marking on either tape. Up to this point both tapes should be equal or we reject.
+%Now things depend on whether the marking was found on the first or second tape or both.
+%In case there was a marking on the first tape and this tape contains symbol $a$ at position $0$, the second tape should contain the symbol \IM{T^M_A(a,s)} and be marked if and only if \IM{T^M_D(a,s) = 0}. Furthermore we should have that \IM{T_S(a,s) = t}. All of these conditions can easily be checked as all the relevant information is either in memory or on the observable parts of the tapes.
+%If any of these conditions is not met we again reject.
+%If \IM{T^M_D(a,s) = -1} we should already have encountered a marking on the second tape. But we have not, therefore we reject.
+%
+%If there was a marking on the first tape and \IM{T^M_D(a,s) = 1}, or there was no marking on the first tape but on the second one, the next position of the respective other tape should be marked, a fact we memorize. Then advance both tapes one step and check if the markings are correct according to what we memorized. If now there is a marking on the first tape perform the above check concerning the symbol on the second tape.
+%
+%Then we continue advancing both tapes expecting no differences barring some $EMPTY$ symbols at the end.
+%This way we reach the $|$ marking the end of the configuration on both tapes if and only if \IM{T^M(a,s) = (b,t)}
+%
+%During this whole process if we ever encounter a difference in the configurations (ignoring any unmarked $EMPTY$ at the starts and ends) we should remember the fact so that we can decide whether or not to accept if this configuration happened to be the last one on the second tape.
+%
+%\subsubsection*{\ref{thm_computability:r} $\rightsquigarrow$ \ref{thm_computability:fr2}}
+%
+%Let $M$ be a read only Turing machine. We first restrict to the case that $M$ is on just one single tape.
+%The idea here is as follows: If we somehow knew that \IM{T_D(\_,s) = 1} for every \IM{s \in S \setminus \{ACCEPT,REJECT\}} foolproofness would easily follow since unless the machine has already stopped, the tape is advanced by 1 every step and a readonly Turing machine may do so only as long as it does not hit any $EMPTY$ symbol because of our further requirement on such machines.
+%For any finite configuration this will happen after finitely many steps and thus the Turing machine would stop.
+%
+%To construct such a Turing machine we consider the ``reading word'' $r$ of any input. This word consists of the entries on the tape as they are consecutively read by $M$: If $M$ stops for an initial configuration $c$ after $K \in \N$ steps, we set
+%\begin{align*}
+%	r^M(c)_i := (T^M_A)^i(c)~\forall k \in \{0,...,k\}
+%\end{align*}
+%Now we can easily construct a foolproof Turing machine $N$ that simulates the behaviour of $M$ when applied to the reading word of any input to $M$ by setting
+%\begin{align*}
+%	T^N_D(\_,s) := \begin{cases}0&\text{, if}~s \in \{ACCEPT,REJECT\} \\1&\text{, otherwise}\end{cases}
+%\end{align*}
+%and
+%\begin{align*}
+%	T^N_S := T^M_S
+%\end{align*}
+%Now we only need to make sure that a given input actually is a reading word. Here we require our second tape. The input to the second tape should be the original input to $M$. Let that input be called $c$. Then the input to the first tape should be the reading word $r^M(c)$, with each position $i$ on the tape marked by $(T^M_D)^{i+1}(c)$.
+%
+%We divide $N$ into three phases: The first phase checks whether the input to the first tape is actually the reading word of the input to the second tape when following directions as indicated by the markings, which should correspond to the movement of the tape in $M$.
+%That is if $a$ and $b$ denote the tapes, $m \in \{-1,0,1\}^\Z$ denotes the markings on the first tape and $s \in S$ we have
+%\begin{align*}
+%	T^N_S(((a,m),b),s) = \begin{cases}T^M_S(b,s)&\text{, if}~a_0 = b_0~\text{and}~m_0 = T^M_D(b,s)\\REJECT&\text{, otherwise}\end{cases}
+%\end{align*}
+%and further in case we did not reject
+%\begin{align*}
+%	T^N_D(((a,m),b),s) = \begin{pmatrix}1\\m_0\end{pmatrix}
+%\end{align*}
+%The second phase resets the tapes to their initial positions, that is moves each of them left until they hit an $EMPTY$ symbol after which the tapes are moved right by one step.
+%
+%Finally the third phase simulates $M$.
+%
+%This is still foolproof, as each of the three phases, when regarded as a single Turing machine is foolproof and the concatenation of foolproof Turing machines is clearly foolproof again since when one Turing machine eventually stops after finitely many steps, the second machine is started with some configuration, which again stops after finitely many steps and so on.
+%
+%For the case where $M$ has multiple tapes we first realize that we can combine mutliple tapes into one by replacing the alphabet $A$ by $A^n$. Doing so loses us the ability to move the tapes independently. But this is not much of a problem since still the second tape may contain the combined inputs to $M$ and the first tape holds their combined reading words, each with appropriate directions.
+%We check, one after another, if the reading words are correct and then simulate $M$. This is possible since for the simulation we only need to consider the first tape, which contains the consecutive symbols on all the tapes as observed by $M$.
