@@ -1,0 +1,41 @@
+Clearly, if $M$ and $N$ are both readonly, then so is $N \circ M$. But the same can be said for foolproofness:
+
+\begin{Lemma}
+	Let $M$ and $N$ be foolproof Turing machines such that $N \circ M$ is defined. Then $N \circ M$ is foolproof as well.
+\end{Lemma}
+\proof
+Note that
+\begin{align*}
+	&C(N \circ M) \\
+	=~&(A^\Z)^n \times S(N \circ M) \\
+	=~&(A^\Z)^n \times (S(N) \dot\cup S(M)) \\
+	=~&((A^\Z)^n \times S(N)) \dot\cup ((A^\Z)^n \times S(M)) \\
+	=~&C(N) \dot\cup C(M)
+\end{align*}
+and thus
+\begin{align*}
+	&FC(N \circ M) \\
+	=~&FC(N \circ M) \cap C(N \circ M) \\
+	=~&FC(N \circ M) \cap (C(N) \dot\cup C(M)) \\
+	=~&(FC(N \circ M) \cap C(N)) \dot\cup (FC(N \circ M) \cap C(M)) \\
+	=~&FC(N) \dot\cup FC(M)
+\end{align*}
+Let $c \in FC(N \circ M)$.
+\paragraph{Case 1: $c \in FC(N)$}
+We have
+$T(N \circ M)^k (c) = T(N)^k (c) ~\forall k \in \N \cup \{\infty\}$
+and therefore $T(N \circ M)_{state}^\infty(c) = T(N)_{state}^\infty(c) \in \STOPS$
+since $N$ is foolproof.
+\paragraph{Case 2: $c \in FC(M)$}
+As $M$ is foolproof we know there is some $k \in \N$ such that $T(M)_{state}^k(c) \in \STOPS$.
+For this $k$ we therefore can deduce
+$T(N \circ M)^k(c) = (T(M)_{tape}^k,\INI(N)) =: c^\prime \in FC(N)$.
+
+Thus for $l \geq k$ we have
+\begin{align*}
+	&T(N \circ M)^l(c) \\
+	=~&T(N \circ M)^{l-k}(c^\prime) \\
+	=~&T(N)^{l-k}(c^\prime)
+\end{align*}
+and thus $N \circ M$ stops for $c$ if and only if $N$ stops for $c^\prime$ which is the case as $c^\prime \in FC(N)$ and $N$ is foolproof.
+\endproof

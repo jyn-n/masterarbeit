@@ -1,0 +1,42 @@
+To conclude this chapter we prove a theorem about Turing machines which allows us to use certain classes of Turing machines interchangeably, a feature which becomes important later on.
+\begin{Theorem}
+	For every Turing machine $M$ on one tape (i.e. $n(M) = 1$), there is a foolproof readonly Turing machine $N$ on two tapes such that
+	there is a computable map $f: IC(M) \to C(N)$
+	satisfying \IM{f(AC(M)) = AC(N)}.
+\end{Theorem}
+\proof
+	Let $M$ be a Turing machine on one tape.
+	We first construct the map $f$ to get an idea what $N$ is supposed to do and then construct $N$ itself.
+	But to define $f$ we have to know what $C(N)$ looks like.
+	The state-part of $f(c)$ should always be \INI. Therefore it suffices for now to define $A(N)$:
+	\begin{align*}
+		A(N) := (A(M) \times \{0,1\} \times \{0,1\})~\dot\cup~S(M)~\dot\cup~\{|\}~\dot\cup~\{\EMP\}
+	\end{align*}
+	Think of a symbol $a \in A(N)$ as either a state or a symbol of $M$, or the ``separator'' symbol $|$.
+	If $a$ happens to be a symbol of $M$ it might or might not be ``marked'' in two different ways.
+	The first marking should be interpreted as ``position $0$'', the second marking means ``new position''
+	and for $a \in A(M)$ we will write
+	$\underline{a}$, $\boldsymbol{a}$ and $\underline{\boldsymbol{a}}$ for position $0$-$a$, new position $a$ and new position $0$-$a$ (i.e. $(a,1,0)$, $(a,0,1)$ and $(a,1,1)$) respectively.
+
+	Thus a finite configuration $c \in FC(M)$ may be interpreted as a word over this alphabet:
+	The first symbol is the state of $c$. The following symbols are the (mostly) non-\EMP-part of the tape with the symbol at index $0$ underlined.
+
+	Similarly a word over $A(N)$ might denote a sequence of configurations by containing each of those configurations separated by $|$.
+
+	Now we define the tape-part of $f(c)$ to be the word
+	\begin{align*}
+		c~|~T(c)~|~T^2(c)~|~...~|~T^k(c)
+	\end{align*}
+	if $T^k(c) = T^{k+1}(c)$ and the respective infinitely long word otherwise (note that every single configuration is still finite).
+
+	There is some ambiguity in this definition as it is not clear exactly how many \EMP-symbols should be in a given configuration.
+	This we resolve thus: $c$ itself should be as short as possible, that is it contains the underlined symbol, all non-\EMP-symbols and any \EMP in between, but no more.
+	Two consecutive configurations should have the same length if possible. If not, the second configuration may be one symbol longer.
+	This occurs if the underlined symbol is rightmost (or leftmost) and $T_{direction}$ is $1$ (or $-1$).
+	In this and only this case, the underlined symbol in the second configuration should be bold (i.e. marked as new position).
+
+\input{section__turing_machines/tm_ro2teq}
+\newpage
+\input{section__turing_machines/tm_ro2}
+
+\endproof

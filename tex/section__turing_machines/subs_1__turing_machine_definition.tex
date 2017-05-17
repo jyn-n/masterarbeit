@@ -1,0 +1,110 @@
+\begin{Definition}
+	A \emph{Turing machine} $M$ consists of the following data:
+	\begin{itemize}
+		\item{some $n \in \N$}, the \emph{number of tapes}
+		\item{a finite set $A$ called the \emph{alphabet}, its elements are called \emph{symbols}}
+		\item{a finite set $S$ called the \emph{states}}
+		\item{a map $T_{write}: A^n \times S \to A^n$}
+		\item{a map $T_{state}: A^n \times S \to S$}
+		\item{a map $T_{direction}: A^n \times S \to D^n$ where $D := \{-1,0,1\}$}
+		\item{distinct states $\{\INI,\ACC,\REJ\} \subseteq S$}
+		\item{a symbol $\EMP \in A$}
+	\end{itemize}
+	Of this we require
+	\begin{itemize}
+		\item{$\INI \notin T_{state}(A^n \times S)$}
+		\item{$(T_{write} \times T_{state} \times T_{direction}) (a,s) = (a,s,0)~\forall a \in A^n , s \in \STOPS$}
+	\end{itemize}
+\end{Definition}
+When talking about Turing machines we will always use the denominations as in the definition.
+For example the alphabet will always be called $A$ and $A$ will usually be the alphabet of some Turing machine.
+If it is not obvious to which Turing machine $A$ belongs, we clarify by writing $A(M)$.
+
+An element $(a,s) \in (A^\Z)^n \times S =: C$ is called a \emph{configuration} of $M$. The $(a_i) \in A^\Z$ are called the \emph{tapes}.
+
+A configuration is said to be \emph{finite}, if only finitely many entries on each tape are not \EMP.
+
+A configuration $(a,s)$ is called an \emph{initial configuration}, if all of the following are true:
+\begin{itemize}
+	\item{$(a,s)$ is finite}
+	\item{$s = \INI$}
+	\item{$a_{z,i} = \EMP~\forall z < 0, i \in \{1,...,n\}$}
+\end{itemize}
+The sets of finite and initial configurations are denoted by $FC$ and $IC$ respectively.
+
+We will now define the \emph{transition map} which shall be a map on $C$ which in a sense combines the behaviour of $T_{write}$, $T_{state}$ and $T_{direction}$.
+To this end we first extend the domains of $T_{write}$, $T_{state}$ and $T_{direction}$ to $C$:
+Let 
+\begin{align*}
+	pr_0: (A^\Z)^n &\to A^n \\
+	 (pr_0(a))_i &:= a_{0,i}~\forall i \in \{1,...,n\}
+\end{align*}
+Now define
+\begin{align*}
+	T_{write}^\prime &:= T_{write} \circ (pr_0 \times id_S) \\
+	T_{state}^\prime &:= T_{state} \circ (pr_0 \times id_S) \\
+	T_{direction}^\prime &:= T_{direction} \circ (pr_0 \times id_S)
+\end{align*}
+Further let
+\begin{align*}
+	T_{write}^{\prime\prime}: (A^\Z)^n \times S &\to (A^\Z)^n \\
+	(a,s) &\mapsto T_{write}^{\prime\prime}(a,s) \\
+\end{align*}
+where
+\begin{align*}
+	(T_{write}^{\prime\prime}(a,s))_{z,i} =
+	\begin{cases}
+		(T_{write}^\prime(a,s))_i &\text{, if}~z = 0 \\
+		a_{z,i} &\text{, if}~z \neq 0
+	\end{cases}
+\end{align*}
+As it should become clear from the context which map is being referred to, we will just say $T_{write}$ instead of $T_{write}^{\prime\prime}$
+and $T_{state}$ instead of $T_{state}^{\prime}$
+and the same for $T_{direction}$.
+
+Further we require the map $T_{tape}$, which shall be defined thus:
+Let
+\begin{align*}
+	sh: A^\Z \times \Z &\to A^\Z \\
+	(a,z) &\mapsto sh(a,z)~\text{where}~sh(a,z)_i = a_{i+z}
+\end{align*}
+Now let
+\begin{align*}
+	T_{shift}: (A^\Z)^n \times C &\to (A^\Z)^n \\
+	(b,c) &\mapsto ( sh(b_1,(T_{direction}(c))_1) , ... , sh(b_n,(T_{direction}(c))_n) )
+\end{align*}
+and
+\begin{align*}
+	T_{tape}: (A^\Z)^n \times S &\to (A^\Z)^n \\
+	(a,s) &\mapsto T_{shift} ( a, (T_{write} (a,s) , s))
+\end{align*}
+Finally we can define the \emph{transition map} $T:C\to C$ nicely:
+\begin{align*}
+	T = T_{tape} \times T_{state}
+\end{align*}
+\remark $T(FC) \subseteq FC$.
+
+If for some $c \in C$ and $k \in \N$ we have that $T^k(c) = T^{k+1}(c)$ we define $T^\infty(c) := T^k(c)$ and leave it undefined otherwise.
+
+We also abuse notation a bit and define
+\begin{align*}
+	T_{state}^0: C &\to S \\
+	(a,s) &\mapsto s
+\end{align*}
+as well as
+\begin{align*}
+	T_{tape}^0: C &\to (A^\Z)^n \\
+	(a,s) &\mapsto a
+\end{align*}
+and also
+\begin{align*}
+	T_{tape}^k := T_{tape}^0 \circ T^k
+\end{align*}
+and
+\begin{align*}
+	T_{state}^k := T_{state}^0 \circ T^k
+\end{align*}
+for all $k \in \N \cup \{\infty\}$.
+To justify this notation, observe that $T^k = T_{tape}^k \times T_{state}^k$.
+
+

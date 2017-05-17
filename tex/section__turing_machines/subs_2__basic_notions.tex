@@ -1,0 +1,44 @@
+A Turing machine is said to
+\begin{itemize}
+	\item{\emph{accept $c$}, if $T_{state}^\infty(c)$ is defined and equals \ACC}
+	\item{\emph{reject $c$}, if $T_{state}^\infty(c)$ is defined and equals \REJ}
+	\item{\emph{stop for $c$}, if it accepts $c$ or rejects $c$}
+	\item{\emph{stop}, if it stops for any initial configuration}
+	\item{be \emph{foolproof}, if it stops for any finite configuration}
+	\item{be \emph{readonly}, if $T_{write}(a,s) = a~\forall a \in A^n, s \in S$}
+\end{itemize}
+Of a readonly Turing machine we will further require that it does not ``cross'' the \EMP-symbol, that is for every $N \in \N$ and $a \in (A^\Z)^n$ the following holds:
+\begin{align*}
+	a_{l,i} \neq \EMP~\forall~l \in \{0,...,(\sum_{j=1}^N T_{direction}^j(a,s)_i) -1\}
+\end{align*}
+if the sum is positive and analogous if the sum is negative.
+
+The subsets of $IC$ that $M$ accepts, rejects and stops for will be denoted by $AC$, $RC$ and $SC$ respectively.
+
+\remark $M$ stops for $c$ if and only if there is some $k \in \N_0$ such that \IM{T_{state}^k(c) \in \STOPS}
+
+Now let us present a method of turning multiple Turing machines into one by ``first executing one, then the other one''. This will be useful later as it gives us a method to divide a large Turing machine into more managable parts.
+
+\begin{Definition}
+	Let $M$ and $N$ be Turing machines such that $A(M) = A(N)$ and $n(M) = n(N)$. Then we define their \emph{concatenation} $N \circ M$ as the Turing machine defined by the following data:
+	\begin{itemize}
+		\item{$n = n(M) = n(N)$}
+		\item{$A = A(M) = A(N)$}
+		\item{$\EMP = \EMP(M) = \EMP(N)$}
+		\item{$S = S(M)~\dot\cup~S(N)$}
+		\item{$\INI = \INI(M)$}
+		\item{$\ACC = \ACC(N)$}
+		\item{$\REJ = \REJ(N)$}
+		\item{$T_{write} = T_{write}(M)~\dot\cup~T_{write}(N)$}
+		\item{$T_{direction} = T_{direction}(M)~\dot\cup~T_{direction}(M)$}
+		\item{$T_{state} (a,s) =
+			\begin{cases}
+				T_{state}(N) (a,s) &\text{, if}~s \in S(N) \\
+				\INI(N) &\text{, if}~s \in S(M) \\&\text{and}~T_{state}(M)(a,s) \in \{\ACC(M),\REJ(M)\} \\
+				T_{state}(M) (a,s) &\text{, if}~s \in S(M) \\&\text{and}~T_{state}(M)(a,s) \notin \{\ACC(M),\REJ(M)\}
+			\end{cases}
+		$}
+	\end{itemize}
+\end{Definition}
+\remark We have \IM{T^\infty (N \circ M) = (T^\infty(N) \circ T^\infty(M))} wherever this makes any sense. Thus the notation.
+This should be considered to be the property which justifies the definition in the first placed.

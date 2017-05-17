@@ -1,0 +1,25 @@
+\begin{Lemma}
+	Let $M$ be a readonly Turing machine satisfying
+	\begin{align*}
+		T_{direction} (\_,s)_i = 1~\forall s \in S \setminus \STOPS
+	\end{align*}
+	or
+	\begin{align*}
+		T_{direction} (\_,s)_i = -1~\forall s \in S \setminus \STOPS
+	\end{align*}
+	for some $i \in \{1,...,n\}$.
+	Then $M$ is foolproof.
+\end{Lemma}
+\proof
+We will only show the case that all directions are positive. The negative case can be proven analogously.
+Wlog $i=1$ and further $n=1$. This allows us to leave out the index $i$ wherever it occurs.
+
+Let $c \in FC$. Because of finiteness there is some $k > 0$ such that \IM{a_k = \EMP}.
+Thus, since $M$ is readonly we have
+\begin{align*}
+	&\sum_{j=1}^{k+1} T_{direction}^j (c) < k+1 \\
+	\Rightarrow~&\exists~0 < l \leq k: T_{direction}^l (c) \neq 1 \\
+	\Rightarrow~&T_{state}^{l-1} (c) \in \STOPS \\
+	\Rightarrow~&c \in SC
+\end{align*}
+\endproof
