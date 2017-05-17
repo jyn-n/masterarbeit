@@ -136,12 +136,12 @@ Now let us present a method of turning multiple Turing machines into one by ``fi
 		\item{$n = n(M) = n(N)$}
 		\item{$A = A(M) = A(N)$}
 		\item{$\EMP = \EMP(M) = \EMP(N)$}
-		\item{$S = S(M) \dot\cup S(N)$}
+		\item{$S = S(M)~\dot\cup~S(N)$}
 		\item{$\INI = \INI(M)$}
 		\item{$\ACC = \ACC(N)$}
 		\item{$\REJ = \REJ(N)$}
-		\item{$T_{write} = T_{write}(M) \dot\cup T_{write}(N)$}
-		\item{$T_{direction} = T_{direction}(M) \dot\cup T_{direction}(M)$}
+		\item{$T_{write} = T_{write}(M)~\dot\cup~T_{write}(N)$}
+		\item{$T_{direction} = T_{direction}(M)~\dot\cup~T_{direction}(M)$}
 		\item{$T_{state} (a,s) =
 			\begin{cases}
 				T_{state}(N) (a,s) &\text{, if}~s \in S(N) \\
@@ -151,10 +151,13 @@ Now let us present a method of turning multiple Turing machines into one by ``fi
 		$}
 	\end{itemize}
 \end{Definition}
+\remark We have \IM{T^\infty (N \circ M) = (T^\infty(N) \circ T^\infty(M))} wherever this makes any sense. Thus the notation.
+This should be considered to be the property which justifies the definition in the first placed.
+
 Clearly, if $M$ and $N$ are both readonly, then so is $N \circ M$. But the same can be said for foolproofness:
 
 \begin{Lemma}
-	Let $M$ and $N$ be foolproof Turing machines. Then $N \circ M$ is also foolproof.
+	Let $M$ and $N$ be foolproof Turing machines such that $N \circ M$ is defined. Then $N \circ M$ is foolproof as well.
 \end{Lemma}
 \proof
 Note that
@@ -214,19 +217,58 @@ Thus, since $M$ is readonly we have
 \begin{align*}
 	&\sum_{j=1}^{k+1} T_{direction}^j (c) < k+1 \\
 	\Rightarrow~&\exists~0 < l \leq k: T_{direction}^l (c) \neq 1 \\
-	\Rightarrow~&T_{state}^l-1 (c) \in \STOPS \\
+	\Rightarrow~&T_{state}^{l-1} (c) \in \STOPS \\
 	\Rightarrow~&c \in SC
 \end{align*}
 \endproof
 
-\begin{Definition}
-	If $\mathcal{M}$ and $\mathcal{N}$ are classes of Turing machines, $\mathcal{N}$ has \emph{no lesser computability} than $\mathcal{M}$ (write $\mathcal{M} \leq \mathcal{N}$),
-	if for every $M \in \mathcal{M}$ there is an $N \in \mathcal{N}$ and a computable map $F: IC(M) \to C(N)$ such that \IM{F(AC(M) = AC(N)}.
-\end{Definition}
+To conclude this chapter we prove a theorem about Turing machines which allows us to use certain classes of Turing machines interchangeably, a feature which becomes important later on.
+\begin{Theorem}
+	For every Turing machine $M$ on one tape (i.e. $n(M) = 1$), there is a foolproof readonly Turing machine $N$ on two tapes such that
+	there is a computable map $f: IC(M) \to C(N)$
+	satisfying \IM{f(AC(M)) = AC(N)}.
+\end{Theorem}
+\proof
+	Let $M$ be a Turing machine on one tape.
+	We first construct the map $f$ to get an idea what $N$ is supposed to do and then construct $N$ itself.
+	But to define $f$ we have to know what $C(N)$ looks like.
+	The state-part of $f(c)$ should always be \INI. Therefore it suffices for now to define $A(N)$:
+	\begin{align*}
+		A(N) := (A(M) \times \{0,1\} \times \{0,1\})~\dot\cup~S(M)~\dot\cup~\{|\}~\dot\cup~\{\EMP\}
+	\end{align*}
+	Think of a symbol $a \in A(N)$ as either a state or a symbol of $M$, or the ``separator'' symbol $|$.
+	If $a$ happens to be a symbol of $M$ it might or might not be ``marked'' in two different ways.
+	The first marking should be interpreted as ``position $0$'', the second marking means ``new position''
+	and for $a \in A(M)$ we will write
+	$\underline{a}$, $\boldsymbol{a}$ and $\underline{\boldsymbol{a}}$ for position $0$-$a$, new position $a$ and new position $0$-$a$ (i.e. $(a,1,0)$, $(a,0,1)$ and $(a,1,1)$) respectively.
 
-\input{tm_ro2teq}
+	Thus a finite configuration $c \in FC(M)$ may be interpreted as a word over this alphabet:
+	The first symbol is the state of $c$. The following symbols are the (mostly) non-\EMP-part of the tape with the symbol at index $0$ underlined.
+
+	Similarly a word over $A(N)$ might denote a sequence of configurations by containing each of those configurations separated by $|$.
+
+	Now we define the tape-part of $f(c)$ to be the word
+	\begin{align*}
+		c~|~T(c)~|~T^2(c)~|~...~|~T^k(c)
+	\end{align*}
+	if $T^k(c) = T^{k+1}(c)$ and the respective infinitely long word otherwise (note that every single configuration is still finite).
+
+	There is some ambiguity in this definition as it is not clear exactly how many \EMP-symbols should be in a given configuration.
+	This we resolve thus: $c$ itself should be as short as possible, that is it contains the underlined symbol, all non-\EMP-symbols and any \EMP in between, but no more.
+	Two consecutive configurations should have the same length if possible. If not, the second configuration may be one symbol longer.
+	This occurs if the underlined symbol is rightmost (or leftmost) and $T_{direction}$ is $1$ (or $-1$).
+	In this and only this case, the underlined symbol in the second configuration should be bold (i.e. marked as new position).
+
+\input{section__turing_machines/tm_ro2teq}
 \newpage
-\input{tm_ro2}
+\input{section__turing_machines/tm_ro2}
+
+\endproof
+
+%\begin{Definition}
+%	If $\mathcal{M}$ and $\mathcal{N}$ are classes of Turing machines, $\mathcal{N}$ has \emph{no lesser computability} than $\mathcal{M}$ (write $\mathcal{M} \leq \mathcal{N}$),
+%	if for every $M \in \mathcal{M}$ there is an $N \in \mathcal{N}$ and a computable map $F: IC(M) \to C(N)$ such that \IM{F(AC(M) = AC(N)}.
+%\end{Definition}
 
 %Thm same computability
 
