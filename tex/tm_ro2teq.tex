@@ -1,0 +1,48 @@
+\begin{tikzpicture}[shorten >=1pt,on grid,auto]
+	\node[state] (0) {\INI};
+	\node[state] (1) [below=6 of 0] {};
+	\node[state] (2) [right=6 of 1] {};
+	\node[state] (3) [below=6 of 2] {};
+	\node[state] (4) [left=6 of 3] {};
+	\node[state] (6) [below=6 of 4] {\ACC};
+	\node[state] (5) [right=12 of 6] {};
+
+	\path[->]
+		(0) edge [ left ]
+			node {$\begin{matrix}s \\ s\end{matrix}, s \in S$ }
+			(1)
+		(1) edge [ above ]
+			node {$\begin{matrix}a \\ a\end{matrix}, a \in A$ }
+			(2)
+		(2) edge [ loop , in=15 , out=75 , distance=50 , above ]
+			node {$\begin{matrix}a \\ a\end{matrix}, a \in A$}
+			(2)
+		(2) edge [ right ]
+			node {$\begin{matrix}\underline{a} \\ \underline{a}\end{matrix}, a \in A$}
+			(3)
+		(3) edge [ loop , in=285 , out=345 , distance=50 , below ]
+			node {$\begin{matrix}a \\ a\end{matrix}, a \in A$}
+			(3)
+		(3) edge [ below ]
+			node {$\begin{matrix}| \\ |\end{matrix}$}
+			(4)
+		(4) edge [ left ]
+			node {$\begin{matrix}\EMP \\ \EMP\end{matrix}$}
+			(6)
+		(4) edge [ left ]
+			node {$\begin{matrix}s \\ s\end{matrix}, s \in S$}
+			(1)
+		(2) edge [ bend left ]
+			node {$\begin{matrix}\underline{\boldsymbol{a}} \\ \underline{\boldsymbol{a}} \end{matrix}, a \in A$}
+			(5)
+		(5) edge [ bend left ]
+			node {$\begin{matrix}| \\ |\end{matrix}$}
+			(4)
+		(1) edge [ bend left ]
+			node {$\begin{matrix}\underline{a} \\ \underline{a}\end{matrix}, a \in A$}
+			(3)
+		(1) edge [ bend right ]
+			node {$\begin{matrix}\underline{\boldsymbol{a}} \\ \underline{\boldsymbol{a}}\end{matrix}, a \in A$}
+			(3)
+	;
+\end{tikzpicture}
