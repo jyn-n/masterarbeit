@@ -1,0 +1,77 @@
+\begin{tikzpicture}[shorten >=1pt,on grid,auto]
+	\node[state] (0) {\INI};
+	\node[state] (1) [below=4 of 0] {};
+	\node[state] (2) [below=4 of 1] {};
+	\node[state] (3) [below=4 of 2] {};
+	\node[state] (4) [right=8.5 of 3] {};
+	\node[state] (5) [above=7 of 4] {};
+	\node[state] (6) [right=5.5 of 4] {};
+	\node[state] (7) [below=7 of 4] {};
+	\node[state] (8) [below=7 of 3] {\ACC};
+
+	\path[->]
+		(0) edge [ left ]
+			node {$\begin{matrix}(s,*) \\ (s,*)\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}, (*,s)$ }
+			(1)
+		(1) edge [ loop left ]
+			node {$\begin{matrix}* \\ *\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$}
+			(1)
+		(1) edge [ left ]
+			node {$(*,s),\begin{matrix}* \\ \underline{a}\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix},(a,s)$}
+			(2)
+		(2) edge [ loop left ]
+			node {$\begin{matrix}* \\ *\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$}
+			(2)
+		(2) edge [ left , near start ]
+			node {$(*,s),\begin{matrix}* \\ |\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$}
+			(3)
+		(3) edge [ left ]
+			node {$\begin{matrix}\ACC \\ *\end{matrix}$}
+			(8)
+		(3) edge [ bend left ]
+			node {$(a,s),\begin{matrix}s \\ T_{state}(a,s)\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix},(a,T_{state}(a,s))$}
+			(4)
+		(4) edge [ bend left ]
+			node {$\begin{matrix}| \\ |\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix}$}
+			(3)
+		(4) edge [ loop right ]
+			node {$\begin{matrix}x \\ x\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix}$}
+			(4)
+		(4) edge [ loop left ]
+			node {$\begin{matrix}
+				(a,s),\begin{matrix}\underline{a} \\ \underline{T_{write}(a,s)}\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix},(T_{write}(a,s),s) \\
+				\text{if}~T_{direction}(a,s) = 0
+			\end{matrix}$}
+			(4)
+		(4) edge [ bend left , near end ]
+			node {$\begin{matrix}
+				(a,s),\begin{matrix}x \\ \underline{x}\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix},(x,s) \\
+				\text{if}~T_{direction}(a,s) = -1
+			\end{matrix}$}
+			(5)
+		(5) edge [ bend left , near start ]
+			node {$(a,s),\begin{matrix}\underline{x} \\ T_{write}(x,s)\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix}$}
+			(4)
+		(4) edge [ bend left ]
+			node {$\begin{matrix}
+				(a,s),\begin{matrix}\underline{a} \\ \underline{\boldsymbol{x}}\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix} \\
+				\text{if}~T_{direction}(a,s) = -1
+			\end{matrix}$}
+			(6)
+		(6) edge [ bend left ]
+			node {$(a,s),\begin{matrix}\underline{a} \\ T_{write}(x,s)\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix}$}
+			(4)
+		(4) edge [ bend left , near end ]
+			node {$\begin{matrix}
+				(a,s),\begin{matrix}\underline{a} \\ T_{write}(a,s)\end{matrix} \mapsto \begin{matrix}1 \\ 1 \end{matrix} \\
+				\text{if}~T_{direction}(a,s) = 1
+			\end{matrix}$}
+			(7)
+		(7) edge [ bend left=10 , near start ]
+			node {$(a,s),\begin{matrix}x \\ \underline{x}\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix}$}
+			(4)
+		(7) edge [ bend left ]
+			node {$\begin{matrix}| \\ \underline{\boldsymbol{x}}\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$}
+			(4)
+	;
+\end{tikzpicture}
