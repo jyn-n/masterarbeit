@@ -34,11 +34,11 @@ Now let us present a method of turning multiple Turing machines into one by ``fi
 		\item{$T_{state} (a,s) =
 			\begin{cases}
 				T_{state}(N) (a,s) &\text{, if}~s \in S(N) \\
-				\INI(N) &\text{, if}~s \in S(M) \\&\text{and}~T_{state}(M)(a,s) \in \{\ACC(M),\REJ(M)\} \\
+				\INI(N) &\text{, if}~s \in S(M)~\text{and}~T_{state}(M)(a,s) = \ACC(M) \\
+				\REJ(N) &\text{, if}~s \in S(M)~\text{and}~T_{state}(M)(a,s) = \REJ(M) \\
 				T_{state}(M) (a,s) &\text{, if}~s \in S(M) \\&\text{and}~T_{state}(M)(a,s) \notin \{\ACC(M),\REJ(M)\}
 			\end{cases}
 		$}
 	\end{itemize}
 \end{Definition}
-\remark We have \IM{T^\infty (N \circ M) = (T^\infty(N) \circ T^\infty(M))} wherever this makes any sense. Thus the notation.
-This should be considered to be the property which justifies the definition in the first placed.
+\remark If we set $\INI(N) = \ACC(M)$ and $\REJ(N) = \REJ(M)$ we have $T^\infty(N \circ M) = T^\infty(N) \circ T^\infty(M)$ wherever this makes any sense, hence the notation.
