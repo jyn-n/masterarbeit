@@ -109,6 +109,46 @@ To conclude this chapter we prove a theorem about Turing machines which allows u
 	\end{align*}
 	$(a,s)$ may be omitted or any of $a$, $s$, $x$ and $y$ may be $*$. This means that the above definition may be applied, whatever the respective value is.
 	If $(a,s)$ and $(b,t)$ are both omitted, assume \IM{(b,t) = (a,s)} and $a$ and $s$ may be any value again.
-	If $b$ or $t$ is $*$, assume \IM{b = \EMP}~and \IM{t = \INI}~respectively for sake of disambiguity but consider the actual value not to be actually important.
+	If $b$ or $t$ is $*$, assume \IM{b = \EMP}~and \IM{t = \INI}~respectively for sake of disambiguity but consider the concrete value not to be actually important.
+
+	Now that we understand how to read the diagram we can try to gather what is happening. To this end we again give more descriptive names to the states:
+	\begin{align*}
+		-1 &\mapsto~\text{advance second tape one state, negative part} \\
+		0 &\mapsto~\text{advance second tape one state, positive part} \\
+		1 &\mapsto~\text{start of configuration} \\
+		2 &\mapsto~\text{somewhere in configuration} \\
+		3 &\mapsto~\text{direction = -1} \\
+		4 &\mapsto~\text{direction = -1, new position} \\
+		5 &\mapsto~\text{direction = 1}
+	\end{align*}
+	Initially both tapes should be at their leftmost position.
+	The states \INI, -1 and 0 advance the second tape by one configuration.
+	State 1 expects the first tape to be positioned at the left end of some configuration $c_i$ and the second tape at configuration $c_{i+1}$.
+	The ``memory'' should contain the underlined symbol of $c_i$, i.e. $T_{tape}^0(c_i)_0$.
+	Then follows a sequence of cycles of the form
+	\begin{align*}
+		1 \to 2 \to 2 \to ... \to 2 \to (2~\text{or}~3~\text{or}~4~\text{or}~5) \to 2 \to ... \to 2 \to 1
+	\end{align*}
+	Every such cycle shifts both tapes by one configuration while checking that the second one is the image of the first one under $T$.
+	The first edge \IM{1 \to 2} checks the correct application of $T_{state}$ and puts $T_{state}^0(c_i)$ into memory.
+	Thus we may determine $T_{write}(c_i)$ and $T_{direction}(c_i)$ from memory.
+	The correct application of these maps is checked when the underlined symbol of either tape is encountered and done by a case distinction that involves states $3$ through $5$ and a loop on state $2$.
+
+	Note that both tapes are always shifted the same way, except if the second tape contains a bold symbol, in which case it is shifted by one more (for every such symbol, which by assumption is at most one).
+	Thus the correct length of the configurations is checked.
+
+	If this way we reach a configuration with state \ACC, we have confirmed the existence of a sequence of consecutive configurations
+	\begin{align*}
+		(c, T(c), T^2(c) ... T^k(c) = T^\infty(c) = (*,\ACC))
+	\end{align*}
+	and thus we know $M$ accepts $c$.
+
+	Now define $N$ to be the concatenation of all four stages. Let $c \in IC(N)$.
+	If $c \notin f(IC(M))$, either the first or fourth stage rejects it.
+	If $c = f(c^\prime)$ for some $c^\prime \in IC(M)$, the first stage accepts it and the fourth stage accepts $c$ if and only if $M$ accepts $c^\prime$. Thus \IM{f(AC(M)) = AC(N)}.
+%
+	Clearly, $N$ is readonly and every stage has that $(T_{direction})_2$ is constant and non-zero (unless the next state is \ACC~or \REJ)
+	and is therefore foolproof by Lemma \ref{turing_machines:lemma_foolproofness:lemma}
+	and so is $N$ by Lemma \ref{turing_machines:lemma_foolproof_concatenation:lemma}.
 
 \endproof
