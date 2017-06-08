@@ -1,59 +1,20 @@
 \section{Turing dynamical systems} \label{tds}
 
-\begin{Definition}
-	A \emph{Turing dynamical system (TDS) } consists of the following data:
-	\begin{itemize}
-		\item{a probability measure space $(X,\mu)$}
-		\item{a discrete countable topological group $\Gamma$}
-		\item{a measure preserving right group action $\rho X \curvearrowleft \Gamma$}
-		\item{a division $X = \dot\bigcup_{i=1}^n X_i$ into disjoint measurable subsets}
-		\item{disjoint sets $J_I, J_R, J_A \subseteq \{1,...,n\}$}
-		\item{a map $\{1,...,n\} \to \Gamma, i \mapsto \gamma_i$ such that $\gamma_j = 1~\forall j \in J_R \cup J_A$}
-	\end{itemize}
-\end{Definition}
-From this we can derive the \emph{initial set} $I = \bigcup_{i\in J_I} X_i$, the accepting set $A = \bigcup_{i \in J_A} X_i$ and the rejecting set $R = \bigcup_{i \in J_R} X_i$ as well as the \emph{Turing map}
-\begin{align*}
-	T_X : X &\to X \\
-	x &\mapsto \rho(\gamma_i)(x)&\text{, for}~x \in X_i
-\end{align*}
-Note how most of a TDS ca be recovered from this derived information.
-We lose the measure $\mu$ (but only in so far as $\mu$ is known to be a probability measure which $T_X$ preserves),
-those elements of $\Gamma$ that are no $\gamma_i$
-and the exact division into $X_i$, but the mapping to the $\gamma_i$ is still known.
+\input{section__turing_dynamical_systems/subs_1__definition}
 
-\begin{Lemma}
-	The Turing map $T_X$ of any TDS is measurable and measure contracting, that is for any measurable $U \subseteq X$ we have that $T_X(U)$ and $T_X^{-1}(U)$ are both measurable and $\mu(T_X(U)) \leq \mu(U)$.
-\end{Lemma}
-\proof
-Let $U \subseteq X$ be measurable. We have
-\begin{align*}
-	T_X^{-1}(U) = \bigcup_{i=1}^n (\rho(\gamma_i))^{-1}(U)
-\end{align*}
-and
-\begin{align*}
-	T_X(U) = \bigcup_{i=1}^n T_X(U \cap X_i) = \bigcup_{i=1}^n \rho(\gamma_i)(U \cap X_i)
-\end{align*}
-both of which are measurable as all the $X_i$ are measureable and the $\gamma_i$ are measure preserving and thus
-\begin{align*}
-	&\mu(T_X(U)) \\
-	= &\mu(\bigcup_{i=1}^n \rho(\gamma_i)(U \cap X_i)) \\
-	\leq &\sum_{i=1}^n \mu(\rho(\gamma_i)(U \cap X_i)) \\
-	= &\sum_{i=1}^n \mu(U \cap X_i) \\
-	= &\mu(U)
-\end{align*}
-\endproof
-
-Similar to Turing machines, we define $T_X^\infty(x):=T_X^k(x)$, if $T_X^k(x)=T_X^{k+1}(x)$. Thus we also get the notions of accepting, rejecting and stopping for TDS.
-That is, a TDS accepts $x \in X$, if $T_X^\infty(x) \in A$,
-rejects it if $T_X^\infty \in R$ 
-nd stops for $x$, if it either accepts or rejects it.
-We say a TDS is \emph{foolproof} (or \emph{stops on any configuration}, if it stops for all $x \in X$ except for some null set.
+\input{section__turing_dynamical_systems/subs_2__lemma_tx_measurable}
 
 The \emph{first fundamental set} of a TDS is defined as
 \begin{align*}
 	\mathcal{F}_1 :=&\{ x \in I~|~T_X^\infty(x) \in A~\text{and}~x \notin T_X(X) \} \\
 	=&(I \cap \bigcup_{i=1}^\infty T_X^{-i}(A)) \setminus T_X(X)
 \end{align*}
-
-%second fundamental set, fundamental values
+That is all the initial configurations the TDS accepts, that cannot be reached from any other configuration.
+The \emph{second fundamental set} is
+\begin{align*}
+	\mathcal{F}_2 :=&T_X^\infty(\mathcal{F}_1) \\
+	=&\bigcup_{i=1}^\infty T_X^i( I \cap T_X^{-i}(A) \ T_X(X))
+\end{align*}
+Using Lemma \ref{tds:lemma_tx_measurable:lemma} it is easy to see that both fundamental sets are measurable.
+Their measures are called the \emph{first} and \emph{second fundamental value} and denoted by $\Omega_i$.
 

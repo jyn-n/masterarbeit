@@ -1,0 +1,27 @@
+\begin{Lemma} \label{tds:lemma_tx_measurable:lemma}
+	The Turing map $T_X$ of any TDS is measurable and measure contracting, that is for any measurable $U \subseteq X$ we have that $T_X(U)$ and $T_X^{-1}(U)$ are both measurable and $\mu(T_X(U)) \leq \mu(U)$.
+\end{Lemma}
+\proof
+Let $U \subseteq X$ be measurable. We have
+\begin{align*}
+	T_X^{-1}(U) = \bigcup_{i=1}^n \gamma_i^{-1} \bullet U
+\end{align*}
+and
+\begin{align*}
+	T_X(U) = \bigcup_{i=1}^n T_X(U \cap X_i) = \bigcup_{i=1}^n \gamma_i \bullet (U \cap X_i)
+\end{align*}
+both of which are measurable as all the $X_i$ are measureable and the $\gamma_i$ are measure preserving and thus
+\begin{align*}
+	&\mu(T_X(U)) \\
+	= &\mu(\bigcup_{i=1}^n \gamma_i \bullet (U \cap X_i)) \\
+	\leq &\sum_{i=1}^n \mu(\gamma_i \bullet (U \cap X_i)) \\
+	= &\sum_{i=1}^n \mu(U \cap X_i) \\
+	= &\mu(U)
+\end{align*}
+\endproof
+
+Similar to Turing machines, we define $T_X^\infty(x):=T_X^k(x)$, if $T_X^k(x)=T_X^{k+1}(x)$. Thus we also get the notions of accepting, rejecting and stopping for TDS.
+That is, a TDS accepts $x \in X$, if $T_X^\infty(x) \in A$,
+rejects it if $T_X^\infty \in R$ 
+and stops for $x$, if it either accepts or rejects it.
+We say a TDS is \emph{foolproof} (or \emph{stops on any configuration}, if it stops for all $x \in X$ except for some null set.

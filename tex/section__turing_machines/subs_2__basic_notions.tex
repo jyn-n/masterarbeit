@@ -11,7 +11,9 @@ Of a readonly Turing machine we will further require that it does not ``cross'' 
 \begin{align*}
 	a_{l,i} \neq \EMP~\forall~l \in \{0,...,(\sum_{j=1}^N T_{direction}^j(a,s)_i) -1\}
 \end{align*}
-if the sum is positive and analogous if the sum is negative.
+if the sum is positive and analogous if the sum is negative.\footnotemark
+
+\footnotetext{Using the notion of Theorem \ref{turing_machines:main_theorem:theorem} we can see that this is not a real restriction.}
 
 The subsets of $IC$ that $M$ accepts, rejects and stops for will be denoted by $AC$, $RC$ and $SC$ respectively.
 
@@ -41,4 +43,4 @@ Now let us present a method of turning multiple Turing machines into one by ``fi
 		$}
 	\end{itemize}
 \end{Definition}
-\remark If we set $\INI(N) = \ACC(M)$ and $\REJ(N) = \REJ(M)$ we have $T^\infty(N \circ M) = T^\infty(N) \circ T^\infty(M)$ wherever this makes any sense, hence the notation.
+\remark If we set $\INI(N) = \ACC(M)$ and $\REJ(N) = \REJ(M)$ we have $T^\infty(N \circ M) = T^\infty(N) \circ T^\infty(M)$ on $C(M)$, hence the notation.
