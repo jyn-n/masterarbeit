@@ -4,22 +4,5 @@ We will now see that the concept of Turing dynamical systems is a generalization
 We will consider a readonly Turing machine and construct a Turing dynamical system that keeps all of the information from the Turing machine.
 A similar transition is possible for Turing machines that are not readonly but readonlyness allows for a much more direct approach and is therefore preferred.
 
-Let $M$ be a readonly Turing machine.
-Then we define the Turing dynamical system $M^\prime$ as follows:
-
-Without loss of generality we may assume that \IM{\left\vert A(M) \right\vert = 2^k} for some \IM{k \in \N}.
-Otherwise we add random symbols to the alphabet until it has the desired size.
-Similarly we assume that \IM{\left\vert S(M) \right\vert = 2^l}.
-Now consider the group $\Z_2$.
-We set
-\begin{align*}
-	X := {(\Z_2^{k})^{\Z^{n(M)}}} \times \Z_2^l
-\end{align*}
-Note that this is basically $C(M)$ with an added group structure. On $Z_2$ we have a probability measure defined by
-\begin{align*}
-	\mu(0) = \mu(1) = \frac12
-\end{align*}
-This measure extends to a unique probability measure on X by the Andersen-Jessen theorem. %maybe reference?
-
-
+\input{section__tm_to_tds/subs_1__introduction}
 

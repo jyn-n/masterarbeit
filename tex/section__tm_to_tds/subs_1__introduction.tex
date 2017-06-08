@@ -1,0 +1,57 @@
+
+Let $M$ be a readonly Turing machine.
+Then we define the Turing dynamical system $M^\prime$ as follows:
+
+Without loss of generality we may assume that \IM{\left\vert A(M) \right\vert = 2^k} for some \IM{k \in \N}.
+Otherwise we add random symbols to the alphabet until it has the desired size.
+Similarly we assume that \IM{\left\vert S(M) \right\vert = 2^l-1}.
+Now consider the group $\Z_2$.
+We set
+\begin{align*}
+	X := {(\Z_2^{k})^{\Z^{n(M)}}} \times \Z_2^l
+\end{align*}
+Into this we can embed $C(M)$ by naturally mapping the tapes to the left factor and the state in any way to the right factor except $0$.
+On $Z_2$ we have a probability measure defined by
+\begin{align*}
+	\mu(0) = \mu(1) = \frac12
+\end{align*}
+This measure extends to a unique probability measure on X by the Andersen-Jessen theorem. %maybe reference?
+
+%On notation
+
+%For \IM{n(M) = 1}, the generator of $\Z$ acts on the left factor of $X$ by shifing the index by $1$. Thus an unique action of $\Z$ on $X$ is defined.
+%For greater $n$, \IM{e_i = (0,...,0,1,0,...,0) \in \Z^n} acts by that action on the respective coordinate (tape) of $X$.
+$\Z^{n(m)}$ operates on the left factor of $X$ via it's natural operation on the index group (which is also $\Z^{n(M)}$).
+On the right factor we have the natural action of $\Aut \Z_2^l$.
+In total, we get
+\begin{align*}
+	\Gamma := \Z^{n(m)} \times \Aut \Z_2^l
+\end{align*}
+The group action as described above clearly preserves the measure $\mu$.
+
+$\Aut Z_2^l$ acts transitively on $\Z_2^l \setminus 0$ (which corresponds to the states of $M$).
+To see this, realize that every element of $\Z_2^l \setminus 0$ can be seen as a generator and thus any mapping \IM{x \mapsto y} for \IM{x,y \in \Z_2^l \setminus 0} can be extended to an automorphism.
+
+For the definition of the $X_i$, let
+\begin{align*}
+	\varphi: \{1,...,2^{n(m) * k * l}\} \to (\Z_2^k)^{n(m)} \times \Z_2^l
+\end{align*}
+be one-to-one. Now let $i \in \{1,...,2^{n(m) * k * l}\}$ with
+\begin{align*}
+	\varphi(i) = ((z_1,z_2,...,z_n),\sigma), z_i \in \Z_2^k, \sigma \in \Z_2^l
+\end{align*}
+For this $i$ set
+\begin{align*}
+	X_i := \begin{bmatrix} z_1 \\ \vdots \\ z_n \end{bmatrix} \left [ \sigma \right ]
+\end{align*}
+Further let $\psi \in \Aut Z_2^l$ such that \IM{\psi(\sigma) = T_{state}(M)(\sigma)}
+and set
+\begin{align*}
+	\gamma_i := (T_{direction}(z_1,z_2,...,z_n) , \psi) \in \Gamma
+\end{align*}
+
+$J_I, J_R, J_A$ are those sets of $i$, for which \IM{\sigma = \INI, \ACC, \REJ} respectively.
+
+Thereby we have defined a Turing dynamical system $M^\prime$ such that \IM{T(M^\prime) = T(M)} (if we pretend $X = C(M^\prime)$).
+We shall now see how properties of $M$ translate to $M^\prime$.
+
