@@ -1,0 +1,28 @@
+\begin{Lemma}
+	$AC(M) \neq \emptyset \Leftrightarrow \Omega_1(M^\prime) > 0$
+\end{Lemma}
+\proof
+	``$\Rightarrow$'':
+	Let $(a,\INI) \in AC(M)$.
+	First note that $(a,\INI) \in \mathcal{F}_1(M^\prime)$.
+	Assume for a moment that $n(M) = 1$, i.e. $M$ has just one tape. Consider
+	\begin{align*}
+		N := \{ \sum_{i=0}^k T_{direction}(M)^i(a,\INI)~|~k \in \N \}
+	\end{align*}
+	As the sequence $(T^i(M)(a,\INI))_{i \in \N}$ and therefore $(T_{direction}^i(M)(a,\INI))_{i \in \N}$ is constant almost everywhere
+	and \IM{|T_{direction}(c)| \leq 1~\forall c \in C(M)}
+	we have that \IM{N = \{ x,x+1,...,y \}} for some \IM{x,y \in \Z} with \IM{x \leq 0}, \IM{y \geq 0}.
+	
+	Clearly \IM{T^\infty (a,\INI)} only depends on $a_x, a_{x+1},...a_y$, i.e. for \IM{(b,\INI) \in FC(M)} with \IM{b_i = a_i~\forall i \in N} we have \IM{T^\infty(M)(a,\INI) = T^\infty(M)(b,\INI)}. Therefore
+	\begin{align*}
+		\left [ a_x, a_{x+1},...,\underline{a_0},...a_y \right ][\INI] \subseteq \mathcal{F}_1(M^\prime)
+	\end{align*}
+	But this set has positive measure, which proves the statement.
+
+	If $n(M) > 1$ we can similarly construct a set of positive measure which $M^\prime$ accepts by doing the same construction for each tape.
+
+	``$\Leftarrow$'':
+%		In this case we have in particular that $\mathcal{F}_1(M^\prime)$ is not empty.
+%		So let $x \in \mathcal{F}_1(M^\prime)$. Doing a similar construction as in the first part of this proof, we can see that only a finite part of $x$ is actually regarded when calculating $T^\infty(x)$.
+%		Thus there is a (finite!) initial configuration which $M$ accepts.
+\endproof

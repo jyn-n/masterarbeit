@@ -1,20 +1,20 @@
 \begin{Definition}
-	A \emph{Turing dynamical system (TDS) } consists of the following data:
+	A \emph{Turing dynamical system (TDS)} consists of the following data:
 	\begin{itemize}
 		\item{a probability measure space $(X,\mu)$}
 		\item{a discrete countable topological group $\Gamma$}
 		\item{a measure preserving right group action $\rho : X \curvearrowleft \Gamma$ (write $\gamma \bullet x$ for $\rho(\gamma)(x)$)}
-		\item{a division $X = \dot\bigcup_{i=1}^n X_i$ into finitely many disjoint measurable subsets}
-		\item{disjoint sets $J_I, J_R, J_A \subseteq \{1,...,n\}$}
-		\item{a map $\{1,...,n\} \to \Gamma, i \mapsto \gamma_i$ such that $\gamma_j = 1~\forall j \in J_R \cup J_A$}
+		\item{a division $X = \dot\bigcup_{i \in J} X_i$ into finitely many disjoint measurable subsets, $J$ is some finite index set}
+		\item{disjoint sets $J_I, J_R, J_A \subseteq J$}
+		\item{a map $J \to \Gamma, i \mapsto \gamma_i$ such that $\gamma_j = 1~\forall j \in J_R \cup J_A$}
 	\end{itemize}
 \end{Definition}
-From this we can derive the \emph{initial set} $I = \bigcup_{i\in J_I} X_i$, the accepting set $A = \bigcup_{i \in J_A} X_i$ and the rejecting set $R = \bigcup_{i \in J_R} X_i$ as well as the \emph{Turing map}
+From this we can derive the \emph{initial set} $I = \bigcup_{i\in J_I} X_i$, the \emph{accepting set} $A = \bigcup_{i \in J_A} X_i$ and the \emph{rejecting set} $R = \bigcup_{i \in J_R} X_i$ as well as the \emph{Turing map}
 \begin{align*}
-	T_X : X &\to X \\
+	T : X &\to X \\
 	x &\mapsto \gamma_i \bullet x&\text{, for}~x \in X_i
 \end{align*}
 Note how most of a TDS can be recovered from this derived information.
-We lose the measure $\mu$ (but only in so far as $\mu$ is known to be a probability measure which $T_X$ preserves),
+We lose the measure $\mu$ (but only in so far as $\mu$ is known to be a probability measure which $T$ preserves),
 those elements of $\Gamma$ that are no $\gamma_i$
-and the exact division into $X_i$, but the mapping to the $\gamma_i$ is still known.
+and the exact division into $X_i$, but we keep the division into preimages of the mapping $x \mapsto i \mapsto \gamma_i$

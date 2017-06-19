@@ -1,4 +1,3 @@
-
 Let $M$ be a readonly Turing machine.
 Then we define the Turing dynamical system $M^\prime$ as follows:
 
@@ -10,7 +9,8 @@ We set
 \begin{align*}
 	X := {(\Z_2^{k})^{\Z^{n(M)}}} \times \Z_2^l
 \end{align*}
-Into this we can embed $C(M)$ by naturally mapping the tapes to the left factor and the state in any way to the right factor except $0$.
+Into this we can embed $C(M)$ by mapping the tapes via the identity to the left factor and the state in any way to the right factor except $0$.
+
 On $Z_2$ we have a probability measure defined by
 \begin{align*}
 	\mu(0) = \mu(1) = \frac12
@@ -19,39 +19,57 @@ This measure extends to a unique probability measure on X by the Andersen-Jessen
 
 %On notation
 
-%For \IM{n(M) = 1}, the generator of $\Z$ acts on the left factor of $X$ by shifing the index by $1$. Thus an unique action of $\Z$ on $X$ is defined.
-%For greater $n$, \IM{e_i = (0,...,0,1,0,...,0) \in \Z^n} acts by that action on the respective coordinate (tape) of $X$.
+For the division of $X$ we take \IM{\Z_2^{k * 2 * n(m)} \times \Z_2^l} to be the index set and for
+\begin{align*}
+	z =
+	\begin{bmatrix}
+		z_{1,-1} & z_{1,0} \\
+		\vdots & \vdots \\
+		z_{n,-1} & z_{n,0}
+	\end{bmatrix}, z_{i,\pm 1} \in \Z_2^k ~\text{and}~ \sigma \in \Z_2^l
+\end{align*}
+we set
+\begin{align*}
+	X_{z,\sigma} :=
+	\begin{bmatrix}
+		z_{1,-1} & \underline{z_{1,0}} \\
+		\vdots & \vdots \\
+		z_{n,-1} & \underline{z_{n,0}}
+	\end{bmatrix} [ \sigma ]
+\end{align*}
+
+\remark Each $X_i$ has measure $2^{-(2*n+l)}$.
+
+We define the group $\Gamma$ and its action:
 $\Z^{n(m)}$ operates on the left factor of $X$ via it's natural operation on the index group (which is also $\Z^{n(M)}$).
 On the right factor we have the natural action of $\Aut \Z_2^l$.
 In total, we get
 \begin{align*}
 	\Gamma := \Z^{n(m)} \times \Aut \Z_2^l
 \end{align*}
-The group action as described above clearly preserves the measure $\mu$.
+acting on $X$.
+The group action clearly preserves the measure $\mu$.
 
+As for the $\gamma_i$ notice that
 $\Aut Z_2^l$ acts transitively on $\Z_2^l \setminus 0$ (which corresponds to the states of $M$).
-To see this, realize that every element of $\Z_2^l \setminus 0$ can be seen as a generator and thus any mapping \IM{x \mapsto y} for \IM{x,y \in \Z_2^l \setminus 0} can be extended to an automorphism.
+To see this, realize that every element of $\Z_2^l \setminus 0$ can be seen as a generator and thus any mapping \IM{x \mapsto y} for \IM{x,y \in \Z_2^l \setminus 0} can be extended to some (non-unique) automorphism $\phi_{x,y}$.
 
-For the definition of the $X_i$, let
+Now set
 \begin{align*}
-	\varphi: \{1,...,2^{n(m) * k * l}\} \to (\Z_2^k)^{n(m)} \times \Z_2^l
+	\gamma_{z,\sigma} := (T_{direction}(z_{*,0},\sigma) , \phi_{\sigma,(T_{state}(z_{*,0},\sigma))}) \in \Gamma
 \end{align*}
-be one-to-one. Now let $i \in \{1,...,2^{n(m) * k * l}\}$ with
-\begin{align*}
-	\varphi(i) = ((z_1,z_2,...,z_n),\sigma), z_i \in \Z_2^k, \sigma \in \Z_2^l
-\end{align*}
-For this $i$ set
-\begin{align*}
-	X_i := \begin{bmatrix} z_1 \\ \vdots \\ z_n \end{bmatrix} \left [ \sigma \right ]
-\end{align*}
-Further let $\psi \in \Aut Z_2^l$ such that \IM{\psi(\sigma) = T_{state}(M)(\sigma)}
-and set
-\begin{align*}
-	\gamma_i := (T_{direction}(z_1,z_2,...,z_n) , \psi) \in \Gamma
-\end{align*}
+where \IM{z_{*,0} = (z_{1,0},z_{2,0},...,z_{n,0}) \in (\Z_2^k)^n}
 
-$J_I, J_R, J_A$ are those sets of $i$, for which \IM{\sigma = \INI, \ACC, \REJ} respectively.
+Now we only need to set the accepting, rejecting and inital sets:
+\begin{align*}
+	J_I & := \{(z,\INI) ~\vert~ z \in \Z_2^{k * 2 * n(M)} , z_{i,-1} = \EMP ~ \forall i \in \{1,...,n\}\} \\
+	J_A & := \{(z,\ACC) ~\vert~ z \in \Z_2^{k * 2 * n(M)} \} \\
+	J_R & := \{(z,\REJ) ~\vert~ z \in \Z_2^{k * 2 * n(M)} \} \\
+\end{align*}
+Thereby we have defined a Turing dynamical system $M^\prime$ such that \IM{T(M^\prime) = T(M)} on \IM{C(M) \subseteq X}.
+In the future we will use $T(M^\prime)$ and $T(M)$ interchangeably and call both just $T$ if a precise distinction is not necessary.
 
-Thereby we have defined a Turing dynamical system $M^\prime$ such that \IM{T(M^\prime) = T(M)} (if we pretend $X = C(M^\prime)$).
+Also we have \IM{IC(M) \subseteq I(M^\prime)}.
+Equality would of course be nicer here but (regarding $IC(M)$ as a subset of $X$) \IM{\mu(IC(M)) = 0} which is unacceptable for \IM{I(M^\prime)} as we will see later and warrants a little discomfort.
+
 We shall now see how properties of $M$ translate to $M^\prime$.
-
