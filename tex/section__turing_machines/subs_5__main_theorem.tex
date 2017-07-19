@@ -4,7 +4,7 @@ To conclude this chapter we prove a theorem about Turing machines which allows u
 	there is a computable map\footnotemark $f: IC(M) \to C(N)$
 	satisfying \IM{f(AC(M)) = AC(N)}.
 \end{Theorem}
-\footnotetext{For a thorough understanding of this notion of similarity between Turing machines see \cite{rog96}}
+\footnotetext{For a thorough understanding of this notion of similarity between classes of Turing machines see \cite{rog96}}
 \proof
 	Let $M$ be a Turing machine on one tape.
 	We first construct the map $f$ to get an idea what $N$ is supposed to do and then construct $N$ itself.
@@ -69,7 +69,7 @@ To conclude this chapter we prove a theorem about Turing machines which allows u
 	\end{align*}
 	The loop \IM{1 \to 2 \to 3 \to 4 \to 1} only goes through if both tapes are equal and their $0$-position is the start of a configuration as described above.
 	Looping once will advance both tapes by exactly one configuration.
-	$4^\prime$ is required to make sure that only the first and last symbol are bold.
+	$4^\prime$ is required to make sure that at most the first and last symbol are bold.
 
 	The second stage shifts both tapes by $-1$ until they hit an \EMP-symbol again, that is they are one symbol left of their original position.
 	The third stage shifts both tapes by $1$ again.
@@ -149,7 +149,7 @@ To conclude this chapter we prove a theorem about Turing machines which allows u
 	If $c = f(c^\prime)$ for some $c^\prime \in IC(M)$, the first stage accepts it and the fourth stage accepts $c$ if and only if $M$ accepts $c^\prime$. Thus \IM{f(AC(M)) = AC(N)}.
 %
 	Clearly, $N$ is readonly and every stage has that $(T_{direction})_2$ is constant and non-zero (unless the next state is \ACC~or \REJ)
-	and is therefore foolproof by Lemma \ref{turing_machines:lemma_foolproofness:lemma}
+	and therefore is foolproof by Lemma \ref{turing_machines:lemma_foolproofness:lemma}
 	and so is $N$ by Lemma \ref{turing_machines:lemma_foolproof_concatenation:lemma}.
 
 \endproof

@@ -4,17 +4,5 @@
 
 \input{section__turing_dynamical_systems/subs_2__lemma_tx_measurable}
 
-The \emph{first fundamental set} of a TDS is defined as
-\begin{align*}
-	\mathcal{F}_1 :=&\{ x \in I~|~T^\infty(x) \in A~\text{and}~x \notin T(X) \} \\
-	=&(I \cap \bigcup_{i=1}^\infty T^{-i}(A)) \setminus T(X)
-\end{align*}
-That is all the initial configurations the TDS accepts, that cannot be reached from any other configuration.
-The \emph{second fundamental set} is
-\begin{align*}
-	\mathcal{F}_2 :=&T_X^\infty(\mathcal{F}_1) \\
-	=&\bigcup_{i=1}^\infty T^i( I \cap T_X^{-i}(A) \ T_X(X))
-\end{align*}
-Using Lemma \ref{tds:lemma_tx_measurable:lemma} it is easy to see that both fundamental sets are measurable.
-Their measures are called the \emph{first} and \emph{second fundamental value} and denoted by $\Omega_i$.
+\input{section__turing_dynamical_systems/subs_3__further_notions}
 

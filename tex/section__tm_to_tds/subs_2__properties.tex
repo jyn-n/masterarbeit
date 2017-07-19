@@ -1,3 +1,13 @@
+We shall now see how properties of $M$ translate to $M^\prime$.
+
+\begin{Lemma} \label{tm_to_tds:properties:lemma_measure_finite_configurations}
+	$\mu(C(M)) = \mu(FC(M))$
+\end{Lemma}
+\proof
+	This space was unintentionally left blank.
+	%TODO
+\endproof
+
 \begin{Lemma}
 	$AC(M) \neq \emptyset \Leftrightarrow \Omega_1(M^\prime) > 0$
 \end{Lemma}
@@ -15,14 +25,46 @@
 	
 	Clearly \IM{T^\infty (a,\INI)} only depends on $a_x, a_{x+1},...a_y$, i.e. for \IM{(b,\INI) \in FC(M)} with \IM{b_i = a_i~\forall i \in N} we have \IM{T^\infty(M)(a,\INI) = T^\infty(M)(b,\INI)}. Therefore
 	\begin{align*}
-		\left [ a_x, a_{x+1},...,\underline{a_0},...a_y \right ][\INI] \subseteq \mathcal{F}_1(M^\prime)
+		\left [ a_x, a_{x+1},...,\underline{a_0},...a_y \right ] \left [\INI \right ] \subseteq \mathcal{F}_1(M^\prime)
 	\end{align*}
 	But this set has positive measure, which proves the statement.
 
 	If $n(M) > 1$ we can similarly construct a set of positive measure which $M^\prime$ accepts by doing the same construction for each tape.
 
 	``$\Leftarrow$'':
+		%TODO
 %		In this case we have in particular that $\mathcal{F}_1(M^\prime)$ is not empty.
 %		So let $x \in \mathcal{F}_1(M^\prime)$. Doing a similar construction as in the first part of this proof, we can see that only a finite part of $x$ is actually regarded when calculating $T^\infty(x)$.
 %		Thus there is a (finite!) initial configuration which $M$ accepts.
+\endproof
+
+\begin{Lemma}
+	If $M$ is foolproof then so is $M^\prime$
+\end{Lemma}
+\proof
+	By definition we have \IM{X \setminus C(M) \subseteq R} so in particular, $M^\prime$ stops for those configurations.
+	If $M$ stops for \IM{x \in C(M)} then so does $M^\prime$ as for those $x$ we have \IM{T^\infty(M)(x) = T^\infty(M^\prime)(x)}
+	Since $M$ is foolproof it stops for any finite configuration and so does $M^\prime$. But \IM{\mu(C(M) \setminus FC(M)) = 0} by Lemma \ref{tm_to_tds:properties:lemma_measure_finite_configurations} which completes the proof.
+\endproof
+
+\begin{Lemma}
+	$M^\prime$ has disjoint accepting chains.
+\end{Lemma}
+\proof
+Consider a configuration \IM{c \in A \cup R} with a tape \IM{z \in (\Z_2^k)^\Z}
+Assume there are \IM{i,j \in \N_0} such that \IM{z_i = z_{-j} = \DELIM}.
+Let $i$ and $j$ be minimal with that property, i.e.
+\begin{align*}
+	z \in \left [ \DELIM , z_{-j+1} , ... , \underline{z_0} , ... , z_{i-1} , \DELIM \right ]
+\end{align*}
+where none of the $z_l$ is \DELIM.
+Since $T$ ``shifts the underlinings'' by at most one position and an underlined \DELIM~ would be rejected immediately, we know that for preimages of $c$ under several applications of $T$, the underlining must always be on one of $z_{-j+1}$ through $z_{i-1}$. For any initial configuration with this property, the tape is of the form
+\begin{align*}
+	\left [ \DELIM , \EMP , \underline{z_{-j+2}} , ... , z_{i-1} , \DELIM \right ]
+\end{align*}
+and everything outside the \DELIM s is uniquely determined by $c$.
+The same argument can be applied to every single tape and the state of an initial configuration is always \INI.
+Thus, if \IM{(T^\infty)^{-1}(\{c\}) \cap I} is not empty, it has exactly one element.
+
+The assumption that on every tape there is at least one \DELIM~ in both the positive and negative parts is true with probability $1$ and therefore $T^\infty$ is injective on $I$ except for some null-set.
 \endproof

@@ -4,7 +4,7 @@
 \proof
 Let $U \subseteq X$ be measurable. We have
 \begin{align*}
-	T^{-1}(U) = \bigcup_{i=1}^n \gamma_i^{-1} \bullet U
+	T^{-1}(U) = \bigcup_{i=1}^n (\gamma_i^{-1} \bullet U) \cap X_i
 \end{align*}
 and
 \begin{align*}
@@ -19,9 +19,3 @@ both of which are measurable as all the $X_i$ are measureable and the $\gamma_i$
 	= &\mu(U)
 \end{align*}
 \endproof
-
-Similar to Turing machines, we define $T^\infty(x):=T_X^k(x)$, if $T^k(x)=T^{k+1}(x)$. Thus we also get the notions of accepting, rejecting and stopping for TDS.
-That is, a TDS accepts $x \in X$, if $T^\infty(x) \in A$,
-rejects it if $T^\infty(x) \in R$ 
-and stops for $x$, if it either accepts or rejects it.
-We say a TDS is \emph{foolproof} (or \emph{stops on any configuration}, if it stops for all $x \in X$ except for some null set.

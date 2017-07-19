@@ -76,8 +76,11 @@ Now let
 and
 \begin{align*}
 	T_{tape}: (A^\Z)^n \times S &\to (A^\Z)^n \\
-	(a,s) &\mapsto T_{shift} ( a, (T_{write} (a,s) , s))
+	(a,s) &\mapsto T_{shift} ((T_{write} (a,s) , s) , a)
 \end{align*}
+So given some tapes and a state, we regard the symbols at position 0 of every tape and change them according to the map $T_{write}$.
+Then we shift those new tapes according to $T_{direction}$ but to determine the direction we use the unchanged symbols.
+
 Finally we can define the \emph{transition map} $T:C\to C$ nicely:
 \begin{align*}
 	T = T_{tape} \times T_{state}
