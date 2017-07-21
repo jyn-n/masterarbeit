@@ -1,0 +1,18 @@
+\begin{tikzpicture}[shorten >=1pt,on grid,auto]
+	\node[] (0) {$\Gamma$};
+	\node[] (1) [right=6 of 0] {$\Aut(G)$};
+	\node[] (2) [below=3 of 1] {$\Aut(\widehat{G})$};
+
+	\path[->]
+		(0) edge [ above ]
+			node {$\rho$ }
+			(1)
+		(1) edge [ right ]
+			node { $\widehat{\cdot}$ }
+			(2)
+		(0) edge [ above ]
+			node {$\widehat{\rho}$}
+			(2)
+	;
+\end{tikzpicture}
+

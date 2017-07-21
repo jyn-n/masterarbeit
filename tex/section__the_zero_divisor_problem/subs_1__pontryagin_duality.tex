@@ -1,0 +1,89 @@
+\subsection{Pontryagin duality}
+
+\begin{Definition}
+	Let $G$ be a locally compact abelian group. Then we define the \emph{pontryagin-dual group} as
+	\begin{align*}
+		\widehat{G} := \Hom(G,\T)
+	\end{align*}
+	where $\T$ is the circle group, that is the subgroup of $(\C,\cdot)$ that contains all numbers on the unit circle.
+\end{Definition}
+
+\begin{Lemma}
+	If $G$ is finite, then so is $\widehat{G}$.
+\end{Lemma}
+
+\proof
+	For every $\varphi \in \Hom(G,\T)$ and $g \in G$, the characteristic of $g$ has to be a multiple of the characteristic of $\phi(g)$.
+	For any $k \in \N$, there are only finitely many elements of charateristic $k$ in $\T$.
+	Therefore for every $g \in G$, there are only finitely many choices for the value of $\phi(g)$.
+	Finiteness of $g$ completes the proof.
+\endproof
+
+\begin{Lemma}
+	\label{the_zero_divisor_problem:pontryagin_duality:lemma_dual_product}
+	Let $I$ be an index set and $G_i$ a group for every $i \in I$. Then
+	\begin{align*}
+		\widehat{\prod_{i \in I} G_i} \cong \bigoplus_{i \in I} \widehat{G_i}
+	\end{align*}
+\end{Lemma}
+
+\proof
+	Let
+	\begin{align*}
+		\pr_i: \prod_{i \in I} G_i \to G_i
+	\end{align*}
+	be the projection onto the $i$'th component and
+	\begin{align*}
+		\iota_i: \G_i \to \prod_{i \in I} G_i
+	\end{align*}
+	the canonical embedding.
+
+	Let $\varphi \in \widehat{\prod_{i \in I} G_i}$. Then we have
+	$\varphi = \prod_{i \in I} \varphi \circ \iota_i \circ \pr_i$.
+	But for this to be well defined we require that almost all $\varphi \circ \iota_i \circ \pr_i$ are null.
+	Thus the isomorphism we are looking for is $\varphi \mapsto (\varphi \circ \iota_i)_{i \in I}$ and the inverse is $(\psi_i)_{i \in I} \mapsto \prod_{i \in I} \psi_i$.
+\endproof
+
+\begin{Example}
+	\label{the_zero_divisor_problem:pontryagin_duality:example_duals}
+	\
+	\begin{itemize}
+		\item {$\widehat{\Z_2} \cong \Z_2$}
+		\item {$\widehat{(\Z_2)^n} \cong (\Z_2)^n ~\forall n \in \N$}
+		\item {$\widehat{(\Z_2)^\Z} \cong (\Z_2)^{\oplus \Z}$}
+	\end{itemize}
+\end{Example}
+
+\begin{Definition}
+	Let $\rho: \Gamma \curvearrowright G$ be a group action.
+	Then we define the {pontryagin-dual group action} by the commutativity of the following diagram:
+	\begin{figure}[H]
+		\centering
+		\input{section__the_zero_divisor_problem/diagram_dual_group_action}
+	\end{figure}
+	Here, $\widehat{\cdot}$ refers to the application of the $\Hom$-functor, regarding an element of $Aut(G)$ as a morphism in the category of groups.
+\end{Definition}
+
+\begin{Example}
+	\label{the_zero_divisor_problem:pontryagin_duality:example_dual_action}
+	Consider $\rho: \Z \curvearrowright (\Z_2)^\Z$ acting by addition on the index set.
+	Then $\widehat{\rho}$ is the action of $\Z$ by addition on the index set of $(\Z_2)^{\oplus \Z}$.
+\end{Example}
+
+\begin{Lemma}
+	\label{the_zero_divisor_problem:pontryagin_duality:lemma_product_of_dual_group_actions}
+	Let $\rho: \Gamma \curvearrowright G$ and $\sigma: \Delta \curvearrowright H$ be group actions. Then
+	\begin{align*}
+		(\widehat{G \times H}) \rtimes_{\widehat{\rho \times \sigma}} (\Gamma \times \Delta) ~\cong~ (\widehat{G} \times \widehat{H}) \rtimes_{\widehat{\rho} \times \widehat{\sigma}} (\Gamma \times \Delta)
+	\end{align*}
+\end{Lemma}
+
+\proof
+	Consider the following diagram:
+	\begin{figure}[H]
+		\centering
+		\input{section__the_zero_divisor_problem/diagram_product_of_dual_group_actions}
+	\end{figure}
+	Regarding $\Aut{\widehat{G}} \times \Aut{\widehat{H}}$ as a subset of $\Aut \widehat{G \times H}$ we have $\widehat{\rho \times \sigma} = \widehat{\rho} \times \widehat{\sigma}$ which concludes the proof.
+\endproof
+

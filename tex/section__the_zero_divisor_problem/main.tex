@@ -1,1 +1,108 @@
 \section{The Zero-divisor problem}
+
+\input{section__the_zero_divisor_problem/subs_1__pontryagin_duality}
+
+\subsection{}
+
+From \cite{gra14} we quote Theorem 4.3:
+
+\begin{Theorem}
+	\label{the_zero_divisor_problem:grabowskis_theorem}
+	Let $M$ be a Turing dynamical system that is foolproof and does not restart,
+	$(X, \mu)$ the associated probability measure space where $X$ has an added group structure,
+	$\Gamma$ the group acting by $\rho$ on $X$ as defined by $M$,
+	$I$ the initial set and
+	$\Omega_2$ the second fundamental value.
+
+	Then there is an algorithm that produces an element of $\Q[\widehat{X(M)} \rtimes_{\widehat{\rho}} \Gamma]$ such that
+	\begin{align*}
+		dim_{vN} ~ ker ~ S = \mu(I) - \Omega_2
+	\end{align*}
+\end{Theorem}
+
+Now let us have a look at the following computational problem, which we call \emph{trivial $l^2$-betti-numbers}:
+
+Given a group $G$, a $G$-CW-Complex $X$ and $n \in \N$, is the n'th $l^2$-betti-number of $X$ equal to 0?
+
+\begin{Theorem}
+	\label{zero-divisor-problem:trivial_betti_numbers}
+	\emph{Trivial $l^2$-betti-numbers} is not decidable for \IM{G = (\Z_2 \wr \Z)^2}.
+\end{Theorem}
+
+To prove this, we first consider a similar problem, namely:
+
+Given a group G and a matrix \IM{M \in (\Z[G])^{k \times k}}
+and considering the multiplication with $M$ in $l^2(G)^k$, is \IM{ker M = \emptyset}?
+
+This problem we call \emph{kernel-over-$\Z[G]$}.
+
+\begin{Theorem}
+	\emph{Kernel-over-$\Z[G]$} is not decidable for \IM{G = (\Z_2 \wr \Z)^2}.
+\end{Theorem}
+
+\proof
+	We do a reduction to the halting problem. To this end, let $M$ be a Turing machine. The halting problem states that the question whether there is some input which $M$ accepts is undecidable.
+	Theroem \ref{turing_machines:main_theorem:theorem} gives us a foolproof readonly Turing machine $M^\prime$ on two tapes such that there is some input which $M$ accepts if and only if there is some input which $M$ accepts.
+	Swapping the meaning of accepting and rejecting we may instead assume that $M^\prime$ rejects some input if and only if there is some input which $M$ accepts.
+
+	Using the construction from chapter \ref{tm_to_tds} we get a Turing dynamical system that
+	does not restart,
+	is foolproof (Lemma \ref{tm_to_tds:properties:lemma_foolproof}),
+	has disjoint accepting chains (Lemma \ref{tm_to_tds:properties:lemma_disjoint_accepting_chains})
+	thus having equal fundamental values (Lemma \ref{foo}) and
+	%TODO lemma about fundamental values when disj acc chains
+	has a fundamental value smaller than $\mu(I)$ if and only if there is some input which $M$ accepts (Lemma \ref{tm_to_tds:properties:lemma_fundamental_value}).
+	The space of configurations of this TDS is $X = ((\Z_2^k)^\Z)^2 \times (\Z_2)^l$ for some $k, l \in \N$
+	and the acting group $\Gamma$ is $\Z^2 \times \Aut \Z_2^l$
+	where $\Z^2$ acts on the index set of the first factor of $X$ by addition
+	and $\Aut \Z_2^l$ acts on $(\Z_2)^l$.
+	Let us call these operations $\rho$ and $\sigma$ respectively.
+
+	Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} now states that there is an element $S \in \Q[\widehat{((\Z_2^k)^\Z)^2} \rtimes_{\widehat{\rho \times \sigma}} \Z^2 \times \Aut \Z_2^l$] that can be produced in an algorithmical fashion such that $\dim_{vN} \ker S = \mu(I) - \Omega_2$.
+	This value however is $0$ if and only if there is some input which $M$ accepts. So the question whether $\dim_{vN} \ker S = 0$ is undecidable.
+	It remains to show that we can asssociate $S$ to an element $N \in \Z[(\Z_2 \wr \Z)^2]^{k \times k}$ such that $\dim_{vN} \ker N = 0 \Leftrightarrow \dim_{vN} \ker S = 0$.
+
+	First we multiply $S$ by a sufficiently large integer such that it is an element of the group ring over $\Z$. We then have
+	\begin{align*}
+		      & \Z [ (\widehat{((\Z_2^k)^\Z)^2 \times \Z_2^l}) \rtimes_{\widehat{\rho \times \sigma}} (\Z^2 \times \Aut \Z_2^l) ]
+		\\
+		\cong~& \Z [ ( \widehat{((\Z_2^k)^\Z)^2} \rtimes_{\widehat{\rho}} \Z^2 ) \times ( \widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l ) ]
+			~\text{(Lemma \ref{the_zero_divisor_problem:pontryagin_duality:lemma_product_of_dual_group_actions})} \\
+		\cong~& \Z [ ( \widehat{((\Z_2^k)^\Z)^2} \rtimes_{\widehat{\rho}} \Z^2 ) ] \otimes \Z [ ( \widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l ) ]
+		\\
+		\cong~& \Z [ ( \widehat{(\Z_2^k)^\Z} \rtimes_{\widehat{\rho}} \Z )^2 ] \otimes \Z [ ( \widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l ) ]
+			~\text{(Lemma \ref{the_zero_divisor_problem:pontryagin_duality:lemma_dual_product})}
+		\\
+		\cong~& \Z [ ( (\Z_2^k)^{\oplus\Z} \rtimes_{\rho} \Z )^2 ] \otimes \Z [ ( \widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l ) ]
+			~\text{(Examples \ref{the_zero_divisor_problem:pontryagin_duality:example_duals} and \ref{the_zero_divisor_problem:pontryagin_duality:example_dual_action} \footnotemark)}
+	\end{align*}
+%TODO
+	\footnotetext{uhm. to be clean I actually need that groups are naturally isomorphic to their bidual since the second example is the wrong way around...}
+
+	Here $\rho$ generally denotes the action of $\Z$ by addition on the index set for several groups.
+
+	Now consider the group $(\Z_2^k)^{\oplus\Z}$. It is isomorphic to $\Z_2^k$ by
+	\begin{align*}
+		& ((x_{i,j})_{i = 1 .. k})_{j \in \Z} \mapsto (y_l)_{l \in \Z} \\
+		& \text{with}~y_{k \cdot j + i} = x_{i,j}
+	\end{align*}
+	and transforming $\rho$ via this automorphism yields
+	\begin{align*}
+		(\Z_2^k)^{\oplus\Z} \rtimes_\rho \Z \cong \Z_2^{\oplus\Z} \rtimes_{\rho} \Z \cong \Z_2 \wr \Z
+	\end{align*}
+	and thus we may assume $S \in \Z[(\Z_2 \wr \Z)^2] \otimes \Z[H]$ for some finite group $H$ (namely $\widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l$).
+
+	But for a finite group $H$, $l^2(H) \cong \C[H]$ and thus $\Z[H]$, which is a linear map on $l^2(H)$ can be seen as a finitely dimensioned matrix with entries in $\Z$.
+	Hence $\Z[H] \hookrightarrow \Z^{k \times k}$ in a way that translates von-Neumann-Trace to the usual trace of a matrix.
+	But now we have (up to (von-Neumann-) trace preserving isomorphisms)
+	\begin{align*}
+		S ~\in~ \Z[(\Z_2 \wr \Z)^2] \otimes \Z[H] ~\subseteq~ \Z[(\Z_2 \wr \Z)^2] \otimes \Z^{k \times k} ~\cong~ \Z[(\Z_2 \wr \Z)^2]^{k \times k}
+	\end{align*}
+	which concludes the proof.
+\endproof
+
+
+\proof \emph{of Theorem \ref{zero-divisor-problem:trivial_betti_numbers}}
+%TODO
+\endproof
+

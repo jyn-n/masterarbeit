@@ -1,0 +1,29 @@
+\begin{tikzpicture}[shorten >=1pt,on grid,auto]
+	\node[] (0) {$\Gamma \times \Delta$};
+	\node[] (1) [below=2 of 0] {$\Aut \widehat{G} \times \Aut \widehat{H}$};
+	\node[] (2) [below=2 of 1] {$\Aut(\widehat{G} \times \widehat{H})$};
+	\node[] (3) [below=2 of 2] {$\Aut(\widehat{G \times H})$};
+
+	\node[] (10) [right=6 of 0] {$\gamma , \delta$};
+	\node[] (11) [right=6 of 1] {$\varphi \mapsto (g \mapsto \varphi(\gamma g)), \psi \mapsto (h \mapsto \psi(\delta h)) (\gamma, \delta)$};
+	\node[] (12) [right=6 of 2] {$\varphi,\psi \mapsto (g \mapsto \varphi(\gamma g), h \mapsto \psi(\delta h))$};
+	\node[] (13) [right=6 of 3] {$\varphi \mapsto (g,h \mapsto \varphi(\gamma g, \delta h))$};
+
+	\path[->]
+		(0) edge [ right ]
+			node {$\widehat{\varphi} \times \widehat{\psi}$}
+			(1)
+		(1) edge (2)
+		(2) edge (3)
+		(0) edge [ bend right=90 ]
+			node {$\widehat{\varphi \times \psi}$}
+			(3)
+	;
+	\path[|->]
+		(10) edge (11)
+		(11) edge (12)
+		(12) edge (13)
+		(10) edge [ bend right=90 ] (13)
+	;
+\end{tikzpicture}
+
