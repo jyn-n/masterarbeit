@@ -1,0 +1,16 @@
+\begin{tikzpicture}[shorten >=1pt,on grid,auto]
+	\node[] (0) {Stage 1};
+	\node[] (1) [below=2 of 0] {Stage 2};
+	\node[] (2) [below=2 of 1] {Stage 3};
+	\node[] (3) [below=2 of 2] {Stage 4};
+	
+	\node[] (10) [right=6 of 0] {Reject if input is not a sequence of configurations};
+	\node[] (11) [below=3 of 10] {Restore original configuration};
+	\node[] (13) [right=6 of 3] {Reject if input configurations are not consecutive};
+
+	\path[->]
+		(0) edge (1)
+		(1) edge (2)
+		(2) edge (3)
+	;
+\end{tikzpicture}

@@ -37,28 +37,37 @@ To conclude this chapter we prove a theorem about Turing machines which allows u
 	This occurs if the underlined symbol is rightmost (or leftmost) and $T_{direction}$ is $1$ (or $-1$).
 	In this and only this case, the underlined symbol in the second configuration should be bold (i.e. marked as new position).
 
-	Now we are ready to define the Turing machine $N$ itself. This we do in several stages. The first one checks if
+	Now we are ready to define the Turing machine $N$ itself. This we do in four stages as outlined below:
+	\begin{figure}[H]
+		\centering
+		\input{section__turing_machines/proof_plan}
+	%	\caption{Stage 1 - checking input is of correct form}
+	%	\label{turing_machines:main_theorem:fig_stage1}
+	\end{figure}
+	
+	In detail, the stages work like this:
+	The first one checks if
 	\begin{itemize}
 		\item { Both tapes are equal (in an area bordered by \EMP~around $0$). }
 		\item { The tapes contain a sequence of words, each terminated by $|$. }
 		\item { Each of those words is a configuration. That is it starts with a state and every other symbol is from the alphabet of $M$, with exactly one symbol underlined. }
 		\item { if a symbol is bold it is also underlined and either the first or last symbol of the tape part of a configuration }
 	\end{itemize}
-	It does not yet check that the lengths of two consecutive configurations differ by at most one.
+	It does not yet check that the lengths of two consecutive configurations differ by at most one symbol. This is deferred to the fourth stage.
 
 	The set of states of this first stage is $\{\INI,\ACC,\REJ,1,2,3,4,4^\prime\}$.
 	$T_{direction}(c)$ is 1 for both tapes, unless $T_{state}(c) \in \STOPS$, in which case it is 0. $T_{write}$ is determined by the readonly-property.
-
-	$T_{state}$ can be seen in figure \ref{turing_machines:main_theorem:fig_stage1}:
-	For some configuration $s \in S, a_1,a_2 \in A$, \IM{T_{state}((a_1,a_2),s) = t} if there is an edge from $s$ to $t$ whos label matches $(a_1,a_2)$.
-	If there is no such edge then \IM{T_{state}((a_1,a_2),s) = \REJ}.
-
+	
 	\begin{figure}
 		\centering
 		\input{section__turing_machines/tm_ro2teq}
 		\caption{Stage 1 - checking input is of correct form}
 		\label{turing_machines:main_theorem:fig_stage1}
 	\end{figure}
+
+	$T_{state}$ can be seen in Figure \ref{turing_machines:main_theorem:fig_stage1}:
+	For some configuration $s \in S, a_1,a_2 \in A$, we set \IM{T_{state}((a_1,a_2),s) := t} if there is an edge from $s$ to $t$ whos label matches $(a_1,a_2)$.
+	If there is no such edge for any $t$, then \IM{T_{state}((a_1,a_2),s) = \REJ}.
 
 	To understand what is happening here, let us give more meaningful names to the states:
 	\begin{align*}
@@ -75,7 +84,7 @@ To conclude this chapter we prove a theorem about Turing machines which allows u
 	The second stage shifts both tapes by $-1$ until they hit an \EMP-symbol again, that is they are one symbol left of their original position.
 	The third stage shifts both tapes by $1$ again.
 	Thus the concatenation of the first three stages fulfills \IM{T^\infty(a,\INI) = (a,\ACC)} if $a$ is of correct form and is undefined or has a different state otherwise.
-	Note that the first stage does not stop for $f(c)$, if $M$ does not stop for $c$. In particular, it does not accept $c$.
+	Note that the first stage does not stop for $f(c)$, if $M$ does not stop for $c$. But this is not a problem as in particular it does not accept $c$.
 
 	Now that we know the input is the same on both tapes and of the form
 	\begin{align*}

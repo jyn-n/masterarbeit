@@ -6,11 +6,11 @@
 		\item{a finite set $S$ called the \emph{states}}
 		\item{a map $T_{write}: A^n \times S \to A^n$}
 		\item{a map $T_{state}: A^n \times S \to S$}
-		\item{a map $T_{direction}: A^n \times S \to D^n$ where $D := \{-1,0,1\}$}
+		\item{a map $T_{direction}: A^n \times S \to D^n$ where $D := \{-1,0,1\} \subseteq \Z$}
 		\item{distinct states $\{\INI,\ACC,\REJ\} \subseteq S$}
 		\item{a symbol $\EMP \in A$}
 	\end{itemize}
-	Of this we require
+	and satisfies
 	\begin{itemize}
 		\item{$\INI \notin T_{state}(A^n \times S)$}
 		\item{$(T_{write} \times T_{state} \times T_{direction}) (a,s) = (a,s,0)~\forall a \in A^n , s \in \STOPS$}
@@ -62,7 +62,7 @@ As it should become clear from the context which map is being referred to, we wi
 and $T_{state}$ instead of $T_{state}^{\prime}$
 and the same for $T_{direction}$.
 
-Further we require the map $T_{tape}$, which shall be defined thus:
+Further we require the map $T_{tape}$:
 Let
 \begin{align*}
 	sh: A^\Z \times \Z &\to A^\Z \\
