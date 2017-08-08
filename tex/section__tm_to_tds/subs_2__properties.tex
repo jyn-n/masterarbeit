@@ -1,13 +1,4 @@
-We shall now see how properties of $M$ translate to $M^\prime$.
-
-\begin{Lemma}
-	\label{tm_to_tds:properties:lemma_measure_finite_configurations}
-	$\mu(C(M)) = \mu(FC(M))$
-\end{Lemma}
-\proof
-	This space was unintentionally left blank.
-	%TODO
-\endproof
+We shall now determine how properties of $M$ translate to $M^\prime$.
 
 \begin{Lemma}
 	\label{tm_to_tds:properties:lemma_fundamental_value}
@@ -21,7 +12,7 @@ We shall now see how properties of $M$ translate to $M^\prime$.
 	\begin{align*}
 		N := \{ \sum_{i=0}^k T_{direction}(M)^i(a,\INI)~|~k \in \N \}
 	\end{align*}
-	As the sequence $(T^i(M)(a,\INI))_{i \in \N}$ and therefore $(T_{direction}^i(M)(a,\INI))_{i \in \N}$ is constant almost everywhere
+	As the sequence $(T^i(M)(a,\INI))_{i \in \N}$ and therefore $(T_{direction}^i(M)(a,\INI))_{i \in \N}$ is constant but for finitely many elements
 	and \IM{|T_{direction}(c)| \leq 1~\forall c \in C(M)}
 	we have that \IM{N = \{ x,x+1,...,y \}} for some \IM{x,y \in \Z} with \IM{x \leq 0}, \IM{y \geq 0}.
 	
@@ -34,10 +25,27 @@ We shall now see how properties of $M$ translate to $M^\prime$.
 	If $n(M) > 1$ we can similarly construct a set of positive measure which $M^\prime$ accepts by doing the same construction for each tape.
 
 	``$\Leftarrow$'':
-		%TODO
-%		In this case we have in particular that $\mathcal{F}_1(M^\prime)$ is not empty.
-%		So let $x \in \mathcal{F}_1(M^\prime)$. Doing a similar construction as in the first part of this proof, we can see that only a finite part of $x$ is actually regarded when calculating $T^\infty(x)$.
-%		Thus there is a (finite!) initial configuration which $M$ accepts.
+		Consider the following map:
+		\begin{align*}
+			(\Z_2)^k &\to A(M) \\
+			a &\mapsto
+			\begin{cases}
+				a &\text{, if} a \in A(M) \\
+				\EMP &\text{, otherwise}
+			\end{cases}
+		\end{align*}
+		This map extend to a map $f: (((\Z_2)^k)^\Z)^{n(M)} \to (A(M)^\Z)^{n(M)}$.
+		For any $c = (a,s) \in \mathcal{F}_1(M^\prime)$ we have $s \in S(M)$ and $T^\infty(a,s) = T^\infty(f(a),s)$, as if the state were different, or any symbols outside $A(M)$ were actually relevant, $M^\prime$ would reject $(a,s)$ by construction.
+
+		Now consider the set
+		\begin{align*}
+			Y := \{ (a,s) \in X ~|~ a_i \neq \EMP ~\forall i \in \Z_+ ~\vee a_i \neq \EMP ~\forall i \in \Z_{-} \}
+		\end{align*}
+		Clearly $\mu(Y) = 0$, so $\mathcal{F}_1 \setminus Y \neq \emptyset$, i.e. there is some $c = (a,s)$ which $M^\prime$ accepts such that there are $x < 0 < y$ with $a_x = a_y = \EMP$.
+		But $M$ does not cross the $\EMP$-symbol, so $T^\infty(c) = T^\infty(c^\prime)$ for any $c^\prime \in \lbrack \EMP, a_{x+1}, ... , \underline{a_0}, ... , a_{y-1}, \EMP \rbrack \lbrack s \rbrack$.
+		In particular, $M^\prime$ accepts $f((...,\EMP,a_{x+1},...,\underline{a_0},...,a_{y-1},\EMP,...),s)$.
+		
+		But that is a finite configuration of $M$ which $M^\prime$ and hence also $M$ accepts, which is exactly what we are looking for.
 \endproof
 
 \begin{Lemma}
@@ -45,9 +53,24 @@ We shall now see how properties of $M$ translate to $M^\prime$.
 	If $M$ is foolproof then so is $M^\prime$
 \end{Lemma}
 \proof
-	By definition we have \IM{X \setminus C(M) \subseteq R} so in particular, $M^\prime$ stops for those configurations.
-	If $M$ stops for \IM{x \in C(M)} then so does $M^\prime$ as for those $x$ we have \IM{T^\infty(M)(x) = T^\infty(M^\prime)(x)}
-	Since $M$ is foolproof it stops for any finite configuration and so does $M^\prime$. But \IM{\mu(C(M) \setminus FC(M)) = 0} by Lemma \ref{tm_to_tds:properties:lemma_measure_finite_configurations} which completes the proof.
+	Let $c = (a,s) \in X$. Wlog $s \in S(M)$ as otherwise $c$ is immediately rejected by $M^\prime$. So in particular $M^\prime$ stops for $c$ in that case.
+
+	We only consider the case that $M$ has just one tape, otherwise we do the following once for every tape.
+	With probability $1$, there are $x < 0 < y$ with $a_x = a_y = \EMP$.
+	Since $M$ is readonly, it does not cross the $\EMP$-symbol. Therefore for
+	\begin{align*}
+		c^\prime = ((...\EMP,a_{x+1},...,a_0,...a_{y-1},\EMP,...) , s)
+	\end{align*} 
+	we have $T^\infty(c^\prime) = T^\infty(c)$.
+
+	Now there might be some $i \in \{x,x+1,...,y\}$ such that $a_i \notin A(M)$.
+	Either, this symbol is encountered at some point (i.e. $\sum_{i=1}^k T_{direction}^i(c) = i$), in which case $M^\prime$ rejects $c$.
+
+	Or it is not encountered. But then we may choose an absolutely smaller $x$ or $y$ such that we can construct $c^\prime$ as above and still get $T^\infty(c^\prime) = T^\infty(c)$.
+	But if for no $i \in \{x+1,...,y-1\}$ we have $a_i \notin A(M)$, then $c^\prime$ is a finite configuration of $M$.
+	$M$ stops for this $c^\prime$ because it is foolproof and hence $M^\prime$ stops for $c$.
+
+	To sum up, with probability $1$ either $M^\prime$ rejects $c$ outright, or it behaves as $M$ would for $c^\prime$, that is in particular it stops.
 \endproof
 
 \begin{Lemma}

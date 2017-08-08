@@ -3,15 +3,15 @@ Then we define the Turing dynamical system $M^\prime$ as follows:
 
 First of all extend the alphabet of $M$ by the newly introduced $\DELIM$-symbol. This will be required for formal reasons later on. If it is ever encountered on a tape, $M$ should immediately reject.
 
-Without loss of generality we may assume that \IM{\left\vert A(M)~\cup~\{\DELIM\} \right\vert = 2^k} for some \IM{k \in \N}.
-Otherwise we add random symbols to the alphabet until it has the desired size. By rejecting those symbols whenever they are encountered we basically do not change the behaviour of $M$.
-Similarly we assume that \IM{\left\vert S(M) \right\vert = 2^l-1}.
+We will require that \IM{\left\vert A(M)~\cup~\{\DELIM\} \right\vert = 2^k} for some \IM{k \in \N}.
+If this is not true, we add random symbols to the alphabet until it has the desired size. By rejecting those symbols whenever they are encountered we basically do not change the behaviour of $M$.
+Similarly we may assume that \IM{\left\vert S(M) \right\vert = 2^l-1}.
 Now consider the group $\Z_2$.
 We set
 \begin{align*}
 	X := {{((\Z_2^{k})^\Z)}^{n(M)}} \times \Z_2^l
 \end{align*}
-Into this we can embed $C(M)$ by mapping the tapes via the identity to the left factor and the state in any way to the right factor except $0$.
+Into this we can embed the configurations of $M$ by mapping the tapes via the identity to the left factor and the state in any way to the right factor except $0$.
 Let us fix any such mapping and regard $C(M)$ as a subset of $X$ from now on.
 
 On $\Z_2$ we have a probability measure defined by
@@ -63,7 +63,7 @@ This group action preserves the measure $\mu$.
 
 As for the $\gamma_i$ notice that
 $\Aut Z_2^l$ acts transitively on $\Z_2^l \setminus 0$ (which corresponds to the states of $M$).
-To see this, realize that every element of $\Z_2^l \setminus 0$ has characteristic 2 and thus any mapping \IM{x \mapsto y} for \IM{x,y \in \Z_2^l \setminus 0} can be extended to some (non-unique) automorphism $\phi_{x,y}$.
+To see this, realize that every element of $\Z_2^l \setminus 0$ has order $2$ and thus any mapping \IM{x \mapsto y} for \IM{x,y \in \Z_2^l \setminus 0} can be extended to some (non-unique) automorphism $\phi_{x,y}$.
 
 Now set
 \begin{align*}
@@ -74,11 +74,11 @@ where \IM{z_{*,0} = (z_{1,0},z_{2,0},...,z_{n,0}) \in (\Z_2^k)^n}
 Now we only need to set the accepting, rejecting and inital sets:
 \begin{align*}
 	J_I & := \{(\overline{z,\INI}) ~\vert~ z \in \Z_2^{k * n(M)} \} \\
-	J_A & := \{(z,\ACC) ~\vert~ z \in \Z_2^{k * n(M)} \} \\
+	J_A & := \{(z,\ACC) ~\vert~ z \in A(M)^{k * n(M)} \subseteq \Z_2^{k * n(M)} \} \\
 	J_R & := \{(z,s) ~\vert~ z \in \Z_2^{k * n(M)} , s = \REJ \vee s \notin S(M) \} \\
 \end{align*}
 Thereby we have defined a Turing dynamical system $M^\prime$ such that \IM{T(M^\prime) = T(M)} on \IM{C(M) \subseteq X}.
 In the future we will use $T(M^\prime)$ and $T(M)$ interchangeably and call both just $T$ if a precise distinction is not necessary.
 
 Also we have \IM{IC(M) \subseteq I(M^\prime)}.
-Equality would of course be nicer here but (regarding $IC(M)$ as a subset of $X$) \IM{\mu(IC(M)) = 0} which is unacceptable for \IM{I(M^\prime)} as we will see later and warrants a little discomfort.
+Equality would of course be nicer here but (regarding $IC(M)$ as a subset of $X$) \IM{\mu(IC(M)) = 0} which is unacceptable for \IM{I(M^\prime)} as we will see in the next Lemma and warrants a little discomfort.

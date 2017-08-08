@@ -1,5 +1,7 @@
 \begin{Lemma} \label{tds:lemma_tx_measurable:lemma}
 	The Turing map $T$ of any TDS is measurable and measure contracting, that is for any measurable $U \subseteq X$ we have that $T(U)$ and $T^{-1}(U)$ are both measurable and $\mu(T(U)) \leq \mu(U)$.
+
+	If $T$ is injective on $U$, then $\mu(T(U)) = \mu(U)$.
 \end{Lemma}
 \proof
 Let $U \subseteq X$ be measurable. We have
@@ -12,10 +14,11 @@ and
 \end{align*}
 both of which are measurable as all the $X_i$ are measureable and the $\gamma_i$ are measure preserving and thus
 \begin{align*}
-	&\mu(T(U)) \\
-	= &\mu(\bigcup_{i=1}^n \gamma_i \bullet (U \cap X_i)) \\
-	\leq &\sum_{i=1}^n \mu(\gamma_i \bullet (U \cap X_i)) \\
-	= &\sum_{i=1}^n \mu(U \cap X_i) \\
-	= &\mu(U)
+	  &\mu(T(U)) \\
+	=~&\mu(\bigcup_{i=1}^n \gamma_i \bullet (U \cap X_i)) \\
+	\leq~&\sum_{i=1}^n \mu(\gamma_i \bullet (U \cap X_i)) \\
+	=~&\sum_{i=1}^n \mu(U \cap X_i) \\
+	=~&\mu(U)
 \end{align*}
+In case of injectivity, the ``$\leq$'' is in fact an equality.
 \endproof

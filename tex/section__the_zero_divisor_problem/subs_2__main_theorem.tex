@@ -1,6 +1,7 @@
 \subsection{}
 
-From \cite{gra14} we quote Theorem 4.3 in conjunction with Lemma 6.4
+Now we are ready to understand and prove Theorem \ref{zero-divisor-problem:trivial_betti_numbers} which may be considered the most important Theorem of this work.
+For this proof, we will need Theorem 4.3 in conjunction with Lemma 6.4 from \cite{gra14}:
 
 \begin{Theorem}
 	\label{the_zero_divisor_problem:grabowskis_theorem}
@@ -55,7 +56,15 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 \end{Theorem}
 
 \proof
-	We do a reduction to the halting problem. To this end, let $M$ be a Turing machine on one tape.
+	We do a reduction to the halting problem by following steps as can be seen in Figure \ref{zero_divisor_problem:main_theorem:fig_proof_plan}.
+	We transform the objects on the left hand side in a way that preserves the property on the right hand side.
+	\begin{figure}
+		\centering
+		\input{section__the_zero_divisor_problem/proof_plan}
+		\caption{Steps of this proof}
+		\label{zero_divisor_problem:main_theorem:fig_proof_plan}
+	\end{figure}
+	So, let $M$ be a Turing machine on one tape.
 	The halting problem states that the question whether there is some input which $M$ accepts is undecidable.
 	Theroem \ref{turing_machines:main_theorem:theorem} gives us a foolproof readonly Turing machine $M^\prime$ on two tapes such that there is some input which $M$ accepts if and only if there is some input which $M$ accepts.\footnotemark
 	\footnotetext{The statement remains true for Turing machines on multiple tapes but Theorem \ref{turing_machines:main_theorem:theorem} does not provide this.}
@@ -65,8 +74,7 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 	does not restart,
 	is foolproof (Lemma \ref{tm_to_tds:properties:lemma_foolproof})
 	has disjoint accepting chains (Lemma \ref{tm_to_tds:properties:lemma_disjoint_accepting_chains})
-	thus having $\Omega_1 = \Omega_2$ (Lemma \ref{foo}) and
-	%TODO lemma about fundamental values when disj acc chains
+	thus having $\Omega_1 = \Omega_2$ (Lemma \ref{tds:lemma_disj_acc_ch:lemma}) and
 	has a fundamental value strictly smaller than $\mu(I)$ if and only if there is some input which $M$ accepts (Lemma \ref{tm_to_tds:properties:lemma_fundamental_value}).
 	The space of configurations of this TDS is $X = ((\Z_2^k)^\Z)^2 \times (\Z_2)^l$ for some $k, l \in \N$
 	and the acting group $\Gamma$ is $\Z^2 \times \Aut \Z_2^l$

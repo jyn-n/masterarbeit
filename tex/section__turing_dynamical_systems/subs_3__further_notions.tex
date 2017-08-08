@@ -4,14 +4,14 @@ Similar to Turing machines, we define $T^\infty(x):=T^k(x)$, if $T^k(x)=T^{k+1}(
 
 The \emph{first fundamental set} of a TDS is defined as
 \begin{align*}
-	\mathcal{F}_1 :=&\{ x \in I~|~T^\infty(x) \in A~\text{and}~x \notin T(X) \} \\
-	=&(I \cap \bigcup_{i=1}^\infty T^{-i}(A)) \setminus T(X)
+	\mathcal{F}_1 :=&~\{ x \in I~|~T^\infty(x) \in A~\text{and}~x \notin T(X) \} \\
+	=&~(I \cap \bigcup_{i=1}^\infty T^{-i}(A)) \setminus T(X)
 \end{align*}
 That is all the initial configurations the TDS accepts, that cannot be reached from any other configuration.
 The \emph{second fundamental set} is
 \begin{align*}
-	\mathcal{F}_2 :=&T^\infty(\mathcal{F}_1) \\
-	=&\bigcup_{i=1}^\infty T^i( I \cap T^{-i}(A) \setminus T(X))
+	\mathcal{F}_2 :=&~T^\infty(\mathcal{F}_1) \\
+	=&~\bigcup_{i=1}^\infty T^i( I \cap T^{-i}(A) \setminus T(X))
 \end{align*}
 Using Lemma \ref{tds:lemma_tx_measurable:lemma} it is easy to see that both fundamental sets are measurable.
 Their measures are called the \emph{first} and \emph{second fundamental value} and denoted by $\Omega_i$.
@@ -25,4 +25,3 @@ We call a TDS \emph{foolproof} (or say it \emph{stops on any configuration}), if
 If $T^\infty$ is injective on its domain except for some null set, we say that the TDS has $\emph{disjoint accepting chains}$.
 
 If \IM{\mu(T(X)~\cap~I) = 0}, the TDS \emph{does not restart}.
-
