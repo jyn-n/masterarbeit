@@ -1,11 +1,15 @@
-To conclude this chapter we prove a theorem about Turing machines which allows us to use certain classes of Turing machines interchangeably, a feature which becomes important later on.
+\subsection{Making a Turing machine readonly and foolproof}
+
+To conclude the first chapter we prove a theorem about Turing machines which allows us to use certain classes of Turing machines interchangeably, a feature which becomes important later on.
 \begin{Theorem}
 	\label{turing_machines:main_theorem:theorem}
 	For every Turing machine $M$ on one tape (i.e. $n(M) = 1$), there is a foolproof readonly Turing machine $N$ on two tapes such that
-	there is a computable map\footnotemark $f: IC(M) \to C(N)$
+	there is a computable\footnotemark map $f: IC(M) \to C(N)$
 	satisfying \IM{f(AC(M)) = AC(N)}.
+	\footnotetext{The notion of computability will be discussed in chapter \ref{halting_problem:computability}.}
+	\footnotemark
 \end{Theorem}
-\footnotetext{For a thorough understanding of this notion of similarity between classes of Turing machines see \cite{rog96}}
+\footnotetext{For a thorough understanding of this notion of similarity between classes of Turing machines see \cite{rog96}.}
 \proof
 	Let $M$ be a Turing machine on one tape.
 	We first construct the map $f$ to get an idea what $N$ is supposed to do and then construct $N$ itself.

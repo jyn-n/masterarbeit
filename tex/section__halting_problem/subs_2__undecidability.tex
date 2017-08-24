@@ -1,0 +1,54 @@
+\subsection{Undecidability}
+
+Surely, there are lots of languages that are decidable.
+A fact that might be surprising at first is that there are also languages that are not decidable.
+One example for such a language is given by the halting problem.
+To fully grasp this problem, we need to understand some facts about Turing machines.
+
+First note that a Turing machine can always be finitely described. Thus there is some alphabet $A$ such that there is an embedding
+\begin{align*}
+	\emb{\cdot} : \{~M~|~M~\text{is a Turing machine}~\} &\hookrightarrow A^* \\
+	M &\mapsto \emb{M}
+\end{align*}
+
+Now we can formulate the following language:
+\begin{align*}
+	L_{TM} := \{~(\emb{M},w)~|~M~\text{accepts input}~w~\}
+\end{align*}
+
+\begin{Theorem}[Halting problem]
+	$L_{TM}$ is not decidable.
+\end{Theorem}
+\begin{proof}[Sketch of proof]
+	As was already proven by Turing in \cite{tur36}, it is possible for a Turing machine on the alphabet $A$ to take some input \emb{M} and simulate the behaviour of the Turing machine $M$.
+	This possibility does not depend on the choice of embedding (compare \cite{sip06}).
+
+	Assume there was a Turing machine $M$ which decided $L_{TM}$.
+	We could then formulate another Turing machine $N$ as follows:
+	\begin{itemize}
+		\item Check if input is of the form \emb{P}, if it is not, reject
+		\item Simulate $M$ on input \emb{$~(P,\emb{P})~$}
+		\item Invert the output of $M$, i.e. reject if $M$ accepts and accept if $M$ rejects
+	\end{itemize}
+	Note that in the second step we use an embedding not of a Turing machine but of some other finite data.
+
+	Now we might ask ourselves, whether $N$ accepts \emb{N}.
+	As we can see, if $N$ accepts \emb{N}, then $M$ accepts \emb{$~(N,\emb{N})~$} and hence $N$ rejects \emb{N}.
+	
+	But if $N$ rejects \emb{N}, then $M$ rejects \emb{$~(N,\emb{N})~$} and hence $N$ accepts \emb{N}.
+
+	So $N$ accepts \emb{N} if and only if $N$ rejects \emb{N}, which is a contradiction to the existence of $M$.
+\end{proof}
+
+\begin{Corollary}
+	The language
+	\begin{align*}
+		L_{TM}^\prime := \{ \emb{M} ~|~ \exists w \in A(M)^* ~\text{such that $M$ accepts input $w$} \}
+	\end{align*}
+	is not decidable.
+\end{Corollary}
+\proof
+	For every Turing machine $M$ and input $w$, consider the Turing machine $M_w$ which first checks whether the input is $w$, rejecting otherwise, and then simulates $M$, i.e. accepts if and only if $M$ accepts the input.
+
+	Now assume that $L_{TM}^\prime$ was decidable. Then there would be a Turing machine which in particular decides for every $M_w$ whether it accepts some input. But this is the case if and only if $M$ accepts $w$. But this question is not decidable according to the halting problem.
+\endproof

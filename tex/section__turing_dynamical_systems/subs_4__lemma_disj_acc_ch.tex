@@ -1,7 +1,7 @@
 \begin{Lemma}
 	\label{tds:lemma_disj_acc_ch:lemma}
 	Consider a Turing dynamical system with fundamental values $\Omega_1$ and $\Omega_2$.
-	If the TDS has disjoint accepting chains and does not restart, then \IM{\Omega_1 = \Omega_2}.
+	If the TDS has disjoint accepting chains, then \IM{\Omega_1 = \Omega_2}.
 \end{Lemma}
 
 \proof
@@ -17,18 +17,17 @@
 	\begin{align*}
 		\mathcal{F}_1 = \bigcup_{i = 0}^\infty (T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)
 	\end{align*}
-	However on $T^{-i}(\mathcal{F}_2)$ we have $T^\infty = T^i$. Therefore $T^i$ and also $T$ are injective on this set except for some null set because of disjoint accepting chains.
+	However on $T^{-i}(\mathcal{F}_2)$ we have $T^\infty = T^i$. Because of disjoint accepting chains, $T^\infty$ and therefore also $T^i$ is injective on $\mathcal{F}_2$ except for some null-set.
 	But then Lemma \ref{tds:lemma_tx_measurable:lemma} yields
 	\begin{align*}
 		\mu(T^i(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)) = \mu(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)
 	\end{align*}
-	and the fact that the TDS does not restart gives us that all the \IM{T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1} are disjoint.
-	Hence
+	Therefore
 	\begin{align*}
 		  &\Omega_1 \\
 		=~&\mu(\mathcal{F}_1) \\
 		=~&\mu(\bigcup_{i=0}^\infty T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)) \\
-		=~&\sum_{i=0}^\infty \mu(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1) \\
+		\leq~&\sum_{i=0}^\infty \mu(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1) \\
 		=~&\sum_{i=0}^\infty \mu(T^i(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)) \\
 		\leq~&\sum_{i=0}^\infty \mu(\mathcal{F}_2 \cap T^i(\mathcal{F}_1)) \\
 		=~&\mu(\bigcup_{i=0}^\infty \mathcal{F}_2 \cap T^i(\mathcal{F}_1)) \\
@@ -36,5 +35,5 @@
 		=~&\mu(\mathcal{F}_2) \\
 		=~&\Omega_2
 	\end{align*}
-	But again by Lemma \ref{tds:lemma_tx_measurable:lemma}, $T$ is measure contracting, so in particular \IM{\Omega_1 \geq \Omega_2} which proves equality.
+	But again by Lemma \ref{tds:lemma_tx_measurable:lemma}, $T$ is measure contracting, so in particular we have \IM{\Omega_1 \geq \Omega_2} which proves equality.
 \endproof

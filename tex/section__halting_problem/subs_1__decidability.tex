@@ -1,0 +1,27 @@
+\subsection{Decidability}
+
+\begin{Definition}
+	Let $A$ be a finite set. Then
+	\begin{align*}
+		A^* := \bigcup_{i \in \N_0} A^i
+	\end{align*}
+	is called the \emph{set of (finite) words} over the alphabet $A$.
+	By $A^0$ we mean a one-element-set which we will also denote $\{\epsilon\}$, where $\epsilon \notin A$.
+
+	A subset $L \subseteq A^*$ is called a \emph{(formal) language over $A$}.
+\end{Definition}
+
+A word over $A$ may be regarded as an initial configuration of a Turing machine $M$ on one tape on the alphabet $A$, that is the alphabet of $M$ is $A~\dot\cup~\{\EMP\}$, in the following way:
+\begin{align*}
+	A^* &\hookrightarrow IC(M) = (A~\dot\cup~\{\EMP\})^\Z \times S(M) \\
+	(a_0, ... , a_n) &\mapsto (...\EMP,\underline{a_0},...,a_n,\EMP,...) , \INI 
+\end{align*}
+where $S(M)$ denotes the set of states and the underlined symbol is the one at index $0$ in $(A~\dot\cup~\{\EMP\})^\Z$.
+
+In this context we will refer to $(a_0,...,a_n)$ as an \emph{input} to $M$.
+
+\begin{Definition}
+	\label{halting_problem:decidability:definition_decidable}
+	Let $A$ be an alphabet and $L$ a formal language over $L$. Then $L$ is called \emph{decidable}, if there is a Turing machine $M$ such that $M$ stops for every $a \in A^*$ and accepts an $a \in A^*$ if $a \in L$ and rejects it otherwise.
+\end{Definition}
+

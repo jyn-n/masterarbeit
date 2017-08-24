@@ -1,0 +1,36 @@
+\subsection{Computability}
+\label{halting_problem:computability}
+
+Similar to the notion of decidability as presented in Definition \ref{halting_problem:decidability:definition_decidable} we can define computability:
+
+\begin{Definition}
+	Let $X$ and $Y$ be countable sets, $A$ an alphabet and let \emb{\cdot} be embeddings from $X$ or $Y$ to $A^*$.
+
+	Further let $f:X \to Y$ be a map.
+	Then $f$ is called \emph{computable} if there is a Turing machine on the alphabet $A$ with Transition map $T$ such that
+	\begin{align*}
+		T^\infty(\emb{x}) = (\emb{f(x)},\ACC) ~\text{for every}~ x \in X
+	\end{align*}
+\end{Definition}
+
+In the following chapters we prove some problems to be undecidable.
+This means that there is a way of embedding instances of that problem into the words over some alphabet and no matter which embedding we choose there is no Turing machine that accepts instances of the problem with positive answer and rejects instances with negative answer.
+To do so, we will manipulate a multitude of mathematical objects and usually do so in a computable way, making sure that in the end there will be a Turing machine which translates instances of our original problem to instances of the halting problem.
+Then we can claim that if there was a Turing machine that solves our problem, then there would also be a Turing machine which solves the halting problem, leading to a contradiction.
+
+But rigorously checking computability in every instance would probably overshadow everything else done in this work.
+Therefore we resolve to a more intuitive notion of computability.
+
+Such an intuition might originate from an understanding of most of the commonly used programming languages, or, as in fact it seems, just from pure intuition: When David Hilbert originally presented his famous twenty-three problems in 1900, his tenth problem asked for an algorithm that determines whether a given polynomial of a certain form does have any roots.
+Only later, when the notion of algorithms was formalized, was it possible to show that no such algorithm exists.
+But it seems that Hilbert had enough of an idea of what an algorithm should be to pose this question, more than three decades before the concept was formalized by Alonzo Church and Alan Turing.
+
+A nice description of this notion can be found in \cite{bbj07}:
+\begin{quotation}
+	``A function $f$ from positive integers to positive integers is called \emph{effectively computable} if a list of instructions can be given that in principle make it possible to determine the value $f(n)$ for any argument $n$. The instructions must be completely definite and explicit. They should tell you at each step what to do, not tell you to go ask someone else what to do, or figure out for yourself what to do: the instructions should require no external sources of information, and should require no ingenuity to execute, so that one might hope to automate the process of applying the rules, and have it performed by some mechanical device.''
+\end{quotation}
+This basically boils down to the slogan
+\begin{quotation}
+	\bf{``Constructive proofs yield computable results''}
+\end{quotation}
+Of course we have to be extra careful when employing such a notion and while reading this work we should always convince ourselves that all results are actually computable whenever necessary.

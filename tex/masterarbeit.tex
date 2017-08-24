@@ -24,8 +24,9 @@
 \newtheorem{Definition}[Theorem]{Definition} 
 \newtheorem{Lemma}[Theorem]{Lemma}
 \newtheorem{Example}[Theorem]{Example}
+\newtheorem{Corollary}[Theorem]{Corollary}
 
-\numberwithin{equation}{section} 
+\numberwithin{equation}{section}
 
 \newcommand{\remark}{\paragraph{Remark:}}
 
@@ -49,6 +50,8 @@
 \newcommand{\Aut}{\operatorname{Aut}}
 \newcommand{\Hom}{\operatorname{Hom}}
 \newcommand{\pr}{\operatorname{pr}}
+
+\newcommand{\emb}[1]{\ensuremath{\langle #1 \rangle}}
 
 \begin{document}
 \pagestyle{empty}
@@ -83,6 +86,8 @@
 \pagestyle{headings}
 
 \include{section__turing_machines/main}
+
+\include{section__halting_problem/main}
 
 \include{section__turing_dynamical_systems/main}
 
