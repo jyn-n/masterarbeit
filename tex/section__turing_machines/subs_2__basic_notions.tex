@@ -17,12 +17,14 @@ if the sum is positive and analogous if the sum is negative.\footnotemark
 
 The subsets of $IC$ that $M$ accepts, rejects and stops for will be denoted by $AC$, $RC$ and $SC$ respectively.
 
-\remark $M$ stops for $c$ if and only if there is some $k \in \N_0$ such that \IM{T_{state}^k(c) \in \STOPS}
+\begin{Remark}
+	$M$ stops for $c$ if and only if there is some $k \in \N_0$ such that \IM{T_{state}^k(c) \in \STOPS}.
+\end{Remark}
 
 Now let us present a method of turning multiple Turing machines into one by ``first executing one, then the other one''. This will be useful later as it gives us a method to divide a large Turing machine into more managable parts.
 
 \begin{Definition}
-	Let $M$ and $N$ be Turing machines such that $A(M) = A(N)$ and $n(M) = n(N)$. Then we define their \emph{concatenation} $N \circ M$ as the Turing machine defined by the following data:
+	Let $M$ and $N$ be Turing machines such that $A(M) = A(N)$ and $n(M) = n(N)$, that is, their configurations differ only by the states. Then we define their \emph{concatenation} $N \circ M$ as the Turing machine defined by the following data:
 	\begin{itemize}
 		\item{$n = n(M) = n(N)$}
 		\item{$A = A(M) = A(N)$}
@@ -43,4 +45,12 @@ Now let us present a method of turning multiple Turing machines into one by ``fi
 		$}
 	\end{itemize}
 \end{Definition}
-\remark If we set $\INI(N) = \ACC(M)$ and $\REJ(N) = \REJ(M)$ we have $T^\infty(N \circ M) = T^\infty(N) \circ T^\infty(M)$ on $C(M)$, hence the notation.
+\begin{Remark}
+	If we set $\INI(N) = \ACC(M)$ and $\REJ(N) = \REJ(M)$ we have $T^\infty(N \circ M) = T^\infty(N) \circ T^\infty(M)$ on $C(M)$, hence the notation. A visualization of this concept can be seen in Figure \ref{turing_machines:basic_notions:fig_concatenation}.
+\end{Remark}
+\begin{figure}[h]
+	\centering
+	\input{section__turing_machines/concatenation}
+	\caption{Example for the concatenation of Turing machines, ignoring the tapes}
+	\label{turing_machines:basic_notions:fig_concatenation}
+\end{figure}

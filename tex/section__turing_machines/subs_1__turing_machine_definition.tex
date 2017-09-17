@@ -34,18 +34,18 @@ A configuration $(a,s)$ is called an \emph{initial configuration}, if all of the
 \end{itemize}
 The sets of finite and initial configurations are denoted by $FC$ and $IC$ respectively.
 
-We will now define the \emph{transition map} which shall be a map on $C$ which in a sense combines the behaviour of $T_{write}$, $T_{state}$ and $T_{direction}$.
+We will now define the \emph{transition map} which shall be a map on the configurations $C$ which in a sense combines the behaviour of $T_{write}$, $T_{state}$ and $T_{direction}$.
 To this end we first extend the domains of $T_{write}$, $T_{state}$ and $T_{direction}$ to $C$:
-Let 
+Let
 \begin{align*}
-	pr_0: (A^\Z)^n &\to A^n \\
-	 (pr_0(a))_i &:= a_{0,i}~\forall i \in \{1,...,n\}
+	\pr_0: (A^\Z)^n &\to A^n \\
+	(\pr_0(a))_i &:= a_{0,i}~\forall i \in \{1,...,n\}
 \end{align*}
 Now define
 \begin{align*}
-	T_{write}^\prime &:= T_{write} \circ (pr_0 \times id_S) \\
-	T_{state}^\prime &:= T_{state} \circ (pr_0 \times id_S) \\
-	T_{direction}^\prime &:= T_{direction} \circ (pr_0 \times id_S)
+	T_{write}^\prime &:= T_{write} \circ (\pr_0 \times \id_S) \\
+	T_{state}^\prime &:= T_{state} \circ (\pr_0 \times \id_S) \\
+	T_{direction}^\prime &:= T_{direction} \circ (\pr_0 \times \id_S)
 \end{align*}
 Further let
 \begin{align*}
@@ -67,13 +67,13 @@ and the same for $T_{direction}$.
 Further we require the map $T_{tape}$:
 Let
 \begin{align*}
-	sh: A^\Z \times \Z &\to A^\Z \\
-	(a,z) &\mapsto sh(a,z)~\text{where}~sh(a,z)_i = a_{i+z}
+	\sh: A^\Z \times \Z &\to A^\Z \\
+	(a,z) &\mapsto \sh(a,z) ~\text{where}~ \sh_i(a,z) = a_{i+z}
 \end{align*}
 Now let
 \begin{align*}
 	T_{shift}: (A^\Z)^n \times C &\to (A^\Z)^n \\
-	(b,c) &\mapsto ( sh(b_1,(T_{direction}(c))_1) , ... , sh(b_n,(T_{direction}(c))_n) )
+	(b,c) &\mapsto ( \sh(b_1,(T_{direction}(c))_1) , ... , \sh(b_n,(T_{direction}(c))_n) )
 \end{align*}
 and
 \begin{align*}
@@ -87,7 +87,10 @@ Finally we can define the \emph{transition map} $T:C\to C$ nicely:
 \begin{align*}
 	T = T_{tape} \times T_{state}
 \end{align*}
-\remark $T(FC) \subseteq FC$.
+\begin{Remark}
+	In the literature one often finds Turing machines to be defined in a way such that configurations are always finite. In our case, the broader definition will allow us to easily adjust to the concept of Turing dynamical systems later on.
+	But nevertheless our Turing machines still satisfy $T(FC) \subseteq FC$, that is, we can restrict our definition to finite configurations and still have a well defined notion of Turing machines, which even happens to coincide with the one from standard literature.
+\end{Remark}
 
 If for some $c \in C$ and $k \in \N$ we have that $T^k(c) = T^{k+1}(c)$ we define $T^\infty(c) := T^k(c)$ and leave it undefined otherwise.
 
@@ -111,5 +114,3 @@ and
 \end{align*}
 for all $k \in \N \cup \{\infty\}$.
 To justify this notation, observe that $T^k = T_{tape}^k \times T_{state}^k$.
-
-

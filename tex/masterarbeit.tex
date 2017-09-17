@@ -11,14 +11,15 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 
-\newtheoremstyle{dotless}{3ex}{}{\itshape}{}{\bfseries}{}{ }{}
-
-\theoremstyle{dotless}
-
 \usepackage{tikz, wasysym}
 \usetikzlibrary{automata,positioning}
 
 \setlength{\topmargin}{-15mm}
+
+\newtheoremstyle{italic}{3ex}{2ex}{\itshape}{}{\bfseries}{}{ }{}
+\newtheoremstyle{plain}{3ex}{2ex}{}{}{\bfseries}{}{ }{}
+
+\theoremstyle{italic}
 
 \newtheorem{Theorem}{Theorem}[section]
 \newtheorem{Definition}[Theorem]{Definition} 
@@ -26,30 +27,36 @@
 \newtheorem{Example}[Theorem]{Example}
 \newtheorem{Corollary}[Theorem]{Corollary}
 
-\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{Notation}[Theorem]{Notation}
+\newtheorem{Remark}[Theorem]{Remark}
 
-\newcommand{\remark}{\paragraph{Remark:}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\T}{\ensuremath{\mathbb{T}}}
+\newcommand{\G}{\ensuremath{\mathcal{G}}}
 
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\K}{\mathbb{K}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\T}{\mathbb{T}}
-\newcommand{\G}{\mathcal{G}}
 \newcommand{\IM}[1]{\mbox{$#1$}}
 \newcommand{\TSC}[1]{\text{\scshape{#1}}}
-\newcommand{\INI}{\TSC{initial}}
-\newcommand{\ACC}{\TSC{accept}}
-\newcommand{\REJ}{\TSC{reject}}
-\newcommand{\EMP}{\TSC{empty}}
-\newcommand{\DELIM}{\TSC{delimiter}}
-\newcommand{\STOPS}{\{\ACC,\REJ\}}
+\newcommand{\INI}{\ensuremath{\TSC{initial}}}
+\newcommand{\ACC}{\ensuremath{\TSC{accept}}}
+\newcommand{\REJ}{\ensuremath{\TSC{reject}}}
+\newcommand{\EMP}{\ensuremath{\TSC{empty}}}
+\newcommand{\DELIM}{\ensuremath{\TSC{delimiter}}}
+\newcommand{\STOPS}{\ensuremath{\{\ACC,\REJ\}}}
+
+\newcommand{\ltwo}{\ensuremath{\ell^2}}
 
 \newcommand{\Aut}{\operatorname{Aut}}
 \newcommand{\Hom}{\operatorname{Hom}}
 \newcommand{\pr}{\operatorname{pr}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\sh}{\operatorname{sh}}
+\newcommand{\tr}{\operatorname{tr}}
 
 \newcommand{\emb}[1]{\ensuremath{\langle #1 \rangle}}
 
@@ -94,6 +101,10 @@
 \include{section__tm_to_tds/main}
 
 \include{section__the_zero_divisor_problem/main}
+
+\include{section__decidable_zero_divisors/main}
+
+\include{section__remarks/main}
 
 \include{bibliography/main}
 

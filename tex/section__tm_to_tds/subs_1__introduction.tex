@@ -1,3 +1,6 @@
+\subsection{Construction}
+\label{tm_to_tds:construction}
+
 Let $M$ be a readonly Turing machine.
 Then we define the Turing dynamical system $M^\prime$ as follows:
 
@@ -14,6 +17,24 @@ We set
 Into this we can embed the configurations of $M$ by mapping the tapes via the identity to the left factor and the state in any way to the right factor except $0$.
 Let us fix any such mapping and regard $C(M)$ as a subset of $X$ from now on.
 
+\begin{Notation}
+	We introduce a notation for a certain class of subsets of $X$:
+	
+	Let $a_{-j},...,a_{m} \in \Z_2^k$ for some $j, m \in \N_0$ and $s_0 \in \Z_2^l$. In case the Turing machine $M$ has just one tape, we set
+	\begin{align*}
+		\begin{bmatrix}
+			a_{-j},...,\underline{a_0},...,a_m
+		\end{bmatrix} := \{ (x,s) \in X = (\Z_2^k)^\Z \times \Z_2^l ~|~ x_i = a_i ~\forall i \in \{j,...,m\}\} 
+	\end{align*}
+	and
+	\begin{align*}
+		\begin{bmatrix}
+			a_{-j},...,\underline{a_0},...,a_m
+		\end{bmatrix} [ s_0 ] := \{ (x,s) \in \begin{bmatrix} a_{-j},...,\underline{a_0},...,a_m \end{bmatrix} ~|~ s = s_0 \}
+	\end{align*}
+	For Turing machines with multiple tapes we use a similar notation.
+\end{Notation}
+
 On $\Z_2$ we have a probability measure defined by
 \begin{align*}
 	\mu(0) = \mu(1) = \frac12
@@ -21,7 +42,6 @@ On $\Z_2$ we have a probability measure defined by
 This measure extends to the Haar measure\footnotemark on $X$.
 %TODO
 \footnotetext{Maybe reference and further explanation}
-%TODO On notation
 
 For the division of $X$ we take \IM{\Z_2^{k * n(m)} \times \Z_2^l} to be the index set and for
 \begin{align*}
@@ -48,7 +68,9 @@ The sets $X_{z,\INI}$ we devide further into
 \end{align*}
 and its complement which we call $X_{z,\INI}$
 
-\remark Each $X_i$ has measure $2^{-(n+l)}$ except for those who's state is \INI. They have measure $2^{-(3*n+l)}$ if they have are of the form $X_{\overline{z,\INI}}$ and the complimental measure otherwise.
+\begin{Remark}
+	Each $X_i$ has measure $2^{-(n+l)}$ except for those who's state is \INI. They have measure $2^{-(3*n+l)}$ if they have are of the form $X_{\overline{z,\INI}}$ and the complimental measure otherwise.
+\end{Remark}
 
 We define the group $\Gamma$ and its action:
 $\Z^{n(m)}$ operates on the left factor of $X$ via its natural operation on the exponent of $\Z_2^k$.

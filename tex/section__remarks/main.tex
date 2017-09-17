@@ -1,0 +1,36 @@
+\section{Remarks}
+
+\begin{Remark}[On the scope of the halting problem]
+	The halting problem states that there is no single Turing machine, that decides for every Turing machine $T$ and input $w$, whether or not $T$ halts on $w$. This of course does not mean that every instance of the halting problem is undecidable on its own. In fact, \ref{turing_machines:lemma_foolproofness:lemma} gives us a property which can be easily checked by a Turing machine and which implies foolproofness, which in turn implies that the Turing machine stops on any input.
+
+	Now one might think, that solving the halting problem were simply a matter of selecting the correct algorithm for the given instance and that Turing machines somehow lacked the ingenuity to select the right algorithm, but humans could probably be able to do so. However, a Turing machine is capable of simulating multiple other Turing machines at the same time (i.e. alternatingly simulate one step of every Turing machine) and might even gradually increase the number of Turing machines. This can be achieved for example by encoding a number of Turing machines as integers, writing some integer on the tape, simulating the corresponding Turing machine, then writing the next integer and repeating (to see that all of this is actually possible, compare \cite{sip06}).
+
+	Thus, if solving the halting problem amounted to making the right selection out of a countable number of Turing machines, then the halting problem itself would be solvable by a Turing machine. But since there are only countably many Turing machines, the halting problem has to be more complex than that.
+\end{Remark}
+
+\begin{Remark}[On the intuitive notion of algorithms (section \ref{halting_problem:computability})]
+	Such an intuition might originate from an understanding of most of the commonly used programming languages, or, as in fact it seems, just from pure intuition: When David Hilbert originally presented his famous twenty-three problems in 1900, his tenth problem basically asked for an algorithm that determines whether a given polynomial of a certain form does have any roots.
+	Only later, when the notion of algorithms was formalized, was it possible to show that no such algorithm exists.
+	But it seems that Hilbert had enough of an idea of what an algorithm should be to pose this question, more than three decades before the concept was formalized by Alonzo Church and Alan Turing.
+\end{Remark}
+
+\begin{Remark}[On constructing a Turing dynamical system from a Turing machine (section \ref{tm_to_tds:construction})]
+	When trying to construct a Turing dynamical system from a Turing machine that might be non-readonly, we can use the existing construction for read-only Turing machines and try to extend it by the possibility of writing to a tape.
+
+	Note however, that there is no group automorphism on $(\Z_2)^\Z$ which just replaces the symbol at index $0$ by a $1$ since this automorphism would in particular have to map $0 \in (\Z_2)^\Z$ to something else.
+
+	On the other hand, every map on the index set of $(\Z_2)^\Z$ constitutes a group automorphism. So we might find a solution that resolves to swapping positions of elements instead of swapping symbols at certain indices.
+	Now the first idea might be to extend the tapes by $(\Z_2)^\Z$ for every symbol and restrict the initial set such that each of these ``banks'' contains only one distinct symbol each.
+	When writing, we could swap the $0$-position of the tape by the $0$-position of the respective bank and then shift the bank by one position.
+	This way we create an automorphism that actually simulates the whole transition map, even if the Turing machine was not readonly.
+	But we have also created an initial set which is a null-set. This means that both fundamental values are also null and we can not apply theorem \ref{the_zero_divisor_problem:grabowskis_theorem} sensibly.
+
+	To solve this, we use just one bank and write by swapping with the $0$-position of the bank and then shifting the bank as above.
+	This way we have no control over what we write on our tapes but we can still reject whenever we happen to write anything but our desired symbol. This decreases our fundamental values by a factor of $2^k$ where $k$ is the number of writes we perform. But since this number is always finite we can probably still get some useful results from it.
+\end{Remark}
+
+\begin{Remark}[On continuous group automorphisms of $(\Z_2 \wr \Z)^2$]
+	When we construct our Turing dynamical systems (in section \ref{tm_to_tds:construction}), we have to make sure that our group actions are by continuous automorphisms so that we may apply the definition af the pontryagin-dual (compare definition \ref{the_zero_divisor_problem:pontryagin_duality:definition_pontryagin_duality}).
+	In our case it is easy to see that our automorphisms are always continuous or can be chosen to be.
+	But on a larger scope it is not trivial to see if even one non-continuous automorphism exists. For some insights on the topic, see e.g. \cite{bhk16}.
+\end{Remark}

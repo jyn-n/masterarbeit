@@ -1,0 +1,61 @@
+\begin{tikzpicture}[shorten >=1pt,on grid,auto]
+	\node[] (M) {\bf{M}};
+	\node[] (N) [right=8 of M] {\bf{N}};
+
+	\node[] (Ma) [right = 1.5 of M] {};
+	\node[] (Na) [left=1.5 of N] {};
+	\node[] (c) [right=4 of M] {};
+
+	\node[state] (M1) [below=1 of Ma] {};
+	\node[state] (M0) [left=3 of M1] {};
+	\node[state] (MA) [below=3 of M1] {\ACC};
+	\node[state] (MR) [below=3 of M0] {\REJ};
+
+	\node[state] (N0) [below=1 of Na] {};
+	\node[state] (N1) [right=3 of N0] {};
+	\node[state] (NA) [below=3 of N1] {\ACC};
+	\node[state] (NR) [below=3 of N0] {\REJ};
+
+	\node[] (tc) [right=4 of M] {};
+
+	\node[] (NoM) [below=6 of c] {\bf{N $\circ$ M}};
+
+	\node[state] (CM1) [below=6 of M1] {};
+	\node[state] (CM0) [below=6 of M0] {};
+
+	\node[state] (CN0) [below=6 of N0] {};
+	\node[state] (CN1) [below=6 of N1] {};
+	\node[state] (CA) [below=3 of CN0] {\ACC};
+	\node[state] (CR) [below=3 of CM1] {\REJ};
+
+	\path[->, color=red]
+		(M0) edge (MR)
+		(M1) edge (MR)
+		(N0) edge (NR)
+
+		(CM0) edge (CR)
+		(CM1) edge (CR)
+		(CN0) edge (CR)
+	;
+	
+	\path[->, color=green]
+		(M1) edge (MA)
+		(N0) edge (NA)
+		(N1) edge (NA)
+
+		(CM1) edge (CN0)
+		(CN0) edge (CA)
+		(CN1) edge (CA)
+	;
+
+	\path[->]
+		(M0) edge [bend right] (M1)
+		(M1) edge [bend right] (M0)
+		(N0) edge (N1)
+
+		(CM0) edge [bend right] (CM1)
+		(CM1) edge [bend right] (CM0)
+		(CN0) edge (CN1)
+	;
+
+\end{tikzpicture}

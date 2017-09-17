@@ -1,4 +1,5 @@
-\subsection{}
+\subsection{Trivial \ltwo-betti-numbers}
+\label{the_zero_divisor_problem:main_theorem}
 
 Now we are ready to understand and prove Theorem \ref{zero-divisor-problem:trivial_betti_numbers} which may be considered the most important Theorem of this work.
 For this proof, we will need Theorem 4.3 in conjunction with Lemma 6.4 from \cite{gra14}:
@@ -34,19 +35,19 @@ For this proof, we will need Theorem 4.3 in conjunction with Lemma 6.4 from \cit
 	\end{align*}
 \end{Theorem}
 
-Now let us have a look at the following computational problem, which we call \emph{trivial $\ell^2$-betti-numbers}:
+Now let us have a look at the following computational problem, which we call \emph{trivial \ltwo-betti-numbers}:
 
-Given a group $G$, a $G$-CW-Complex $X$ and $n \in \N$, is the n'th $\ell^2$-betti-number of $X$ equal to 0?
+Given a group $G$, a $G$-CW-Complex $X$ and $n \in \N$, is the n'th \ltwo-betti-number of $X$ equal to 0?
 
 \begin{Theorem}
 	\label{zero-divisor-problem:trivial_betti_numbers}
-	\emph{Trivial $\ell^2$-betti-numbers} is not decidable for \IM{G = (\Z_2 \wr \Z)^2}.
+	\emph{Trivial \ltwo-betti-numbers} is not decidable for \IM{G = (\Z_2 \wr \Z)^2}.
 \end{Theorem}
 
 To prove this, we first consider a similar problem, namely:
 
 Given a group G and a matrix \IM{M \in (\Z[G])^{k \times k}}
-and considering the multiplication with $M$ in $\ell^2(G)^k$, is \IM{\ker M} trivial?
+and considering the multiplication with $M$ in $\ltwo(G)^k$, is \IM{\ker M} trivial?
 
 This problem we call \emph{kernel-over-$\Z[G]$}.
 
@@ -58,12 +59,14 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 \proof
 	We do a reduction to the halting problem by following steps as can be seen in Figure \ref{zero_divisor_problem:main_theorem:fig_proof_plan}.
 	We transform the objects on the left hand side in a way that preserves the property on the right hand side.
-	\begin{figure}
+
+	\begin{figure}[h]
 		\centering
 		\input{section__the_zero_divisor_problem/proof_plan}
 		\caption{Steps of this proof}
 		\label{zero_divisor_problem:main_theorem:fig_proof_plan}
 	\end{figure}
+
 	So, let $M$ be a Turing machine on one tape.
 	The halting problem states that the question whether there is some input which $M$ accepts is undecidable.
 	Theroem \ref{turing_machines:main_theorem:theorem} gives us a foolproof readonly Turing machine $M^\prime$ on two tapes such that there is some input which $M$ accepts if and only if there is some input which $M$ accepts.\footnotemark
@@ -99,10 +102,8 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 			~\text{(Lemma \ref{the_zero_divisor_problem:pontryagin_duality:lemma_dual_product})}
 		\\
 		\cong~& \Z [ ( (\Z_2^k)^{\oplus\Z} \rtimes_{\rho} \Z )^2 ] \otimes \Z [ ( \widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l ) ]
-			~\text{(Examples \ref{the_zero_divisor_problem:pontryagin_duality:example_duals} and \ref{the_zero_divisor_problem:pontryagin_duality:example_dual_action} \footnotemark)}
+			~\text{(Examples \ref{the_zero_divisor_problem:pontryagin_duality:example_duals} and \ref{the_zero_divisor_problem:pontryagin_duality:example_dual_action}}
 	\end{align*}
-%TODO see footnote
-	\footnotetext{uhm. to be clean I actually need that groups are naturally isomorphic to their bidual since the second example is the wrong way around...}
 	Here $\rho$ generally denotes the action of $\Z$ by addition on the index set for several groups.
 
 	Now consider the group $(\Z_2^k)^{\oplus\Z}$. It is isomorphic to $\Z_2^{\oplus \Z}$ by
@@ -114,7 +115,7 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 		(\Z_2^k)^{\oplus\Z} \rtimes_\rho \Z \cong \Z_2^{\oplus\Z} \rtimes_{\rho} \Z \cong \Z_2 \wr \Z
 	\end{align*}
 	and thus we may assume $S \in \Z[(\Z_2 \wr \Z)^2] \otimes \Z[H]$ for some finite group $H$ (namely $\widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l$).
-	But for a finite group $H$, $\ell^2(H) \cong \C[H]$ and thus an element of $\Z[H]$, which is a linear map on $\ell^2(H)$, can be seen as a finitely dimensioned matrix with entries in $\Z$.
+	But for a finite group $H$, $\ltwo(H) \cong \C[H]$ and thus an element of $\Z[H]$, which is a linear map on $\ltwo(H)$, can be seen as a finitely dimensioned matrix with entries in $\Z$.
 	Hence $\Z[H] \hookrightarrow \Z^{n \times n}$ in a way that translates von-Neumann-Trace to the usual trace of a matrix (up to a factor $n$).
 	To see this note that the von-Neumann trace of an element of $(a_g)_{g \in G} \in \Z[H]$ is just $a_1$, which translates to every diagonal element of the matrix.
 
@@ -128,7 +129,7 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 \endproof
 
 \proof[Proof of Theorem \ref{zero-divisor-problem:trivial_betti_numbers}]
-	A finite type $G$-CW-complex can be described uniquely by its attaching maps which in turn can be described as a finite dimensional matrix with entries in $\Z[G]$. Also given such a matrix we can construct a unique $G$-CW-complex. The $\ell^2$-cohomology then corresponds to the kernel of that matrix.
-	Thus if there is an algorithm that solves \emph{trivial $\ell^2$-betti-numbers} for a given group $G$ then that algorithm also solves \emph{kernel-over-$\Z[G]$}. But Theorem \ref{zero-divisor-problem:kernel-over-zg} states that there is no such algorithm for $G = (\Z_2 \wr \Z)^2$.
+	A finite type $G$-CW-complex can be described uniquely by its attaching maps which in turn can be described as a finite dimensional matrix with entries in $\Z[G]$. Also given such a matrix we can construct a unique $G$-CW-complex. The \ltwo-cohomology then corresponds to the kernel of that matrix.
+	Thus if there is an algorithm that solves \emph{trivial \ltwo-betti-numbers} for a given group $G$ then that algorithm also solves \emph{kernel-over-$\Z[G]$}. But Theorem \ref{zero-divisor-problem:kernel-over-zg} states that there is no such algorithm for $G = (\Z_2 \wr \Z)^2$.
 \endproof
 

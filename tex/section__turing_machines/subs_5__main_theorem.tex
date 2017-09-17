@@ -1,4 +1,4 @@
-\subsection{Making a Turing machine readonly and foolproof}
+\subsection{Turing machines are basically nice}
 
 To conclude the first chapter we prove a theorem about Turing machines which allows us to use certain classes of Turing machines interchangeably, a feature which becomes important later on.
 \begin{Theorem}
@@ -10,6 +10,9 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 	\footnotemark
 \end{Theorem}
 \footnotetext{For a thorough understanding of this notion of similarity between classes of Turing machines see \cite{rog96}.}
+\begin{Remark}
+	The theorem remains true if we omit the restriction that $M$ has to be on one tape. To see this we must realize that we have a similarity between Turing machines on one tape and Turing machines on any number of tapes just as in the theorem. This is proven e.g. in \cite{sip06}.
+\end{Remark}
 \proof
 	Let $M$ be a Turing machine on one tape.
 	We first construct the map $f$ to get an idea what $N$ is supposed to do and then construct $N$ itself.
