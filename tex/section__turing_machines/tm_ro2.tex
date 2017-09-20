@@ -5,13 +5,13 @@
 	\node[state] (3) [below=4 of 2] {1};
 	\node[state] (4) [right=8.5 of 3] {2};
 	\node[state] (5) [above=7 of 4] {3};
-	\node[state] (6) [right=5.5 of 4] {4};
-	\node[state] (7) [below=7 of 4] {5};
+	\node[state] (6) [right=5.5 of 4] {\textbf{3}};
+	\node[state] (7) [below=7 of 4] {4};
 	\node[state] (8) [below=7 of 3] {\ACC};
 
 	\path[->]
 		(0) edge [ left ]
-			node {$\begin{matrix}s \\ s\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$ }
+			node {$\begin{matrix}s \\ s\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}, (*,*)$ }
 			(1)
 		(1) edge [ loop left ]
 			node {$\begin{matrix}* \\ *\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$}
@@ -26,7 +26,7 @@
 			node {$\begin{matrix}* \\ |\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$}
 			(3)
 		(3) edge [ left ]
-			node {$\begin{matrix}\ACC \\ *\end{matrix}$}
+			node {$\begin{matrix}\ACC(M) \\ *\end{matrix}$}
 			(8)
 		(3) edge [ bend left , blue ]
 			node {$(a,*),\begin{matrix}s \\ T_{state}(a,s)\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix},(a,s)$}
@@ -68,7 +68,7 @@
 			\end{matrix}$}
 			(7)
 		(7) edge [ bend left=10 , near start ]
-			node {$\begin{matrix}x \\ \underline{x}\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix}$}
+			node {$(*,s),\begin{matrix}x \\ \underline{x}\end{matrix} \mapsto \begin{matrix}1 \\ 1\end{matrix},(x,s)$}
 			(4)
 		(7) edge [ bend left ]
 			node {$\begin{matrix}| \\ \underline{\boldsymbol{x}}\end{matrix} \mapsto \begin{matrix}0 \\ 1\end{matrix}$}

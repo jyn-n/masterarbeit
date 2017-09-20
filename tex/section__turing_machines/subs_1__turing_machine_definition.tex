@@ -15,18 +15,19 @@
 	and satisfies
 	\begin{itemize}
 		\item{$\INI \notin T_{state}(A^n \times S)$}
-		\item{$(T_{write} \times T_{state} \times T_{direction}) (a,s) = (a,s,0)~\forall a \in A^n , s \in \STOPS$}
+		\item{$(T_{write} \times T_{state} \times T_{direction}) (x,s) = (x,s,0) ~\text{for every}~ x \in A^n , s \in \STOPS$}
 	\end{itemize}
 \end{Definition}
 When talking about Turing machines we will always use the denominations as in the definition.
 For example the alphabet will always be called $A$ and $A$ will usually be the alphabet of some Turing machine.
 If it is not obvious to which Turing machine $A$ belongs, we clarify by writing $A(M)$.
 
-An element $(a,s) \in (A^\Z)^n \times S =: C$ is called a \emph{configuration} of $M$. The $(a_i) \in A^\Z$ are called the \emph{tapes}.
+An element $((a_{i,j})_{i \in \Z, j \in \{1,...,n\}},s) \in (A^\Z)^n \times S =: C$ is called a \emph{configuration} of $M$. The $(a_{*,j}) \in A^\Z$ are called the \emph{tapes}.
+For improved readibility we will leave out the indices of $a$ whenever possible.
 
 A configuration is said to be \emph{finite}, if only finitely many entries on each tape are not \EMP.
 
-A configuration $(a,s)$ is called an \emph{initial configuration}, if all of the following are true:
+A configuration $(a,s) \in C$ is called an \emph{initial configuration}, if all of the following are true:
 \begin{itemize}
 	\item{$(a,s)$ is finite}
 	\item{$s = \INI$}
@@ -65,23 +66,28 @@ and $T_{state}$ instead of $T_{state}^{\prime}$
 and the same for $T_{direction}$.
 
 Further we require the map $T_{tape}$:
-Let
+Given some tapes and a state, it regards the symbols at position 0 of every tape and changes them according to the map $T_{write}$.
+Then it shifts those new tapes according to $T_{direction}$ but to determine the direction it uses the unchanged symbols.
+
+More precisely, let
 \begin{align*}
 	\sh: A^\Z \times \Z &\to A^\Z \\
-	(a,z) &\mapsto \sh(a,z) ~\text{where}~ \sh_i(a,z) = a_{i+z}
+	(a,z) &\mapsto \sh(a,z)
+\end{align*}
+where
+\begin{align*}
+	\sh_i(a,z) = a_{i+z}
 \end{align*}
 Now let
 \begin{align*}
 	T_{shift}: (A^\Z)^n \times C &\to (A^\Z)^n \\
-	(b,c) &\mapsto ( \sh(b_1,(T_{direction}(c))_1) , ... , \sh(b_n,(T_{direction}(c))_n) )
+	(b,c) &\mapsto ( \sh(b_{*,1},(T_{direction}(c))_1) , ... , \sh(b_{*,n},(T_{direction}(c))_n) )
 \end{align*}
 and
 \begin{align*}
-	T_{tape}: (A^\Z)^n \times S &\to (A^\Z)^n \\
-	(a,s) &\mapsto T_{shift} ((T_{write} (a,s) , s) , a)
+	T_{tape}: C &\to (A^\Z)^n \\
+	c &\mapsto T_{shift} (T_{write} (c) , c)
 \end{align*}
-So given some tapes and a state, we regard the symbols at position 0 of every tape and change them according to the map $T_{write}$.
-Then we shift those new tapes according to $T_{direction}$ but to determine the direction we use the unchanged symbols.
 
 Finally we can define the \emph{transition map} $T:C\to C$ nicely:
 \begin{align*}

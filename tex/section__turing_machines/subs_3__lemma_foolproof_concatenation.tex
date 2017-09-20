@@ -23,12 +23,12 @@ and thus
 	=~&FC(N)~\dot\cup~FC(M)
 \end{align*}
 Let $c \in FC(N \circ M)$. As we have just seen, that means $c$ is either in $FC(N)$ or in $FC(M)$.
-\paragraph{Case 1: $c \in FC(N)$}
+\paragraph{Case 1 $[c \in FC(N)]$:}
 We have
 $T(N \circ M)^k (c) = T(N)^k (c) ~\text{for every}~ k \in \N \cup \{\infty\}$
 and therefore $T(N \circ M)_{state}^\infty(c) = T(N)_{state}^\infty(c) \in \STOPS$
 since $N$ is foolproof.
-\paragraph{Case 2: $c \in FC(M)$}
+\paragraph{Case 2 $[c \in FC(M)]$:}
 As $M$ is foolproof we know there is some $k \in \N$ such that $T(M)_{state}^k(c) \in \{\ACC(M),\REJ(M)\}$.
 In case it is \REJ, we are done.
 Otherwise $T(N \circ M)^k(c) = (T(M)_{tape}^k,\INI(N)) =: c^\prime \in FC(N)$.

@@ -7,11 +7,11 @@
 	\node[] (c) [right=4 of M] {};
 
 	\node[state] (M1) [below=1 of Ma] {};
-	\node[state] (M0) [left=3 of M1] {};
+	\node[state] (M0) [left=3 of M1] {\INI};
 	\node[state] (MA) [below=3 of M1] {\ACC};
 	\node[state] (MR) [below=3 of M0] {\REJ};
 
-	\node[state] (N0) [below=1 of Na] {};
+	\node[state] (N0) [below=1 of Na] {\INI};
 	\node[state] (N1) [right=3 of N0] {};
 	\node[state] (NA) [below=3 of N1] {\ACC};
 	\node[state] (NR) [below=3 of N0] {\REJ};
@@ -21,7 +21,7 @@
 	\node[] (NoM) [below=6 of c] {\textbf{N $\circ$ M}};
 
 	\node[state] (CM1) [below=6 of M1] {};
-	\node[state] (CM0) [below=6 of M0] {};
+	\node[state] (CM0) [below=6 of M0] {\INI};
 
 	\node[state] (CN0) [below=6 of N0] {};
 	\node[state] (CN1) [below=6 of N1] {};

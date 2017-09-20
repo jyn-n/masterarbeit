@@ -4,10 +4,10 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 \begin{Theorem}
 	\label{turing_machines:main_theorem:theorem}
 	For every Turing machine $M$ on one tape (i.e. $n(M) = 1$), there is a foolproof readonly Turing machine $N$ on two tapes such that
-	there is a computable\footnotemark map $f: IC(M) \to C(N)$
-	satisfying \IM{f(AC(M)) = AC(N)}.
-	\footnotetext{The notion of computability will be discussed in chapter \ref{halting_problem:computability}.}
-	\footnotemark
+	there is a computable
+	\footnote{The notion of computability will be discussed in chapter \ref{halting_problem:computability}.}
+	map $f: IC(M) \to C(N)$
+	satisfying \IM{f(AC(M)) = AC(N)}.\footnotemark
 \end{Theorem}
 \footnotetext{For a thorough understanding of this notion of similarity between classes of Turing machines see \cite{rog96}.}
 \begin{Remark}
@@ -16,35 +16,42 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 \proof
 	Let $M$ be a Turing machine on one tape.
 	We first construct the map $f$ to get an idea what $N$ is supposed to do and then construct $N$ itself.
-	But to define $f$ we have to know what $C(N)$ looks like.
-	The state-part of $f(c)$ should always be \INI. Therefore it suffices for now to define $A(N)$:
+	But to define $f$ we have to know what the configurations $C(N)$ look like.
+	The state-part of $f(c)$ should always be \INI. Therefore it suffices for now to define the alphabet $A(N)$:
 	\begin{align*}
-		A(N) := (A(M) \times \{0,1\} \times \{0,1\})~\dot\cup~S(M)~\dot\cup~\{|\}~\dot\cup~\{\EMP\}
+		A(N) := (A(M) \times \{0,1,2\})~\dot\cup~S(M)~\dot\cup~\{|\}~\dot\cup~\{\EMP\}
 	\end{align*}
-	Think of a symbol $a \in A(N)$ as either a state or a symbol of $M$, or the ``separator'' symbol $|$.
-	If $a$ happens to be a symbol of $M$ it might or might not be ``marked'' in two different ways.
-	The first marking should be interpreted as ``position $0$'', the second marking means ``new position''
-	and for $a \in A(M)$ we will write
-	$\underline{a}$, $\boldsymbol{a}$ and $\underline{\boldsymbol{a}}$ for position $0$-$a$, new position $a$ and new position $0$-$a$ (i.e. $(a,1,0)$, $(a,0,1)$ and $(a,1,1)$) respectively.
+	Think of a symbol $x \in A(N)$ as either a state or a symbol of $M$, or the ``separator'' symbol $|$.
+	If $x$ happens to be a symbol of $M$ it might or might not be ``marked'' in one of two different ways.
+	The first marking should be interpreted as ``position $0$'', the second marking means ``new position''.
+
+	For $x \in A(M)$ we will write
+	$\underline{x}$ and $\underline{\boldsymbol{x}}$ for ``position $0$''-$x$ and ``new position''-$x$ (i.e. $(x,1)$ and $(x,2)$) respectively.
 
 	Thus a finite configuration $c \in FC(M)$ may be interpreted as a word over this alphabet:
 	The first symbol is the state of $c$. The following symbols are the (mostly) non-\EMP-part of the tape with the symbol at index $0$ underlined.
+	The underlined symbol might or might not be bold. This will become important for technical reasons later on.
+
+	For example, the configuration $(a,s) \in FC(M)$ with $a_{-1} = 0$, $a_{0} = 1$, $a_{1} = 0$, $a_{3} = 1$, $a_i = \EMP$ for every $i \in \Z \setminus \{-1,0,1,3\}$ corresponds to the word
+	\begin{align*}
+		s~0~\underline{1}~0~\EMP~1
+	\end{align*}
 
 	Similarly a word over $A(N)$ might denote a sequence of configurations by containing each of those configurations separated by $|$.
 
-	Now we define the tape-part of $f(c)$ to be the word
+	Now we define the tape-part of $f(c)$ such that both tapes are the (same) word
 	\begin{align*}
 		c~|~T(c)~|~T^2(c)~|~...~|~T^k(c)
 	\end{align*}
 	if $T^k(c) = T^{k+1}(c)$ and the respective infinitely long word otherwise (note that every single configuration is still finite).
 
 	There is some ambiguity in this definition as it is not clear exactly how many \EMP-symbols should be in a given configuration.
-	This we resolve thus: $c$ itself should be as short as possible, that is it contains the underlined symbol, all non-\EMP-symbols and any \EMP~in between, but no more.
+	This we resolve as follows: $c$ itself should be as short as possible, that is, it contains the underlined symbol, all non-\EMP-symbols and any \EMP~in between, but no more.
 	Two consecutive configurations should have the same length if possible. If not, the second configuration may be one symbol longer.
-	This occurs if the underlined symbol is rightmost (or leftmost) and $T_{direction}$ is $1$ (or $-1$).
+	This occurs if the underlined symbol is rightmost (or leftmost) and $T_{direction}(M)$ is $1$ (or $-1$).
 	In this and only this case, the underlined symbol in the second configuration should be bold (i.e. marked as new position).
 
-	Now we are ready to define the Turing machine $N$ itself. This we do in four stages as outlined below:
+	Now we are ready to define the Turing machine $N$ itself. This we do in four stages $N_1$ to $N_4$ as outlined below:
 	\begin{figure}[H]
 		\centering
 		\input{section__turing_machines/proof_plan}
@@ -62,8 +69,8 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 	\end{itemize}
 	It does not yet check that the lengths of two consecutive configurations differ by at most one symbol. This is deferred to the fourth stage.
 
-	The set of states of this first stage is $\{\INI,\ACC,\REJ,1,2,3,4,4^\prime\}$.
-	$T_{direction}(c)$ is 1 for both tapes, unless $T_{state}(c) \in \STOPS$, in which case it is 0. $T_{write}$ is determined by the readonly-property.
+	The set of states of this first stage is $\{\INI,\ACC,\REJ,1,2,3,4,\textbf{4}\}$.
+	$T_{direction}(c)$ is 1 for both tapes, unless $T_{state}(N_1)(c) \in \STOPS$, in which case it is 0. $T_{write}(N_1)$ is determined by the readonly-property.
 	
 	\begin{figure}
 		\centering
@@ -72,25 +79,26 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 		\label{turing_machines:main_theorem:fig_stage1}
 	\end{figure}
 
-	$T_{state}$ can be seen in Figure \ref{turing_machines:main_theorem:fig_stage1}:
-	For some configuration $s \in S, a_1,a_2 \in A$, we set \IM{T_{state}((a_1,a_2),s) := t} if there is an edge from $s$ to $t$ whos label matches $(a_1,a_2)$.
-	If there is no such edge for any $t$, then \IM{T_{state}((a_1,a_2),s) = \REJ}.
+	$T_{state}(N_1)$ can be seen in Figure \ref{turing_machines:main_theorem:fig_stage1}:
+	For some configuration with state $s \in S$ and $0$-position symbols $a_1,a_2 \in A$, we set \IM{T_{state}(N_1)((a_1,a_2),s) := t} if there is an edge from $s$ to $t$ whos label matches $(a_1,a_2)$.
+	If there is no such edge for any $t$, then \IM{T_{state}(N_1)((a_1,a_2),s) = \REJ}.
 
-	To understand what is happening here, let us give more meaningful names to the states:
+	To understand what is happening here, consider the following situations associated to the states.
+	For some input that will be accepted in the end, we should be in the respective situation when the turing machine is in a given state.
 	\begin{align*}
 		1 &\mapsto~\text{start of a new configuration} \\
 		2 &\mapsto~\text{start of the tape} \\
 		3 &\mapsto~\text{somewhere in the non-positive part of the tape} \\
 		4 &\mapsto~\text{somewhere in the positive part of the tape} \\
-		4^\prime &\mapsto~\text{previous symbol was bold and not the first one of the tape} \\
+		\textbf{4} &\mapsto~\text{previous symbol was bold and not the first one of the tape} \\
 	\end{align*}
 	The loop \IM{1 \to 2 \to 3 \to 4 \to 1} only goes through if both tapes are equal and their $0$-position is the start of a configuration as described above.
 	Looping once will advance both tapes by exactly one configuration.
-	$4^\prime$ is required to make sure that at most the first and last symbol are bold.
+	$\textbf{4}$ is required to make sure that at most the first and last symbol are bold.
 
 	The second stage shifts both tapes by $-1$ until they hit an \EMP-symbol again, that is they are one symbol left of their original position.
 	The third stage shifts both tapes by $1$ again.
-	Thus the concatenation of the first three stages fulfills \IM{T^\infty(a,\INI) = (a,\ACC)} if $a$ is of correct form and is undefined or has a different state otherwise.
+	Thus for an initial configuration $(a,\INI)$, the concatenation of the first three stages fulfills \IM{T^\infty(a,\INI) = (a,\ACC)} if $a$ is of correct form and is undefined or has a different state otherwise.
 	Note that the first stage does not stop for $f(c)$, if $M$ does not stop for $c$. But this is not a problem as in particular it does not accept $c$.
 
 	Now that we know the input is the same on both tapes and of the form
@@ -102,7 +110,7 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 	This is done by the fourth stage.
 	Its set of states is
 	\begin{align*}
-		(\{-1,0,1,2,3,4,5\} \times A(M) \times S(M))~\cup~\{\INI,\ACC,\REJ\}
+		(\{-1,0,1,2,3,\textbf{3},4\} \times A(M) \times S(M))~\cup~\{\INI,\ACC,\REJ\}
 	\end{align*}
 	This stage should be readonly again so $T_{write}$ is already defined.
 
@@ -125,9 +133,12 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 		T_{state}((x,y),(p,a,s)) &:= (q,b,t) \\
 		T_{direction}((x,y),(p,a,s)) &:= (i,j)
 	\end{align*}
-	$(a,s)$ may be omitted or any of $a$, $s$, $x$ and $y$ may be $*$. This means that the above definition may be applied, whatever the respective value is.
+	$(a,s)$ may be omitted or any of $a$, $s$, $x$ and $y$ may be $*$. This means that the above definition may be applied, whatever the respective value is, if no other edge may be applied.
 	If $(a,s)$ and $(b,t)$ are both omitted, assume \IM{(b,t) = (a,s)} and $a$ and $s$ may be any value again.
 	If $b$ or $t$ is $*$, assume \IM{b = \EMP}~and \IM{t = \INI}~respectively for sake of disambiguity but consider the concrete value not to be actually important.
+
+	In the diagram, $T_{direction}$, $T_{write}$ and $T_{state}$ refer to the turing machine $M$.
+	Any symbols $a$, $s$ and $x$ are arbitrary elements of their respective sets. Multiple occurences of the same symbol denote the same element within a single edge but might denote different elements on different edges.
 
 	Now that we understand how to read the diagram we can try to gather what is happening. To this end we again give more descriptive names to the states:
 	\begin{align*}
@@ -136,8 +147,8 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 		1 &\mapsto~\text{start of configuration} \\
 		2 &\mapsto~\text{somewhere in configuration} \\
 		3 &\mapsto~\text{direction = -1} \\
-		4 &\mapsto~\text{direction = -1, new position} \\
-		5 &\mapsto~\text{direction = 1}
+		\textbf{3} &\mapsto~\text{direction = -1, new position} \\
+		4 &\mapsto~\text{direction = 1}
 	\end{align*}
 	Initially both tapes should be at their leftmost position.
 	The states \INI, -1 and 0 advance the second tape by one configuration.
@@ -145,7 +156,7 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 	The ``memory'' should contain the underlined symbol of $c_i$, i.e. $T_{tape}^0(c_i)_0$.
 	Then follows a sequence of cycles of the form
 	\begin{align*}
-		1 \to 2 \to 2 \to ... \to 2 \to (2~\text{or}~3~\text{or}~4~\text{or}~5) \to 2 \to ... \to 2 \to 1
+		1 \to 2 \to 2 \to ... \to 2 \to (2~\text{or}~3~\text{or}~\textbf{3}~\text{or}~4) \to 2 \to ... \to 2 \to 1
 	\end{align*}
 	Every such cycle shifts both tapes by one configuration while checking that the second one is the image of the first one under $T$.
 	The first edge \IM{1 \to 2} checks the correct application of $T_{state}$ and puts $T_{state}^0(c_i)$ into memory.

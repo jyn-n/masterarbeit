@@ -5,23 +5,23 @@
 	\node[state] (3) [below=6 of 2] {4};
 	\node[state] (4) [left=6 of 3] {1};
 	\node[state] (6) [below=6 of 4] {\ACC};
-	\node[state] (5) [right=12 of 6] {$4^\prime$};
+	\node[state] (5) [right=12 of 6] {\textbf{4}};
 
 	\path[->]
 		(0) edge [ left ]
-			node {$\begin{matrix}s \\ s\end{matrix}, s \in S$ }
+			node {$\begin{matrix}s \\ s\end{matrix}, s \in S(M)$ }
 			(1)
 		(1) edge [ above ]
-			node {$\begin{matrix}a \\ a\end{matrix}, a \in A$ }
+			node {$\begin{matrix}x \\ x\end{matrix}, x \in A(M)$ }
 			(2)
 		(2) edge [ loop , in=15 , out=75 , distance=50 , above ]
-			node {$\begin{matrix}a \\ a\end{matrix}, a \in A$}
+			node {$\begin{matrix}x \\ x\end{matrix}, x \in A(M)$}
 			(2)
 		(2) edge [ right ]
-			node {$\begin{matrix}\underline{a} \\ \underline{a}\end{matrix}, a \in A$}
+			node {$\begin{matrix}\underline{x} \\ \underline{x}\end{matrix}, x \in A(M)$}
 			(3)
 		(3) edge [ loop , in=285 , out=345 , distance=50 , below ]
-			node {$\begin{matrix}a \\ a\end{matrix}, a \in A$}
+			node {$\begin{matrix}x \\ x\end{matrix}, x \in A(M)$}
 			(3)
 		(3) edge [ below ]
 			node {$\begin{matrix}| \\ |\end{matrix}$}
@@ -30,19 +30,19 @@
 			node {$\begin{matrix}\EMP \\ \EMP\end{matrix}$}
 			(6)
 		(4) edge [ left ]
-			node {$\begin{matrix}s \\ s\end{matrix}, s \in S$}
+			node {$\begin{matrix}s \\ s\end{matrix}, s \in S(M)$}
 			(1)
 		(2) edge [ bend left ]
-			node {$\begin{matrix}\underline{\boldsymbol{a}} \\ \underline{\boldsymbol{a}} \end{matrix}, a \in A$}
+			node {$\begin{matrix}\underline{\boldsymbol{x}} \\ \underline{\boldsymbol{x}} \end{matrix}, x \in A(M)$}
 			(5)
 		(5) edge [ bend left ]
 			node {$\begin{matrix}| \\ |\end{matrix}$}
 			(4)
 		(1) edge [ bend left ]
-			node {$\begin{matrix}\underline{a} \\ \underline{a}\end{matrix}, a \in A$}
+			node {$\begin{matrix}\underline{x} \\ \underline{x}\end{matrix}, x \in A(M)$}
 			(3)
 		(1) edge [ bend right ]
-			node {$\begin{matrix}\underline{\boldsymbol{a}} \\ \underline{\boldsymbol{a}}\end{matrix}, a \in A$}
+			node {$\begin{matrix}\underline{\boldsymbol{x}} \\ \underline{\boldsymbol{x}}\end{matrix}, x \in A(M)$}
 			(3)
 	;
 \end{tikzpicture}
