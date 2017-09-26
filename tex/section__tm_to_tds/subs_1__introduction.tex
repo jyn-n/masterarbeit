@@ -1,5 +1,6 @@
 \subsection{Construction}
 \label{tm_to_tds:construction}
+%TODO why product of Z_2?
 
 Let $M$ be a readonly Turing machine.
 Then we define the Turing dynamical system $M^\prime$ as follows:
@@ -14,7 +15,8 @@ We set
 \begin{align*}
 	X := {{((\Z_2^{k})^\Z)}^{n(M)}} \times \Z_2^l
 \end{align*}
-Into this we can embed the configurations of $M$ by mapping the tapes via the identity to the left factor and the state in any way to the right factor except $0$.
+Into this we can embed the configurations of $M$ by embedding $A(M)~\cup\{\DELIM\}$ into $\Z_2^k$ and thereby mapping the tapes to the left factor and the state in any way to the right factor except $0$.
+
 Let us fix any such mapping and regard $C(M)$ as a subset of $X$ from now on.
 
 \begin{Notation}
@@ -24,7 +26,7 @@ Let us fix any such mapping and regard $C(M)$ as a subset of $X$ from now on.
 	\begin{align*}
 		\begin{bmatrix}
 			a_{-j},...,\underline{a_0},...,a_m
-		\end{bmatrix} := \{ (x,s) \in X = (\Z_2^k)^\Z \times \Z_2^l ~|~ x_i = a_i ~\forall i \in \{j,...,m\}\} 
+		\end{bmatrix} := \{ (x,s) \in X = (\Z_2^k)^\Z \times \Z_2^l ~|~ x_i = a_i ~\forall i \in \{-j,...,m\}\} 
 	\end{align*}
 	and
 	\begin{align*}
@@ -39,13 +41,13 @@ On $\Z_2$ we have a probability measure defined by
 \begin{align*}
 	\mu(0) = \mu(1) = \frac12
 \end{align*}
-This measure extends to the Haar measure\footnotemark on $X$.
-%TODO
+This measure extends to the normalized Haar measure\footnotemark on $X$.
+%TODO bei Jan abschreiben
 \footnotetext{Maybe reference and further explanation}
 
-For the division of $X$ we take \IM{\Z_2^{k * n(m)} \times \Z_2^l} to be the index set and for
+For the division of $X$ we take \IM{\Z_2^{k \cdot n(m)} \times \Z_2^l} to be the index set $J$ of the TDS $M^\prime$ and for
 \begin{align*}
-	z = (z_1,z_1,...z_n), z_i \in \Z_2^k, \sigma \in \Z_2^l
+	z = (z_1,...,z_n), z_i \in \Z_2^k ~\text{and}~\sigma \in \Z_2^l
 \end{align*}
 we set
 \begin{align*}
@@ -69,11 +71,12 @@ The sets $X_{z,\INI}$ we devide further into
 and its complement which we call $X_{z,\INI}$
 
 \begin{Remark}
-	Each $X_i$ has measure $2^{-(n+l)}$ except for those who's state is \INI. They have measure $2^{-(3*n+l)}$ if they have are of the form $X_{\overline{z,\INI}}$ and the complimental measure otherwise.
+	Each $X_i$ has measure $2^{-(n \cdot k+l)}$ except for those who's state is \INI.
+	They have measure $2^{-(3 \cdot n \cdot k+l)}$ if they are of the form $X_{\overline{z,\INI}}$ and the complimental measure otherwise.
 \end{Remark}
 
 We define the group $\Gamma$ and its action:
-$\Z^{n(m)}$ operates on the left factor of $X$ via its natural operation on the exponent of $\Z_2^k$.
+$\Z^{n(m)}$ operates on $X$ via addition on the exponent of the left factor of $X$.
 On the right factor we have the natural action of $\Aut \Z_2^l$.
 In total, we get
 \begin{align*}
@@ -83,24 +86,26 @@ acting on $X$.
 This group action preserves the measure $\mu$.
 %TODO explain?
 
-As for the $\gamma_i$ notice that
-$\Aut Z_2^l$ acts transitively on $\Z_2^l \setminus 0$ (which corresponds to the states of $M$).
-To see this, realize that every element of $\Z_2^l \setminus 0$ has order $2$ and thus any mapping \IM{x \mapsto y} for \IM{x,y \in \Z_2^l \setminus 0} can be extended to some (non-unique) automorphism $\phi_{x,y}$.
+Now we set the $\gamma_i$, that is we define an action on $X$ by assigning an element of $\Gamma$ to each $X_{z,\sigma}$.
+First notice that
+$\Aut Z_2^l$ acts transitively on $\Z_2^l \setminus \{0\}$ (which corresponds to the states of $M$).
+To see this, realize that every element of $\Z_2^l \setminus \{0\}$ has order $2$ and thus any mapping \IM{x \mapsto y} for \IM{x,y \in \Z_2^l \setminus \{0\}} can be extended to some (non-unique) automorphism $\phi_{x,y}$.
 
 Now set
 \begin{align*}
-	\gamma_{z,\sigma} := (T_{direction}(z_{*,0},\sigma) , \phi_{\sigma,(T_{state}(z_{*,0},\sigma))}) \in \Gamma
+	\gamma_{z,\sigma} := (T_{direction}(z,\sigma) , \phi_{\sigma,(T_{state}(z,\sigma))}) \in \Gamma
 \end{align*}
-where \IM{z_{*,0} = (z_{1,0},z_{2,0},...,z_{n,0}) \in (\Z_2^k)^n}
+for each $z \in \Z_2^{k \cdot n(M)}$ and $\sigma \in \Z_2^l \setminus \{0\}$.
 
 Now we only need to set the accepting, rejecting and inital sets:
 \begin{align*}
-	J_I & := \{(\overline{z,\INI}) ~\vert~ z \in \Z_2^{k * n(M)} \} \\
-	J_A & := \{(z,\ACC) ~\vert~ z \in A(M)^{k * n(M)} \subseteq \Z_2^{k * n(M)} \} \\
-	J_R & := \{(z,s) ~\vert~ z \in \Z_2^{k * n(M)} , s = \REJ \vee s \notin S(M) \} \\
+	J_I & := \{(\overline{z,\INI}) ~\vert~ z \in \Z_2^{k \cdot n(M)} \} \\
+	J_A & := \{(z,\ACC) ~\vert~ z \in A(M)^{n(M)} \subseteq \Z_2^{k \cdot n(M)} \} \\
+	J_R & := \{(z,s) ~\vert~ z \in \Z_2^{k \cdot n(M)} , s = \REJ ~\text{or}~ s \notin S(M) \} \\
 \end{align*}
-Thereby we have defined a Turing dynamical system $M^\prime$ such that \IM{T(M^\prime) = T(M)} on \IM{C(M) \subseteq X}.
+Thereby we have defined a Turing dynamical system $M^\prime$ such that its Turing map $T(M^\prime)$ equals the transition map $T(M)$ of the Turing machine $M$ on its domain which is  \IM{C(M) \subseteq X}.
 In the future we will use $T(M^\prime)$ and $T(M)$ interchangeably and call both just $T$ if a precise distinction is not necessary.
 
-Also we have \IM{IC(M) \subseteq I(M^\prime)}.
-Equality would of course be nicer here but (regarding $IC(M)$ as a subset of $X$) \IM{\mu(IC(M)) = 0} which is unacceptable for \IM{I(M^\prime)} as we will see in the next Lemma and warrants a little discomfort.
+Also we have \IM{IC(M) \subseteq I(M^\prime)} up to the \DELIM-symbol.
+Equality would of course be nicer here but (regarding $IC(M)$ as a subset of $X$) \IM{\mu(IC(M)) = 0}, since in $IC(M)$ we fix infinitely many symbols to be \EMP.
+Having measure $0$ is unacceptable for \IM{I(M^\prime)} and warrants a little discomfort as otherwise Lemma \ref{tm_to_tds:properties:lemma_fundamental_value} would not hold. 

@@ -2,6 +2,7 @@
 
 We shall now determine how properties of $M$ translate to $M^\prime$.
 
+First we will see that if $M$ accepts at least one initial element, then $M^\prime$ accepts more than a null-set and vice-versa.
 \begin{Lemma}
 	\label{tm_to_tds:properties:lemma_fundamental_value}
 	$AC(M) \neq \emptyset \Leftrightarrow \Omega_1(M^\prime) > 0$
@@ -12,15 +13,15 @@ We shall now determine how properties of $M$ translate to $M^\prime$.
 	First note that $(a,\INI) \in \mathcal{F}_1(M^\prime)$.
 	Assume for a moment that $n(M) = 1$, i.e. $M$ has just one tape. Consider
 	\begin{align*}
-		N := \{~ \sum_{i=0}^k T_{direction}(M)^i(a,\INI)~|~k \in \N ~\}
+		N := \{~ \sum_{i=1}^k T_{direction}(M)^i(a,\INI)~|~k \in \N ~\}
 	\end{align*}
-	As the sequence $(T^i(M)(a,\INI))_{i \in \N}$ and therefore $(T_{direction}^i(M)(a,\INI))_{i \in \N}$ is constant but for finitely many elements
-	and \IM{|T_{direction}(c)| \leq 1~\forall c \in C(M)}
+	As $M$ accepts $(a,\INI)$, we have that $(T_{direction}(M)^i(a,\INI))_{i \in \N}$ is constantly $0$ but for finitely many elements
+	and $T_{direction}(c) \in \{-1,0,1\}$ for every $c \in C(M)$
 	we have that \IM{N = \{ x,x+1,...,y \}} for some \IM{x,y \in \Z} with \IM{x \leq 0}, \IM{y \geq 0}.
 	
-	Clearly \IM{T^\infty (a,\INI)} only depends on $a_x, a_{x+1},...a_y$, i.e. for \IM{(b,\INI) \in FC(M)} with \IM{b_i = a_i~\forall i \in N} we have \IM{T^\infty(M)(a,\INI) = T^\infty(M)(b,\INI)}. Therefore
+	Clearly \IM{T^\infty (a,\INI)} only depends on $a_x,...,a_y$, i.e. for \IM{(b,\INI) \in FC(M)} with \IM{b_i = a_i~\text{for every}~ i \in N} we have \IM{T^\infty(a,\INI) = T^\infty(b,\INI)}. Therefore
 	\begin{align*}
-		\left [ a_x, a_{x+1},...,\underline{a_0},...a_y \right ] \left [\INI \right ] \subseteq \mathcal{F}_1(M^\prime)
+		\left [ a_x,...,\underline{a_0},...,a_y \right ] \left [\INI \right ] \subseteq \mathcal{F}_1(M^\prime)
 	\end{align*}
 	But this set has positive measure, which proves the statement.
 
@@ -36,16 +37,16 @@ We shall now determine how properties of $M$ translate to $M^\prime$.
 				\EMP &\text{, otherwise}
 			\end{cases}
 		\end{align*}
-		This map extend to a map $f: (((\Z_2)^k)^\Z)^{n(M)} \to (A(M)^\Z)^{n(M)}$.
-		For any $c = (a,s) \in \mathcal{F}_1(M^\prime)$ we have $s \in S(M)$ and $T^\infty(a,s) = T^\infty(f(a),s)$, as if the state were different, or any symbols outside $A(M)$ were actually relevant, $M^\prime$ would reject $(a,s)$ by construction.
+		This map extends to a map $f: (((\Z_2)^k)^\Z)^{n(M)} \to (A(M)^\Z)^{n(M)}$.
+		For any \IM{c = (a,s) \in \F_1(M^\prime)} we have $s = \INI \in S(M)$ and $T^\infty(a,s) = T^\infty(f(a),s)$, since if any symbols outside $A(M)$ were actually relevant, $M^\prime$ would reject $(a,s)$ by construction.
 
 		Now consider the set
 		\begin{align*}
-			Y := \{ (a,s) \in X ~|~ a_i \neq \EMP ~\forall i \in \Z_+ ~\vee a_i \neq \EMP ~\forall i \in \Z_{-} \}
+			Y := \{ (a,s) \in X ~|~ a_i \neq \EMP ~\forall i \in \Z_+ ~\vee~ a_i \neq \EMP ~\forall i \in \Z_{-} \}
 		\end{align*}
 		Clearly $\mu(Y) = 0$, so $\mathcal{F}_1 \setminus Y \neq \emptyset$, i.e. there is some $c = (a,s)$ which $M^\prime$ accepts such that there are $x < 0 < y$ with $a_x = a_y = \EMP$.
 		But $M$ does not cross the $\EMP$-symbol, so $T^\infty(c) = T^\infty(c^\prime)$ for any $c^\prime \in \lbrack \EMP, a_{x+1}, ... , \underline{a_0}, ... , a_{y-1}, \EMP \rbrack \lbrack s \rbrack$.
-		In particular, $M^\prime$ accepts $f((...,\EMP,a_{x+1},...,\underline{a_0},...,a_{y-1},\EMP,...),s)$.
+		In particular, $M^\prime$ accepts $(f(...,\EMP,a_{x+1},...,\underline{a_0},...,a_{y-1},\EMP,...),s)$.
 		
 		But that is a finite configuration of $M$ which $M^\prime$ and hence also $M$ accepts, which is exactly what we are looking for.
 \endproof
@@ -59,20 +60,21 @@ We shall now determine how properties of $M$ translate to $M^\prime$.
 
 	We only consider the case that $M$ has just one tape, otherwise we do the following once for every tape.
 	With probability $1$, there are $x < 0 < y$ with $a_x = a_y = \EMP$.
+	That is the set of elements which do not meet this criterion is a null-set.
 	Since $M$ is readonly, it does not cross the $\EMP$-symbol. Therefore for
 	\begin{align*}
-		c^\prime = ((...\EMP,a_{x+1},...,a_0,...a_{y-1},\EMP,...) , s)
+		c^\prime = ((...\EMP,a_{x+1},...,a_0,...,a_{y-1},\EMP,...) , s)
 	\end{align*} 
 	we have $T^\infty(c^\prime) = T^\infty(c)$.
 
-	Now there might be some $i \in \{x,x+1,...,y\}$ such that $a_i \notin A(M)$.
-	Either, this symbol is encountered at some point (i.e. $\sum_{i=1}^k T_{direction}^i(c) = i$), in which case $M^\prime$ rejects $c$.
+	Now there might be some $i \in \{x+1,...,y-1\}$ such that $a_i \notin A(M)$.
+	Either, this symbol is encountered at some point (i.e. $\sum_{i=1}^k T_{direction}^i(c) = i$ for some $k \in \N$), in which case $M^\prime$ rejects $c$.
 
 	Or it is not encountered. But then we may choose an absolutely smaller $x$ or $y$ such that we can construct $c^\prime$ as above and still get $T^\infty(c^\prime) = T^\infty(c)$.
-	But if for no $i \in \{x+1,...,y-1\}$ we have $a_i \notin A(M)$, then $c^\prime$ is a finite configuration of $M$.
+	But if for no \IM{i \in \{x+1,...,y-1\}} we have $a_i \notin A(M)$, then $c^\prime$ is a finite configuration of $M$.
 	$M$ stops for this $c^\prime$ because it is foolproof and hence $M^\prime$ stops for $c$.
 
-	To sum up, with probability $1$ either $M^\prime$ rejects $c$ outright, or it behaves as $M$ would for $c^\prime$, that is in particular it stops.
+	To sum up, with probability $1$ either $M^\prime$ rejects $c$ because a dummy symbol or state occurs, or it behaves as $M$ would for $c^\prime$, that is in particular it stops.
 \endproof
 
 \begin{Lemma}
@@ -80,14 +82,15 @@ We shall now determine how properties of $M$ translate to $M^\prime$.
 	$M^\prime$ has disjoint accepting chains.
 \end{Lemma}
 \proof
-Consider a configuration \IM{c \in A \cup R} with a tape \IM{z \in (\Z_2^k)^\Z}
+%TODO \F_1, falls definition geaendert
+Consider a configuration \IM{c \in A(M^\prime) \cup R(M^\prime)}, that is $M^\prime$ stops for $c$. Call one of its tapes \IM{z \in (\Z_2^k)^\Z}.
 Assume there are \IM{i,j \in \N_0} such that \IM{z_i = z_{-j} = \DELIM}.
 Let $i$ and $j$ be minimal with that property, i.e.
 \begin{align*}
 	z \in \left [ \DELIM , z_{-j+1} , ... , \underline{z_0} , ... , z_{i-1} , \DELIM \right ]
 \end{align*}
-where none of the $z_l$ is \DELIM.
-Since $T$ ``shifts the underlinings'' by at most one position and an underlined \DELIM~ would be rejected immediately, we know that for preimages of $c$ under several applications of $T$, the underlining must always be on one of $z_{-j+1}$ through $z_{i-1}$. For any initial configuration with this property, the tape is of the form
+where none of the $z_l, l \in \{-j+1,...,i-1\}$ is \DELIM.
+Since $T$ ``shifts the underlinings'' by at most one position and an underlined \DELIM~would be rejected immediately, we know that for preimages of $c$ under several applications of $T$, the underlining must always be on one of $z_{-j+1}$ through $z_{i-1}$. For any initial configuration with this property, the tape is of the form
 \begin{align*}
 	\left [ \DELIM , \EMP , \underline{z_{-j+2}} , ... , z_{i-1} , \DELIM \right ]
 \end{align*}

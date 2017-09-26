@@ -8,18 +8,18 @@
 \proof
 Let $U \subseteq X$ be measurable. We have
 \begin{align*}
-	T^{-1}(U) = \bigcup_{i=1}^n (\gamma_i^{-1} \bullet U) \cap X_i
+	T^{-1}(U) = \bigcup_{i \in J} (\gamma_i^{-1} \bullet U) \cap X_i
 \end{align*}
 and
 \begin{align*}
-	T(U) = \bigcup_{i=1}^n T(U \cap X_i) = \bigcup_{i=1}^n \gamma_i \bullet (U \cap X_i)
+	T(U) = \bigcup_{i \in J} T(U \cap X_i) = \bigcup_{i \in J} \gamma_i \bullet (U \cap X_i)
 \end{align*}
 both of which are measurable as all the $X_i$ are measureable and the $\gamma_i$ are measure preserving and thus
 \begin{align*}
 	  &\mu(T(U)) \\
-	=~&\mu(\bigcup_{i=1}^n \gamma_i \bullet (U \cap X_i)) \\
-	\leq~&\sum_{i=1}^n \mu(\gamma_i \bullet (U \cap X_i)) \\
-	=~&\sum_{i=1}^n \mu(U \cap X_i) \\
+	=~&\mu(\bigcup_{i \in J} \gamma_i \bullet (U \cap X_i)) \\
+	\leq~&\sum_{i \in J} \mu(\gamma_i \bullet (U \cap X_i)) \\
+	=~&\sum_{i \in J} \mu(U \cap X_i) \\
 	=~&\mu(U)
 \end{align*}
 In case of injectivity, the ``$\leq$'' is in fact an equality.

@@ -22,7 +22,7 @@
 
 \begin{Lemma}
 	\label{the_zero_divisor_problem:pontryagin_duality:lemma_dual_product}
-	Let $I$ be an index set and $G_i$ a group for every $i \in I$. Then
+	Let $I$ be an index set and $G_i$ a group for every $i \in I$ such that $\widehat{\prod_{i \in I} G_i}$ is defined. Then
 	\begin{align*}
 		\widehat{\prod_{i \in I} G_i} \cong \bigoplus_{i \in I} \widehat{G_i}
 	\end{align*}
@@ -31,26 +31,29 @@
 \proof
 	Let
 	\begin{align*}
-		\pr_i: \prod_{i \in I} G_i \to G_i
+		\pr_i: \prod_{j \in I} G_j \to G_i
 	\end{align*}
-	be the projection onto the $i$'th component and
+	be the canonical projection onto the $i$'th component and
 	\begin{align*}
-		\iota_i: G_i \to \prod_{i \in I} G_i
+		\iota_i: G_i \hookrightarrow \prod_{j \in I} G_j
 	\end{align*}
 	the canonical embedding.
 
 	Let $\varphi \in \widehat{\prod_{i \in I} G_i}$. Then we have
-	$\varphi = \prod_{i \in I} \varphi \circ \iota_i \circ \pr_i$.
+	\begin{align*}
+		\varphi = \prod_{i \in I} \varphi \circ \iota_i \circ \pr_i
+	\end{align*}
+	where the product refers to the multiplication in $\C$.
 	But for this to be well defined we require that almost all $\varphi \circ \iota_i \circ \pr_i$ are null.
-	Thus the isomorphism we are looking for is $\varphi \mapsto (\varphi \circ \iota_i)_{i \in I}$ and the inverse is $(\psi_i)_{i \in I} \mapsto \prod_{i \in I} \psi_i$.
+	Thus the isomorphism we are looking for is $\varphi \mapsto (\varphi \circ \iota_i)_{i \in I}$ and the inverse is $(\psi_i)_{i \in I} \mapsto \prod_{i \in I} \psi_i \circ \pr_i$.
 \endproof
 
 \begin{Example}
 	\label{the_zero_divisor_problem:pontryagin_duality:example_duals}
 	\
 	\begin{itemize}
-		\item {$\widehat{\Z_2} \cong \Z_2$}
-		\item {$\widehat{(\Z_2)^n} \cong (\Z_2)^n ~\forall n \in \N$}
+		\item {$\widehat{\Z_2} = \Hom(\Z_2,\T) \cong \Z_2$}
+		\item {$\widehat{(\Z_2)^n} \cong (\Z_2)^n ~\text{for all}~ n \in \N$}
 		\item {$\widehat{(\Z_2)^\Z} \cong (\Z_2)^{\oplus \Z}$}
 	\end{itemize}
 \end{Example}

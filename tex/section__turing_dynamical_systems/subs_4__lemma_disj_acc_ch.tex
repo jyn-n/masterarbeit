@@ -5,35 +5,54 @@
 \end{Lemma}
 
 \proof
-	We have 
+
+	Because of disjoint accepting chains, there is a set $M \subseteq \F_1$ such that $\mu(M) = \mu(\F_1)$ and $T^\infty$ is injective on $M$.
+
+	Also we have that $T^\infty = T^\infty \circ T$ and hence $T$ is injective on $M$ and $T^\infty$ is injective on $T(M)$.
+	By Lemma \ref{tds:lemma_tx_measurable:lemma} then, $\mu(T(M)) = \mu(M) = \mu(\F_1) = \Omega_1$.
+
+	Inductively, we get that $T$ is injective on $T^{i-1}(M)$ for every $i \in \N^+$ and hence $T^i$ is injective on $M$ and $\mu(T^i(M)) = \Omega_1$.
+
+	Clearly, 
 	\begin{align*}
-		T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1 \subseteq \mathcal{F}_1 ~\text{for every}~ i \in \N_0
+		T^i(M) \xrightarrow{i \to \infty} T^\infty(F_1) = F_2
 	\end{align*}
-	and for $x \in \mathcal{F}_1$
+	 and hence
 	\begin{align*}
-		T^i(x) \in \mathcal{F}_2 ~\text{for some}~ i \in \N_0
+		\Omega_1 = \mu(T^i(M)) \xrightarrow{i \to \infty} \mu(F_2) = \Omega_2
 	\end{align*}
-	and therefore
-	\begin{align*}
-		\mathcal{F}_1 = \bigcup_{i = 0}^\infty (T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)
-	\end{align*}
-	However on $T^{-i}(\mathcal{F}_2)$ we have $T^\infty = T^i$. Because of disjoint accepting chains, $T^\infty$ and therefore also $T^i$ is injective on $\mathcal{F}_2$ except for some null-set.
-	But then Lemma \ref{tds:lemma_tx_measurable:lemma} yields
-	\begin{align*}
-		\mu(T^i(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)) = \mu(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)
-	\end{align*}
-	Therefore
-	\begin{align*}
-		  &\Omega_1 \\
-		=~&\mu(\mathcal{F}_1) \\
-		=~&\mu(\bigcup_{i=0}^\infty T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)) \\
-		\leq~&\sum_{i=0}^\infty \mu(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1) \\
-		=~&\sum_{i=0}^\infty \mu(T^i(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)) \\
-		\leq~&\sum_{i=0}^\infty \mu(\mathcal{F}_2 \cap T^i(\mathcal{F}_1)) \\
-		=~&\mu(\bigcup_{i=0}^\infty \mathcal{F}_2 \cap T^i(\mathcal{F}_1)) \\
-		=~&\mu(\mathcal{F}_2 \cap \bigcup_{i=0}^\infty T^i(\mathcal{F}_1)) \\
-		=~&\mu(\mathcal{F}_2) \\
-		=~&\Omega_2
-	\end{align*}
-	But again by Lemma \ref{tds:lemma_tx_measurable:lemma}, $T$ is measure contracting, so in particular we have \IM{\Omega_1 \geq \Omega_2} which proves equality.
+	which concludes the proof.
+
 \endproof
+
+%\proof
+%	For $x \in \mathcal{F}_1$ we have
+%	\begin{align*}
+%		T^i(x) \in \mathcal{F}_2 ~\text{for some}~ i \in \N_0
+%	\end{align*}
+%	and therefore
+%	\begin{align*}
+%		\mathcal{F}_1 = \bigcup_{i = 0}^\infty (~T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1~)
+%	\end{align*}
+%	However on $T^{-i}(\mathcal{F}_2)$ we have $T^\infty = T^i$.
+%	Because of disjoint accepting chains, $T^\infty$ and therefore also $T^i$ is injective on $\mathcal{F}_1$ except for some null-set.
+%	But then Lemma \ref{tds:lemma_tx_measurable:lemma} yields
+%	\begin{align*}
+%		\mu(~T^i(T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1)~) = \mu(~T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1~)
+%	\end{align*}
+%	Therefore
+%	\begin{align*}
+%		  &\Omega_1 \\
+%		=~&\mu(~\mathcal{F}_1~) \\
+%		=~&\mu(~\bigcup_{i=0}^\infty T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1~) \\
+%		\leq~&\sum_{i=0}^\infty \mu(~T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1~) \\
+%		=~&\sum_{i=0}^\infty \mu(~T^i(~T^{-i}(\mathcal{F}_2) \cap \mathcal{F}_1~)~) \\
+%		\leq~&\sum_{i=0}^\infty \mu(~\mathcal{F}_2 \cap T^i(\mathcal{F}_1)~) \\
+%		=~&\mu(~\bigcup_{i=0}^\infty \mathcal{F}_2 \cap T^i(\mathcal{F}_1)~) \\
+%		=~&\mu(~\mathcal{F}_2 \cap \bigcup_{i=0}^\infty T^i(\mathcal{F}_1)~) \\
+%		=~&\mu(~\mathcal{F}_2~) \\
+%		=~&\Omega_2
+%	\end{align*}
+%	But again by Lemma \ref{tds:lemma_tx_measurable:lemma}, $T$ is measure contracting, so in particular we have \IM{\Omega_1 \geq \Omega_2} which proves equality.
+%\endproof
+%%TODO flawed proof; ueber konvergierendemengen argumentieren

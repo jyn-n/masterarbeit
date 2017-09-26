@@ -11,12 +11,18 @@ Similar to the notion of decidability as presented in Definition \ref{halting_pr
 	\begin{align*}
 		T^\infty(\emb{x},\INI) = (\emb{f(x)},\ACC) ~\text{for every}~ x \in X
 	\end{align*}
+	and
+	\begin{align*}
+		T^\infty(\emb{X}^c \times \{\INI\}) \subseteq \emb{Y}^c \times \{\ACC\}
+	\end{align*}
 \end{Definition}
+%TODO reject otherwise?
+%TODO A^* ist abzaehlbar
 
 \begin{Remark}
-	If $Y$ has more that countably many elements and embeds to $A^\Z$, then we define the map $f$ to be computable if there is a sequence of Turing machines with transition maps $T_i$ such that for every $x \in X$ there are $a_i \in A^*$ such that
+	If $Y$ has more than countably many elements and embeds to $A^\Z$, then we define the map $f$ to be computable if there is a sequence of Turing machines with transition maps $T_i$ such that for every $x \in X$ there are $a_i \in A^*$ such that
 	\begin{align*}
-		T_i^*(\emb{x}, \INI) = (a_i,\ACC) ~\text{for every}~ i \in \N
+		T_i^\infty(\emb{x}, \INI) = (a_i,\ACC) ~\text{for every}~ i \in \N
 	\end{align*}
 	and $a_i \xrightarrow{i \to \infty} \emb{f(x)}$.
 
@@ -24,9 +30,10 @@ Similar to the notion of decidability as presented in Definition \ref{halting_pr
 \end{Remark}
 
 In the following chapters we prove some problems to be undecidable.
-This means that there is a way of embedding instances of that problem into the words over some alphabet and no matter which embedding we choose there is no Turing machine that accepts instances of the problem with positive answer and rejects instances with negative answer.
+This means that there is a way of embedding instances of that problem into the words over some alphabet and no matter which embedding we choose there is no Turing machine that accepts all instances of the problem with positive answer and rejects all instances with negative answer.
 To do so, we will manipulate a multitude of mathematical objects and usually do so in a computable way, making sure that in the end there will be a Turing machine which translates instances of our original problem to instances of the halting problem.
 Then we can claim that if there was a Turing machine that solves our problem, then there would also be a Turing machine which solves the halting problem, leading to a contradiction.
+%TODO argument besser fuehren
 
 But rigorously checking computability in every instance would probably overshadow everything else done in this work.
 Therefore we resolve to a more intuitive notion of computability.

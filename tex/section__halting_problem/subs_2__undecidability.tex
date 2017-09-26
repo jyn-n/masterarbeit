@@ -13,7 +13,7 @@ First note that a Turing machine can always be finitely described. Thus there is
 
 Now we can formulate the following language:
 \begin{align*}
-	L_{TM} := \{~(\emb{M},w)~|~M~\text{accepts input}~w~\}
+	L_{TM} := \{~\emb{(M,w)}~|~M~\text{accepts input}~w \in A(M)^*~\}
 \end{align*}
 
 \begin{Theorem}[Halting problem]
@@ -31,19 +31,23 @@ Now we can formulate the following language:
 		\item Invert the output of $M$, i.e. reject if $M$ accepts and accept if $M$ rejects
 	\end{itemize}
 	Note that in the second step we use an embedding not of a Turing machine but of some other finite data.
+	%TODO embedding ausformulieren
 
 	Now we might ask ourselves, whether $N$ accepts \emb{N}.
-	As we can see, if $N$ accepts \emb{N}, then $M$ accepts \emb{$~(N,\emb{N})~$} and hence $N$ rejects \emb{N}.
+	As we can see, if $N$ accepts \emb{N}, then $\emb{(N,\emb{N})} \in L_{TM}$, hence $M$ accepts \emb{$~(N,\emb{N})~$} and by definition of $N$, $N$ rejects \emb{N}.
 	
 	But if $N$ rejects \emb{N}, then $M$ rejects \emb{$~(N,\emb{N})~$} and hence $N$ accepts \emb{N}.
 
+	Since $M$ stops on any input, so does $N$, which means $N$ either accepts or rejects \emb{N}.
 	So $N$ accepts \emb{N} if and only if $N$ rejects \emb{N}, which is a contradiction to the existence of $M$.
 \end{proof}
 
 \begin{Corollary}
 	The language
 	\begin{align*}
-		L_{TM}^\prime := \{ \emb{M} ~|~ \exists w \in A(M)^* ~\text{such that $M$ accepts input $w$} \}
+		L_{TM}^\prime
+		:=& \{ \emb{M} ~|~ \exists w \in A(M)^*: \emb{~(M,w)~} \in L_{TM} \} \\
+		=& \{ \emb{M} ~|~ \exists w \in A(M)^* ~\text{such that $M$ accepts input $w$} \}
 	\end{align*}
 	is not decidable.
 \end{Corollary}

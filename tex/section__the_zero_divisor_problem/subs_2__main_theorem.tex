@@ -11,22 +11,23 @@ For this proof, we will need Theorem 4.3 in conjunction with Lemma 6.4 from \cit
 		\item{
 			$M$ be a Turing dynamical system that
 			\begin{itemize}
-				\item{is foolproof}
-				\item{does not restart}
-				\item{has disjoint accepting chains}
+				\item is foolproof
+				\item does not restart
+				\item has disjoint accepting chains
 			\end{itemize}
 		}
 		\item{
-			$(X, \mu)$ the associated probability measure space where
+			$(X, \mu)$ be the associated probability measure space where
 			\begin{itemize}
-				\item{$X$ has an added group structure}
-				\item{which is of the form $\prod \Z_2$}
-				\item{the $X_i$ are also of that form}
+				\item $X$ has an added group structure
+				\item which is of the form $\prod_{\N} \Z_2$
+				\item the $X_i$ are also of that form up to isomorphy
+				\item $\mu$ is the haar measure
 			\end{itemize}
 		}
-		\item{$\Gamma$ the group acting by $\rho$ on $X$ as defined by $M$ which should act by continuous group automorphisms}
-		\item{$I$ the initial set}
-		\item{$\Omega_2$ the second fundamental value}
+		\item $\Gamma$ be the group acting by $\rho$ on $X$ as defined by $M$ which should act by continuous group automorphisms
+		\item $I$ be the initial set
+		\item $\Omega_2$ be the second fundamental value
 	\end{itemize}
 
 	Then there is an algorithm that produces an element $S \in \Q[\widehat{X} \rtimes_{\widehat{\rho}} \Gamma]$ such that
@@ -37,7 +38,9 @@ For this proof, we will need Theorem 4.3 in conjunction with Lemma 6.4 from \cit
 
 Now let us have a look at the following computational problem, which we call \emph{trivial \ltwo-betti-numbers}:
 
-Given a group $G$, a $G$-CW-Complex $X$ and $n \in \N$, is the n'th \ltwo-betti-number of $X$ equal to 0?
+\begin{Problem}
+	Given a discrete, countable group $G$, a free, finite-type $G$-CW-Complex $X$ and $n \in \N$, is the n'th \ltwo-betti-number of $X$ equal to 0?
+\end{Problem}
 
 \begin{Theorem}
 	\label{zero-divisor-problem:trivial_betti_numbers}
@@ -46,8 +49,11 @@ Given a group $G$, a $G$-CW-Complex $X$ and $n \in \N$, is the n'th \ltwo-betti-
 
 To prove this, we first consider a similar problem, namely:
 
-Given a group G and a matrix \IM{M \in (\Z[G])^{k \times k}}
-and considering the multiplication with $M$ in $\ltwo(G)^k$, is \IM{\ker M} trivial?
+\begin{Problem}
+	Given a discrete, countable group G and a matrix \IM{M \in (\Z[G])^{k \times k}}
+	and considering the multiplication with $M$ in $\ltwo(G)^k$, is \IM{\ker M} trivial?
+\end{Problem}
+%TODO left or right multiplication
 
 This problem we call \emph{kernel-over-$\Z[G]$}.
 
@@ -85,11 +91,12 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 	and $\Aut \Z_2^l$ acts on $(\Z_2)^l$ in the natural way.
 	Let us call these operations $\rho$ and $\sigma$ respectively.
 
-	Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} now states that there is an element $S \in \Q[\widehat{((\Z_2^k)^\Z)^2} \rtimes_{\widehat{\rho \times \sigma}} (\Z^2 \times \Aut \Z_2^l)$] that can be produced in an algorithmical fashion such that $\dim_{vN} \ker S = \mu(I) - \Omega_2$.
+	Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} now states that there is an element $S \in \Q[\widehat{((\Z_2^k)^\Z)^2 \times \Z_2^l} \rtimes_{\widehat{\rho \times \sigma}} (\Z^2 \times \Aut \Z_2^l)$] that can be produced in a computable fashion such that $\dim_{vN} \ker S = \mu(I) - \Omega_2$.
 	This value however is $0$ if and only if there is some input which $M$ accepts. So the question whether $\dim_{vN} \ker S = 0$ is generally undecidable.
 
 	It remains to show that we can asssociate $S$ to an element $N \in \Z[(\Z_2 \wr \Z)^2]^{k \times k}$ such that $\dim_{vN} \ker N = 0 \Leftrightarrow \dim_{vN} \ker S = 0$.
 
+%TODO really widehat, ref semidirect product
 	First we multiply $S$ by a sufficiently large integer such that it is an element of the group ring over $\Z$. We then have
 	\begin{align*}
 		      & \Z [ (\widehat{((\Z_2^k)^\Z)^2 \times \Z_2^l}) \rtimes_{\widehat{\rho \times \sigma}} (\Z^2 \times \Aut \Z_2^l) ]
@@ -102,34 +109,37 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 			~\text{(Lemma \ref{the_zero_divisor_problem:pontryagin_duality:lemma_dual_product})}
 		\\
 		\cong~& \Z [ ( (\Z_2^k)^{\oplus\Z} \rtimes_{\rho} \Z )^2 ] \otimes \Z [ ( \widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l ) ]
-			~\text{(Examples \ref{the_zero_divisor_problem:pontryagin_duality:example_duals} and \ref{the_zero_divisor_problem:pontryagin_duality:example_dual_action}}
+			~\text{(Examples \ref{the_zero_divisor_problem:pontryagin_duality:example_duals} and \ref{the_zero_divisor_problem:pontryagin_duality:example_dual_action})}
 	\end{align*}
 	Here $\rho$ generally denotes the action of $\Z$ by addition on the index set for several groups.
 
 	Now consider the group $(\Z_2^k)^{\oplus\Z}$. It is isomorphic to $\Z_2^{\oplus \Z}$ by
 	\begin{align*}
-		& ((x_{i,j})_{i = 1 .. k})_{j \in \Z} \mapsto (x_{k \cdot j + i})_{k \in \{1,..,k\}, j \in \Z}
+		& ((x_{i,j})_{i = 1 .. k})_{j \in \Z} \mapsto (x_{k \cdot j + i})_{i \in \{1,..,k\}, j \in \Z}
 	\end{align*}
 	and transforming $\rho$ via this automorphism yields
 	\begin{align*}
-		(\Z_2^k)^{\oplus\Z} \rtimes_\rho \Z \cong \Z_2^{\oplus\Z} \rtimes_{\rho} \Z \cong \Z_2 \wr \Z
+		(\Z_2^k)^{\oplus\Z} \rtimes_\rho \Z ~\cong~ \Z_2^{\oplus\Z} \rtimes_{\rho} \Z ~\cong~ \Z_2 \wr \Z
 	\end{align*}
 	and thus we may assume $S \in \Z[(\Z_2 \wr \Z)^2] \otimes \Z[H]$ for some finite group $H$ (namely $\widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l$).
 	But for a finite group $H$, $\ltwo(H) \cong \C[H]$ and thus an element of $\Z[H]$, which is a linear map on $\ltwo(H)$, can be seen as a finitely dimensioned matrix with entries in $\Z$.
 	Hence $\Z[H] \hookrightarrow \Z^{n \times n}$ in a way that translates von-Neumann-Trace to the usual trace of a matrix (up to a factor $n$).
 	To see this note that the von-Neumann trace of an element of $(a_g)_{g \in G} \in \Z[H]$ is just $a_1$, which translates to every diagonal element of the matrix.
+%TODO erklaeren
 
 	In particular, a $0$-von-Neumann trace translates to a $0$-trace of the matrix.
 
-	But now we have (up to (von-Neumann-) trace preserving isomorphisms)
+	But now we have
 	\begin{align*}
 		S ~\in~ \Z[(\Z_2 \wr \Z)^2] \otimes \Z[H] ~\subseteq~ \Z[(\Z_2 \wr \Z)^2] \otimes \Z^{n \times n} ~\cong~ \Z[(\Z_2 \wr \Z)^2]^{n \times n}
 	\end{align*}
-	which concludes the proof.
+	and a $0$-von-Neumann trace translates to a $0$-trace, which concludes the proof.
 \endproof
+%TODO erklaeren dass zu jeder TM eine Matrix gehoert
 
 \proof[Proof of Theorem \ref{zero-divisor-problem:trivial_betti_numbers}]
-	A finite type $G$-CW-complex can be described uniquely by its attaching maps which in turn can be described as a finite dimensional matrix with entries in $\Z[G]$. Also given such a matrix we can construct a unique $G$-CW-complex. The \ltwo-cohomology then corresponds to the kernel of that matrix.
+	A free, finite type $G$-CW-complex can be described uniquely by its attaching maps which in turn can be described as a finite dimensional matrix with entries in $\Z[G]$. Also given such a matrix we can construct a unique $G$-CW-complex. The \ltwo-homology then corresponds to the kernel of that matrix.
 	Thus if there is an algorithm that solves \emph{trivial \ltwo-betti-numbers} for a given group $G$ then that algorithm also solves \emph{kernel-over-$\Z[G]$}. But Theorem \ref{zero-divisor-problem:kernel-over-zg} states that there is no such algorithm for $G = (\Z_2 \wr \Z)^2$.
 \endproof
+%TODO ref lueck
 
