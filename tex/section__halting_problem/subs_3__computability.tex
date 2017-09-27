@@ -16,11 +16,12 @@ Similar to the notion of decidability as presented in Definition \ref{halting_pr
 		T^\infty(\emb{X}^c \times \{\INI\}) \subseteq \emb{Y}^c \times \{\ACC\}
 	\end{align*}
 \end{Definition}
-%TODO reject otherwise?
-%TODO A^* ist abzaehlbar
 
 \begin{Remark}
-	If $Y$ has more than countably many elements and embeds to $A^\Z$, then we define the map $f$ to be computable if there is a sequence of Turing machines with transition maps $T_i$ such that for every $x \in X$ there are $a_i \in A^*$ such that
+	$A^*$ is countable since it is the union of countably many finite sets.
+	But we can regard $A^*$ as a subset of $\{A ~\dot\cup~ \{\EMP\}\}^{\N_0}$ and hence $\{A ~\dot\cup~ \{\EMP\}\}^\Z$ in a very natural way.
+
+	If $Y$ has more than countably many elements and embeds to $\{A ~\dot\cup~ \{\EMP\}\}^\Z$, then we define the map $f$ to be computable if there is a sequence of Turing machines with transition maps $T_i$ such that for every $x \in X$ there are $a_i \in A^*$ such that
 	\begin{align*}
 		T_i^\infty(\emb{x}, \INI) = (a_i,\ACC) ~\text{for every}~ i \in \N
 	\end{align*}
@@ -36,8 +37,9 @@ Then we can claim that if there was a Turing machine that solves our problem, th
 %TODO argument besser fuehren
 
 But rigorously checking computability in every instance would probably overshadow everything else done in this work.
-Therefore we resolve to a more intuitive notion of computability.
+Therefore we resolve to a more intuitive notion of computability.\footnotemark
 A nice description of this notion can be found in \cite{bbj07}:
+\footnotetext{Remark \ref{remarks:intuitive_algorithms} tells us where one might get such an intuition from.}
 \begin{quotation}
 	``A function $f$ from positive integers to positive integers is called \emph{effectively computable} if a list of instructions can be given that in principle make it possible to determine the value $f(n)$ for any argument $n$. The instructions must be completely definite and explicit. They should tell you at each step what to do, not tell you to go ask someone else what to do, or figure out for yourself what to do: the instructions should require no external sources of information, and should require no ingenuity to execute, so that one might hope to automate the process of applying the rules, and have it performed by some mechanical device.''
 \end{quotation}

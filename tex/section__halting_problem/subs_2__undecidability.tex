@@ -11,14 +11,21 @@ First note that a Turing machine can always be finitely described. Thus there is
 	M &\mapsto \emb{M}
 \end{align*}
 
+Similarly, we can embed other data to $A^*$, in particular, we use the following embedding which we also call \emb{\cdot}:
+\begin{align*}
+	\emb{\cdot} : \{ ~ (M,w) ~ | ~ M~\text{is a Turing machine}, w \in A(M)^* \} &\hookrightarrow A^* \\
+	M,w &\mapsto \emb{M,w}
+\end{align*}
+
 Now we can formulate the following language:
 \begin{align*}
 	L_{TM} := \{~\emb{(M,w)}~|~M~\text{accepts input}~w \in A(M)^*~\}
 \end{align*}
 
 \begin{Theorem}[Halting problem]
-	$L_{TM}$ is not decidable.
+	$L_{TM}$ is not decidable.\footnotemark
 \end{Theorem}
+\footnotetext{Remark \ref{remarks:scope_of_halting_problem} comments on the implications of this statement.}
 \begin{proof}[Sketch of proof]
 	As was already proven by Turing in \cite{tur36}, it is possible for a Turing machine on the alphabet $A$ to take some input \emb{M} and simulate the behaviour of the Turing machine $M$.
 	This possibility does not depend on the choice of embedding (compare \cite{sip06}).
@@ -30,8 +37,6 @@ Now we can formulate the following language:
 		\item Simulate $M$ on input \emb{$~(P,\emb{P})~$}
 		\item Invert the output of $M$, i.e. reject if $M$ accepts and accept if $M$ rejects
 	\end{itemize}
-	Note that in the second step we use an embedding not of a Turing machine but of some other finite data.
-	%TODO embedding ausformulieren
 
 	Now we might ask ourselves, whether $N$ accepts \emb{N}.
 	As we can see, if $N$ accepts \emb{N}, then $\emb{(N,\emb{N})} \in L_{TM}$, hence $M$ accepts \emb{$~(N,\emb{N})~$} and by definition of $N$, $N$ rejects \emb{N}.

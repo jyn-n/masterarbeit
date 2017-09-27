@@ -25,7 +25,7 @@ For this proof, we will need Theorem 4.3 in conjunction with Lemma 6.4 from \cit
 				\item $\mu$ is the haar measure
 			\end{itemize}
 		}
-		\item $\Gamma$ be the group acting by $\rho$ on $X$ as defined by $M$ which should act by continuous group automorphisms
+		\item $\Gamma$ be the group acting by $\rho$ on $X$ as defined by $M$ which should act by continuous group automorphisms\footnotemark
 		\item $I$ be the initial set
 		\item $\Omega_2$ be the second fundamental value
 	\end{itemize}
@@ -35,6 +35,8 @@ For this proof, we will need Theorem 4.3 in conjunction with Lemma 6.4 from \cit
 		\dim_{vN} ~ \ker ~ S = \mu(I) - \Omega_2
 	\end{align*}
 \end{Theorem}
+
+\footnotetext{Remark \ref{remarks:continuous_group_automorphisms} comments on continuous group automorphisms in our construction of a TDS in chapter \ref{tm_to_tds:construction}.}
 
 Now let us have a look at the following computational problem, which we call \emph{trivial \ltwo-betti-numbers}:
 
@@ -46,6 +48,8 @@ Now let us have a look at the following computational problem, which we call \em
 	\label{zero-divisor-problem:trivial_betti_numbers}
 	\emph{Trivial \ltwo-betti-numbers} is not decidable for \IM{G = (\Z_2 \wr \Z)^2}.
 \end{Theorem}
+
+%TODO zusammenhang zw kernen und bettizahlen
 
 To prove this, we first consider a similar problem, namely:
 
@@ -138,8 +142,9 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 %TODO erklaeren dass zu jeder TM eine Matrix gehoert
 
 \proof[Proof of Theorem \ref{zero-divisor-problem:trivial_betti_numbers}]
-	A free, finite type $G$-CW-complex can be described uniquely by its attaching maps which in turn can be described as a finite dimensional matrix with entries in $\Z[G]$. Also given such a matrix we can construct a unique $G$-CW-complex. The \ltwo-homology then corresponds to the kernel of that matrix.
+	A free, finite type $G$-CW-complex can be described uniquely by its attaching maps which in turn can be described as a finite dimensional matrix with entries in $\Z[G]$. Also given such a matrix we can construct a unique $G$-CW-complex. The \ltwo-homology then corresponds to the kernel of that matrix.\footnotemark
+
 	Thus if there is an algorithm that solves \emph{trivial \ltwo-betti-numbers} for a given group $G$ then that algorithm also solves \emph{kernel-over-$\Z[G]$}. But Theorem \ref{zero-divisor-problem:kernel-over-zg} states that there is no such algorithm for $G = (\Z_2 \wr \Z)^2$.
+	\footnotetext{For a full proof of these statements refer to \cite{luc02}.}
 \endproof
-%TODO ref lueck
 

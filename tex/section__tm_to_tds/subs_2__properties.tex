@@ -82,21 +82,20 @@ First we will see that if $M$ accepts at least one initial element, then $M^\pri
 	$M^\prime$ has disjoint accepting chains.
 \end{Lemma}
 \proof
-%TODO \F_1, falls definition geaendert
-Consider a configuration \IM{c \in A(M^\prime) \cup R(M^\prime)}, that is $M^\prime$ stops for $c$. Call one of its tapes \IM{z \in (\Z_2^k)^\Z}.
-Assume there are \IM{i,j \in \N_0} such that \IM{z_i = z_{-j} = \DELIM}.
-Let $i$ and $j$ be minimal with that property, i.e.
-\begin{align*}
-	z \in \left [ \DELIM , z_{-j+1} , ... , \underline{z_0} , ... , z_{i-1} , \DELIM \right ]
-\end{align*}
-where none of the $z_l, l \in \{-j+1,...,i-1\}$ is \DELIM.
-Since $T$ ``shifts the underlinings'' by at most one position and an underlined \DELIM~would be rejected immediately, we know that for preimages of $c$ under several applications of $T$, the underlining must always be on one of $z_{-j+1}$ through $z_{i-1}$. For any initial configuration with this property, the tape is of the form
-\begin{align*}
-	\left [ \DELIM , \EMP , \underline{z_{-j+2}} , ... , z_{i-1} , \DELIM \right ]
-\end{align*}
-and everything outside the \DELIM s is uniquely determined by $c$.
-The same argument can be applied to every single tape and the state of an initial configuration is always \INI.
-Thus, if \IM{(T^\infty)^{-1}(\{c\}) \cap I} is not empty, it has exactly one element.
+	Consider a configuration \IM{c \in F_1}. Call one of its tapes \IM{z \in (\Z_2^k)^\Z}.
+	Assume there are \IM{i,j \in \N_0} such that \IM{z_i = z_{-j} = \DELIM}.
+	Let $i$ and $j$ be minimal with that property, i.e.
+	\begin{align*}
+		z \in \left [ \DELIM , z_{-j+1} , ... , \underline{z_0} , ... , z_{i-1} , \DELIM \right ]
+	\end{align*}
+	where none of the $z_l, l \in \{-j+1,...,i-1\}$ is \DELIM.
+	Since $T$ ``shifts the underlinings'' by at most one position and an underlined \DELIM~would be rejected immediately, we know that for preimages of $c$ under several applications of $T$, the underlining must always be on one of $z_{-j+1}$ through $z_{i-1}$. For any initial configuration with this property, the tape is of the form
+	\begin{align*}
+		\left [ \DELIM , \EMP , \underline{z_{-j+2}} , ... , z_{i-1} , \DELIM \right ]
+	\end{align*}
+	and everything outside the \DELIM s is uniquely determined by $c$.
+	The same argument can be applied to every single tape and the state of an initial configuration is always \INI.
+	Thus, if \IM{(T^\infty)^{-1}(\{c\}) \cap I} is not empty, it has exactly one element.
 
-The assumption that on every tape there is at least one \DELIM~ in both the positive and negative parts is true with probability $1$ and therefore $T^\infty$ is injective on $I$ except for some null-set.
+	The assumption that on every tape there is at least one \DELIM~ in both the positive and negative parts is true with probability $1$ and therefore $T^\infty$ is injective on $I$ except for some null-set.
 \endproof

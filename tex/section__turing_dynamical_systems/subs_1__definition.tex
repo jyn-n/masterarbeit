@@ -5,14 +5,14 @@
 	\begin{itemize}
 		\item{a probability measure space $(X,\mu)$}
 		\item{a discrete countable topological group $\Gamma$}
-		\item{a measure preserving right group action $\rho : X \curvearrowleft \Gamma$ (write $\gamma \bullet x$ for $\rho(\gamma)(x)$)}
+		\item{a measure preserving group action $\rho : \Gamma \curvearrowright X$ (write $\gamma \bullet x$ for $\rho(\gamma)(x)$)}
 		\item{a division $X = \dot\bigcup_{i \in J} X_i$ into finitely many disjoint measurable subsets, $J$ is some finite index set}
 		\item{disjoint sets $J_I, J_R, J_A \subseteq J$}
 		\item{a map $J \to \Gamma, i \mapsto \gamma_i$ such that $\gamma_j = 1~\text{for all}~ j \in J_R \cup J_A$}
 	\end{itemize}
 \end{Definition}
-%TODO left group action?
 %TODO 1=e
+
 From this we can derive the \emph{initial set} $I = \bigcup_{i\in J_I} X_i$, the \emph{accepting set} $A = \bigcup_{i \in J_A} X_i$ and the \emph{rejecting set} $R = \bigcup_{i \in J_R} X_i$ as well as the \emph{Turing map}
 \begin{align*}
 	T : X &\to X \\
