@@ -47,9 +47,26 @@ On $\Z_2$ we have a probability measure defined by
 	\mu(0) = \mu(1) = \frac12
 \end{align*}
 This measure extends to the normalized Haar measure\footnotemark on $X$.
-%TODO bei Jan abschreiben
-\footnotetext{Maybe reference and further explanation}
+This measure has the nice property that calculating the measure for a certain class of subsets of $X$ is quite easy.
+Namely, the measure of the set which contains all elements of $X$ which have a $0$ in a given $\Z_2$-coordinate has measure $\frac12$.
+\footnotetext{For more information on the Haar measure see e.g. \cite{fol95}}
 
+More precisely, let
+\begin{itemize}
+	\item $1 \leq k_0 \leq k$
+	\item $i \in \Z$
+	\item $1 \leq n_0 \leq n(M)$
+	\item $1 \leq l_0 \leq l$
+\end{itemize}
+Then
+\begin{align*}
+	  &\mu (\{~ x \in X = {{((\Z_2^{k})^\Z)}^{n(M)}} \times \Z_2^l ~|~ x_{k_0,i,n_0,l_0} = 0 ~\}) \\
+	=~&\mu (\{~ x \in X = {{((\Z_2^{k})^\Z)}^{n(M)}} \times \Z_2^l ~|~ x_{k_0,i,n_0,l_0} = 1 ~\}) \\
+	=~&\frac12
+\end{align*}
+For a set where multiple (say $j$) coordinates are fixed to be $0$ or $1$ each, the measure is $2^{-j}$.
+
+We continue constructing our TDS:
 For the division of $X$ we take \IM{\Z_2^{k \cdot n(m)} \times \Z_2^l} to be the index set $J$ of the TDS $M^\prime$ and for
 \begin{align*}
 	z = (z_1,...,z_n), z_i \in \Z_2^k ~\text{and}~\sigma \in \Z_2^l
@@ -88,8 +105,7 @@ In total, we get
 	\Gamma := \Z^{n(m)} \times \Aut \Z_2^l
 \end{align*}
 acting on $X$.
-This group action preserves the measure $\mu$.
-%TODO explain?
+This group action preserves the measure $\mu$ which is a direct implication of the translation invariance of the Haar measure.
 
 Now we set the $\gamma_i$, that is we define an action on $X$ by assigning an element of $\Gamma$ to each $X_{z,\sigma}$.
 First notice that

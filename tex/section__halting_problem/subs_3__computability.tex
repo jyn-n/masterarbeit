@@ -4,6 +4,7 @@
 Similar to the notion of decidability as presented in Definition \ref{halting_problem:decidability:definition_decidable} we can define computability:
 
 \begin{Definition}
+	\label{halting_problem:computability:definition}
 	Let $X$ and $Y$ be countable sets, $A$ an alphabet and let \emb{\cdot} be embeddings from $X$ or $Y$ to $A^*$.
 
 	Further let $f:X \to Y$ be a map.
@@ -32,11 +33,30 @@ Similar to the notion of decidability as presented in Definition \ref{halting_pr
 
 In the following chapters we prove some problems to be undecidable.
 This means that there is a way of embedding instances of that problem into the words over some alphabet and no matter which embedding we choose there is no Turing machine that accepts all instances of the problem with positive answer and rejects all instances with negative answer.
+
 To do so, we will manipulate a multitude of mathematical objects and usually do so in a computable way, making sure that in the end there will be a Turing machine which translates instances of our original problem to instances of the halting problem.
 Then we can claim that if there was a Turing machine that solves our problem, then there would also be a Turing machine which solves the halting problem, leading to a contradiction.
-%TODO argument besser fuehren
+To be more precise, let us formulate the following lemma:
 
-But rigorously checking computability in every instance would probably overshadow everything else done in this work.
+\begin{Lemma}
+	\label{halting_problem:computability:lemma_decidability}
+	Let $L$ be an undecidable language
+	and $M$ be a language such that there is a Turing machine $T$ which maps $L$ to $M$ and $L^c$ to $M^c$ (compare Definition \ref{halting_problem:computability:definition}).
+
+	Then $M$ is undecidable.
+\end{Lemma}
+\begin{proof}
+	Assume there was a Turing machine $S$ which decided $M$.
+	Then $S \circ T$ would decide $L$.
+	To see this, let $l \in L \cup L^c$. Then 
+	\begin{align*}
+		T_{state}^\infty(S \circ T)(l) = T_{state}^\infty(S) (T^\infty(T)(l)) = \begin{cases} \ACC &~\text{if}~ l \in L \\ \REJ &~\text{if}~ l \in L^c\end{cases}
+	\end{align*}
+	(Compare Remark \ref{turing_machines:basic_notions:remark_concatenation}.)
+	But such a Turing machine must not exist as $L$ is undecidable, leading to a contradiction to the existence of $S$.
+\end{proof}
+
+There is a problem with rigorously checking computability in every instance, since that would probably overshadow everything else done in this work.
 Therefore we resolve to a more intuitive notion of computability.\footnotemark
 A nice description of this notion can be found in \cite{bbj07}:
 \footnotetext{Remark \ref{remarks:intuitive_algorithms} tells us where one might get such an intuition from.}

@@ -49,15 +49,13 @@ Now let us have a look at the following computational problem, which we call \em
 	\emph{Trivial \ltwo-betti-numbers} is not decidable for \IM{G = (\Z_2 \wr \Z)^2}.
 \end{Theorem}
 
-%TODO zusammenhang zw kernen und bettizahlen
-
-To prove this, we first consider a similar problem, namely:
+To prove this, first remember that an \ltwo-betti-number is the von-Neumann dimension of the kernel of an operator on $\ltwo[G]$.
+This leads us to the following problem:
 
 \begin{Problem}
 	Given a discrete, countable group G and a matrix \IM{M \in (\Z[G])^{k \times k}}
-	and considering the multiplication with $M$ in $\ltwo(G)^k$, is \IM{\ker M} trivial?
+	and considering the (right) multiplication with $M$ in $\ltwo(G)^k$, is \IM{\ker M} trivial?
 \end{Problem}
-%TODO left or right multiplication
 
 This problem we call \emph{kernel-over-$\Z[G]$}.
 
@@ -128,8 +126,23 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 	and thus we may assume $S \in \Z[(\Z_2 \wr \Z)^2] \otimes \Z[H]$ for some finite group $H$ (namely $\widehat{\Z_2^l} \rtimes_{\widehat\sigma} \Aut \Z_2^l$).
 	But for a finite group $H$, $\ltwo(H) \cong \C[H]$ and thus an element of $\Z[H]$, which is a linear map on $\ltwo(H)$, can be seen as a finitely dimensioned matrix with entries in $\Z$.
 	Hence $\Z[H] \hookrightarrow \Z^{n \times n}$ in a way that translates von-Neumann-Trace to the usual trace of a matrix (up to a factor $n$).
-	To see this note that the von-Neumann trace of an element of $(a_g)_{g \in G} \in \Z[H]$ is just $a_1$, which translates to every diagonal element of the matrix.
-%TODO erklaeren
+
+	To see this, let $a = (a_h)_{h \in H} \in \Z[H]$.
+	Then we have
+	\begin{align*}
+		\tr_{vN} a = \emb{1,a \cdot 1} = a_1
+	\end{align*}
+	Now consider the (right) multiplication with a matrix in $\Z^H$:
+	Let $A = (A_{g,h})_{g \in H, h \in H} \in \Z^{H \times H}$, $v = (v_h)_{h \in H} \in \Z^H$ and $w = v \cdot M \in \Z^H$.
+	Then for every $h \in H$:
+	\begin{align*}
+		w_h = \sum_{g \in H} v_g \cdot A_{g,h}
+	\end{align*}
+	If we want the multiplication with $A$ to be the same as the multiplication with $a$, then clearly $A_{g,h} = a_{g^{-1}h}$ and in particular $A_{h,h} = a_1$ for every $h \in H$.
+	Therefore
+	\begin{align*}
+		\tr A = \sum_{h \in H} A_{h,h} = \sum_{h \in H} a_1 = |H| \cdot \tr_{vN} a
+	\end{align*}
 
 	In particular, a $0$-von-Neumann trace translates to a $0$-trace of the matrix.
 
@@ -137,9 +150,12 @@ This problem we call \emph{kernel-over-$\Z[G]$}.
 	\begin{align*}
 		S ~\in~ \Z[(\Z_2 \wr \Z)^2] \otimes \Z[H] ~\subseteq~ \Z[(\Z_2 \wr \Z)^2] \otimes \Z^{n \times n} ~\cong~ \Z[(\Z_2 \wr \Z)^2]^{n \times n}
 	\end{align*}
-	and a $0$-von-Neumann trace translates to a $0$-trace, which concludes the proof.
+	and a $0$-von-Neumann trace translates to a $0$-trace.
+
+	Thereby we have mapped every Turing machine to an element $S^\prime \in \Z[(\Z_2 \wr \Z)^2]^{n \times n}$ such that $S^\prime$ is a zero-divisor if and only if there is some input which the Turing machine accepts.
+	This latter question is undecidable by Corollary \ref{halting_problem:undecidability:halting_corollary}.
+	But then, by Lemma \ref{halting_problem:computability:lemma_decidability}, kernel-over-$\Z[(\Z_2 \wr \Z)^2]$ is undecidable which concludes the proof.
 \endproof
-%TODO erklaeren dass zu jeder TM eine Matrix gehoert
 
 \proof[Proof of Theorem \ref{zero-divisor-problem:trivial_betti_numbers}]
 	A free, finite type $G$-CW-complex can be described uniquely by its attaching maps which in turn can be described as a finite dimensional matrix with entries in $\Z[G]$. Also given such a matrix we can construct a unique $G$-CW-complex. The \ltwo-homology then corresponds to the kernel of that matrix.\footnotemark

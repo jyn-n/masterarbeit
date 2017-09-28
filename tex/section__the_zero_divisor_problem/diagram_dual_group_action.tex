@@ -1,18 +1,22 @@
 \begin{tikzpicture}[shorten >=1pt,on grid,auto]
 	\node[] (0) {$\Gamma$};
-	\node[] (1) [right=6 of 0] {$\Aut(G)$};
-	\node[] (2) [below=3 of 1] {$\Aut(\widehat{G})$};
+	\node[] (1) [right=4 of 0] {$\Aut(G)$};
+	\node[] (2) [right=4 of 1] {$\Aut(G)$};
+	\node[] (3) [below=3 of 2] {$\Aut(\widehat{G})$};
 
 	\path[->]
 		(0) edge [ above ]
-			node {$\rho$ }
+			node { $\rho$ }
 			(1)
-		(1) edge [ right ]
+		(1) edge [ above ]
+			node { $\cdot^{-1}$ }
+			(2)
+		(2) edge [ right ]
 			node { $\widehat{\cdot}$ }
-			(2)
+			(3)
 		(0) edge [ above ]
-			node {$\widehat{\rho}$}
-			(2)
+			node { $\widehat{\rho}$ }
+			(3)
 	;
 \end{tikzpicture}
 
