@@ -14,14 +14,14 @@
 	But since there are only countably many Turing machines, the halting problem has to be more complex than that.
 \end{Remark}
 
-\begin{Remark}[On the intuitive notion of algorithms (section \ref{halting_problem:computability})]
+\begin{Remark}[On the intuitive notion of algorithms (chapter \ref{halting_problem:computability})]
 	\label{remarks:intuitive_algorithms}
 	Such an intuition might originate from an understanding of most of the commonly used programming languages, or, as in fact it seems, just from pure intuition: When David Hilbert originally presented his famous twenty-three problems in 1900, his tenth problem basically asked for an algorithm that determines whether a given polynomial of a certain form does have any roots.
 	Only later, when the notion of algorithms was formalized, was it possible to show that no such algorithm exists.
 	But it seems that Hilbert had enough of an idea of what an algorithm should be to pose this question, more than three decades before the concept was formalized by Alonzo Church and Alan Turing.
 \end{Remark}
 
-\begin{Remark}[On constructing a Turing dynamical system from a Turing machine (section \ref{tm_to_tds:construction})]
+\begin{Remark}[On constructing a Turing dynamical system from a Turing machine (chapter \ref{tm_to_tds:construction})]
 	\label{remarks:tds_construction}
 	When trying to construct a Turing dynamical system from a Turing machine that might be non-readonly, we can use the existing construction for read-only Turing machines and try to extend it by the possibility of writing to a tape.
 
@@ -40,18 +40,54 @@
 	Another approach might be to take the alphabet $A$ of the Turing machine and translate it to $\Z_2^A$ instead of $\Z_2^k$ and using the identification
 	\begin{align*}
 		A &\to \Z_2^A \\
-		a &\mapsto 1_a = (x_b)_{b \in A} ~\text{where}~ x_b = \begin{cases} &1, ~\text{, if}~ a = b \\ &0, ~\text{, otherwise} \end{cases}
+		a &\mapsto 1_a = (x_b)_{b \in A} ~\text{where}~ x_b = \begin{cases} 1 &~\text{, if}~ a = b \\ 0 &~\text{, otherwise} \end{cases}
 	\end{align*}
 	Any symbol not in the image of $A$ should be rejected when encountered.
 	But since if we stop, we encounter only finitely many symbols, this means applying a finite factor to the fundamental values, which does not break Theorem \ref{the_zero_divisor_problem:grabowskis_theorem}.
 	Also, we could write onto a tape by applying some bijection to $A$, which translates to an automorphism of $\Z_2^A$, similar as we do for the states.
 \end{Remark}
 
+\begin{Remark}[On \emph{trivial \ltwo-betti-numbers} of $\Z_2 \wr \Z$]
+	In fact, the second approach from Remark \ref{remarks:tds_construction} seems quite promising in showing that \emph{trivial \ltwo-betti-numbers} is undecidable for $\Z_2 \wr \Z$, not just for $(\Z_2 \wr \Z)^2$:
+
+	The problem here is, that as we have seen in \ref{turing_machines:main_theorem:theorem}, every Turing machine can be simulated by a foolproof readonly Turing machine $M$ on two tapes.
+	The fact that in the end we get a statement about $(\Z_2 \wr \Z)^2$ is closely related to the fact that $M$ has two tapes.
+	If it had just one tape, our group would be $\Z_2 \wr \Z$.
+	But Theorem \ref{turing_machines:main_theorem:theorem} is known to be false if we require $M$ to be on one tape.
+
+	However, one can show that every Turing machine on any finite number of tapes can be simulated by a (non-readonly) Turing machine on one tape.
+	Using the approach from Remark \ref{remarks:tds_construction}, we get a Turing dynamical system which uses $\Z_2 \wr \Z$ as configurations (technically, that is not true, but we can perform the same steps as in the proof of Theorem \ref{zero-divisor-problem:kernel-over-zg} to take care of this).
+	Now in order to apply Theorem \ref{the_zero_divisor_problem:grabowskis_theorem}, we (among other, less problematic things) require that TDS to be foolproof and have disjoint accepting chains.
+	In chapter \ref{tm_to_tds:properties}, we see that foolproofness of the Turing machine implies foolproofness of the TDS and disjoint accepting chains comes from readonlyness.
+
+	Therefore, to show that \emph{tivial \ltwo-betti-numbers} is undecidable for $\Z_2 \wr \Z$, it is probably enough to show that every Turing machine can be simulated by a foolproof Turing machine on one tape with disjoint accepting chains.
+
+	The main approach to show that every Turing machine $M$ (for simplicity, let us regard just Turing machines on two tapes) can be simulated by a Turing machine $N$ on one tape, is to use $A^2$ instead of $A$ as alphabet and then write both tapes of $M$ onto one component each of the single tape of $N$.
+	Now a problem is, that we cannot shift the tapes independently anymore.
+	To solve this, we use markings to remember the $0$-position of each tape and then simulate shifting the tape by moving the respective marking; This is similar to the underlinings in the proof of Theorem \ref{turing_machines:main_theorem:theorem}.
+
+	It seems quite believable that this construction, when applied to a foolproof readonly Turing machine on two tapes, yields a Turing machine which in turn is foolproof itself and can easily be turned into a TDS with disjoint accepting chains.
+	To actually prove this however, we would probably need more sophisticated theory on foolproof Turing machines than is provided in this work.
+\end{Remark}
+
+\begin{Remark}[On torsion free groups in a Turing dynamical system]
+	\label{remarks:torsion_free_groups}
+	It might be interesting to apply the theory of this work to torsion free groups.
+	However, Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} requires that our group is a product of $\Z_2$, which might be called as non-torsion-free as it gets.
+	This requirement is closely related to the fact, that the elements of the pontryagin dual of $\Z_2$ correspond to opposite points on the unit circle in \C.
+	There is probably no easy way of getting rid of it.
+
+	Also note, that Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} is the point where we connect the TDS to our group.
+	Even though every TDS has a group action, the ``configurations'' $X$ are merely a set.
+	We ``voluntarily'' add the group structure of $(\Z_2 \wr \Z)^2$ to $X$ when we do our construction.
+	But to get some value from that, we apply the theorem.
+\end{Remark}
+
 \begin{Remark}[On continuous group automorphisms of $(\Z_2 \wr \Z)^2$]
 	\label{remarks:continuous_group_automorphisms}
 	When we construct our Turing dynamical systems (in chapter \ref{tm_to_tds:construction}), we have to make sure that our group actions are by continuous automorphisms so that we may apply Theorem \ref{the_zero_divisor_problem:grabowskis_theorem}.
 	In our case it is easy to see that our automorphisms are always continuous or can be chosen to be.
-	But on a larger scope it is not trivial to see if even one non-continuous automorphism exists. For some insights on the subject, see e.g. \cite{bhk16}.
+	But on a larger scope it is not trivial to see if even one non-continuous automorphism exists. For some insight on the subject, see e.g. \cite{bhk16}.
 \end{Remark}
 
 \begin{Remark}[On the Atiyah-conjecture]

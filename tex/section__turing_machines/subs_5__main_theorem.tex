@@ -89,11 +89,11 @@ To conclude the first chapter we prove a theorem about Turing machines which all
 		2 &\mapsto~\text{start of the tape} \\
 		3 &\mapsto~\text{somewhere in the non-positive part of the tape} \\
 		4 &\mapsto~\text{somewhere in the positive part of the tape} \\
-		\textbf{4} &\mapsto~\text{previous symbol was bold and not the first one of the tape} \\
+		\textbf{4} &\mapsto~\text{previous symbol was bold and not the first one of the tape}
 	\end{align*}
 	The loop \IM{1 \to 2 \to 3 \to 4 \to 1} only goes through if both tapes are equal and their $0$-position is the start of a configuration as described above.
 	Looping once will advance both tapes by exactly one configuration.
-	$\textbf{4}$ is required to make sure that at most the first and last symbol are bold.
+	$\textbf{4}$ is required to make sure that no more than one of the first and last symbol are bold.
 
 	The second stage shifts both tapes by $-1$ until they hit an \EMP-symbol again, that is they are one symbol left of their original position.
 	The third stage shifts both tapes by $1$ again.
