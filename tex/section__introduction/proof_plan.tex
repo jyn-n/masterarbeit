@@ -1,0 +1,17 @@
+\begin{tikzpicture}[shorten >=1pt,on grid,auto]
+	\node[] (0) {Turing machine};
+	\node[] (1) [below=2 of 0] {foolproof readonly Turing machine};
+	\node[] (2) [below=2 of 1] {Turing dynamical system};
+	\node[] (5) [below=2 of 2] {$(\Z_2 \wr \Z)^2$-CW-Complex};
+	
+	\node[] (10) [right=8 of 0] {accepts some input};
+	\node[] (11) [right=8 of 1] {accepts some input};
+	\node[] (12) [right=8 of 2] {accepts more than a null set};
+	\node[] (15) [right=8 of 5] {trivial \ltwo-betti-number};
+
+	\path[->]
+		(0) edge (1)
+		(1) edge (2)
+		(2) edge (5)
+	;
+\end{tikzpicture}

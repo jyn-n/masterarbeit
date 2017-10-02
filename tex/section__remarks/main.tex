@@ -1,4 +1,5 @@
 \section{Remarks}
+\label{remarks}
 
 \begin{Remark}[On the scope of the halting problem]
 	\label{remarks:scope_of_halting_problem}
@@ -65,6 +66,8 @@
 	The main approach to show that every Turing machine $M$ (for simplicity, let us regard just Turing machines on two tapes) can be simulated by a Turing machine $N$ on one tape, is to use $A^2$ instead of $A$ as alphabet and then write both tapes of $M$ onto one component each of the single tape of $N$.
 	Now a problem is, that we cannot shift the tapes independently anymore.
 	To solve this, we use markings to remember the $0$-position of each tape and then simulate shifting the tape by moving the respective marking; This is similar to the underlinings in the proof of Theorem \ref{turing_machines:main_theorem:theorem}.
+	Then $N$ simulates $M$ by first simulating the behaviour on one tape, then on the other.
+	This is possible, because the state of $M$ as well as the symbols on both tapes of $M$ can be kept in memory, again similar as we do in the proof of Theorem \ref{turing_machines:main_theorem:theorem}.
 
 	It seems quite believable that this construction, when applied to a foolproof readonly Turing machine on two tapes, yields a Turing machine which in turn is foolproof itself and can easily be turned into a TDS with disjoint accepting chains.
 	To actually prove this however, we would probably need more sophisticated theory on foolproof Turing machines than is provided in this work.
