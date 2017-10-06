@@ -43,9 +43,12 @@
 		A &\to \Z_2^A \\
 		a &\mapsto 1_a = (x_b)_{b \in A} ~\text{where}~ x_b = \begin{cases} 1 &~\text{, if}~ a = b \\ 0 &~\text{, otherwise} \end{cases}
 	\end{align*}
+	Then, we could write onto a tape by applying some bijection to $A$, which translates to an automorphism of $\Z_2^A$, similar as we do for the states.
+
 	Any symbol not in the image of $A$ should be rejected when encountered.
-	But since if we stop, we encounter only finitely many symbols, this means applying a finite factor to the fundamental values, which does not break Theorem \ref{the_zero_divisor_problem:grabowskis_theorem}.
-	Also, we could write onto a tape by applying some bijection to $A$, which translates to an automorphism of $\Z_2^A$, similar as we do for the states.
+	But since if we stop, we encounter only finitely many symbols.
+	This means applying a finite factor to the fundamental values, in particular, they do not become $0$ if they were not $0$ before.
+	Thereby we do not forfeit the use of Theorem \ref{the_zero_divisor_problem:grabowskis_theorem}.
 \end{Remark}
 
 \begin{Remark}[On \emph{trivial \ltwo-betti-numbers} of $\Z_2 \wr \Z$]
@@ -75,13 +78,13 @@
 
 \begin{Remark}[On torsion free groups in a Turing dynamical system]
 	\label{remarks:torsion_free_groups}
-	It might be interesting to apply the theory of this work to torsion free groups.
+	In the context of Kaplanksy's conjecture, it might be interesting to apply the theory of this work to torsion free groups.
 	However, Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} requires that our group is a product of $\Z_2$, which might be called as non-torsion-free as it gets.
 	This requirement is closely related to the fact, that the elements of the pontryagin dual of $\Z_2$ correspond to opposite points on the unit circle in \C.
 	There is probably no easy way of getting rid of it.
 
 	Also note, that Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} is the point where we connect the TDS to our group.
-	Even though every TDS has a group action, the ``configurations'' $X$ are merely a set.
+	Even though every TDS has a group action, the configurations $X$ are merely a set.
 	We ``voluntarily'' add the group structure of $(\Z_2 \wr \Z)^2$ to $X$ when we do our construction.
 	But to get some value from that, we apply the theorem.
 \end{Remark}

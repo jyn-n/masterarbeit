@@ -53,12 +53,11 @@ To understand these groups we need to briefly introduce some properties: First w
 	For the first component, note that $\Z_2^\Z$ may be considered to be the tape of a Turing machine.
 	If we take $0$ to be the \EMP-symbol, we have in fact that every element of $\Z_2^{\oplus \Z}$ corresponds to a finite tape (that is, when we add a state, it corresponds to a finite configuration).
 
-	To compute the first component, consider a Turing machine on two tapes, which takes $v_1,...,v_n$ as input on the first tape and writes the first component of their product onto the second tape by using the identification as explained above.
-	(In fact, this Turing machine uses different alphabets on each tape which is technically not allowed, but this is no problem as formally, we might say that the common alphabet is the disjoint union or the cartesian product of the alphabets of each tape.)
-
-	Now the Turing machine should traverse the $v_i$ from left to right.
+	To compute the first component, consider a Turing machine on two tapes, which takes $v_1,...,v_n$ as input on the first tape and writes the first component of their product onto the second tape by using the identification as explained above.\footnotemark~
+	To do so, the Turing machine should traverse the $v_i$ from left to right.
 	Whenever it encounters an $x$, it toggles the symbol on the second tape.
 	And for $y$ or $y^{-1}$, it shifts the second tape by one symbol to the left or right.
+	\footnotetext{In fact, this Turing machine uses different alphabets on each tape which is technically not allowed, but this is no problem as formally, we might say that the common alphabet is the disjoint union or the cartesian product of the alphabets of each tape.}
 
 	By marking every position on the second tape that was ever encountered (compare chapter \ref{turing_machines:main_theorem}), we get a consecutive area of marked positions.
 	Unmarked positions are known to be $0$.
@@ -129,7 +128,7 @@ The lemma now states that $(1 - \frac{T}{\|T\|_1})^{h(n)}$ is almost such a proj
 Also note that the eigenvalues of $\frac{T}{\|T\|_1}$ are at most $1$, which makes the statement quite believable at least in case of a finite group $G$.
 The infinite case then is provided by soficity.
 
-The purpose of this lemma is, that the von-Neumann trace is relatively easy to compute whereas the von-Neumann dimension probably is not.
+We need this lemma since we cannot compute the von-Neumann dimension as we probably do not know any projection onto the kernel.
 
 Also we will need the following lemma:
 \begin{Lemma}
@@ -145,7 +144,7 @@ Also we will need the following lemma:
 	\begin{align*}
 		(S \cdot T)_g = \sum_{h \in G} S_{gh^{-1}} T_h
 	\end{align*}
-	This means that in order to compute $(S \cdot T)_g$, given two presentations of group elements $h_1$ and $h_2$, we have to decide if $h_1 h_2 = g$ which is indeed the word problem.
+	This means that in order to compute $(S \cdot T)_g$, given two presentations of group elements $h_1$ and $h_2$, we have to decide if $h_1 h_2 = g$ which is indeed equivalent to the word problem.
 \endproof
 
 \proof [Proof of Theorem \ref{decidable_zero_divisors:theorem}]
@@ -154,7 +153,7 @@ Also we will need the following lemma:
 	In particular, $\dim_{vN} \ker T \neq 0 \Rightarrow \dim_{vN} \ker T \geq \frac1k$.
 
 	Now consider the map $f:\N \to \R, m \mapsto \tr_{vN}(1 - \frac{T}{\|T\|_1})^{h(3m)}$ ($h$ from Lemma \ref{decidable_zero_divisors:lemma_sofic}).
-	This map is computable since in order to compute the von-Neumann-trace, we only need to compute the coefficients of $\frac{T}{\|T\|_1})^{h(3m)}$, which means we only need to solve the word problem for $G$ (compare lemma \ref{decidable_zero_divisors:lemma_word_problem}), which is possible as per requirements of the theorem.
+	This map is computable since in order to compute the von-Neumann-trace, we only need to compute the coefficients of $(1 - \frac{T}{\|T\|_1})^{h(3m)}$, which means we only need to solve the word problem for $G$ (compare lemma \ref{decidable_zero_divisors:lemma_word_problem}), which is possible as per requirements of the theorem.
 
 	By Lemma \ref{decidable_zero_divisors:lemma_sofic} we have $|f(k) - \dim_{vN} \ker T| < \frac{1}{3k}$. But this means
 	\begin{align*}

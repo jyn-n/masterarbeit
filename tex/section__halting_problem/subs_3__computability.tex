@@ -20,9 +20,9 @@ Similar to the notion of decidability as presented in Definition \ref{halting_pr
 
 \begin{Remark}
 	$A^*$ is countable since it is the union of countably many finite sets.
-	But we can regard $A^*$ as a subset of $\{A ~\dot\cup~ \{\EMP\}\}^{\N_0}$ and hence $\{A ~\dot\cup~ \{\EMP\}\}^\Z$ in a very natural way.
+	But we can regard $A^*$ as a subset of $(A ~\dot\cup~ \{\EMP\})^{\N_0}$ and hence $(A ~\dot\cup~ \{\EMP\})^\Z$ in a very natural way.
 
-	If $Y$ has more than countably many elements and embeds to $\{A ~\dot\cup~ \{\EMP\}\}^\Z$, then we define the map $f$ to be computable if there is a sequence of Turing machines with transition maps $T_i$ such that for every $x \in X$ there are $a_i \in A^*$ such that
+	If $Y$ has more than countably many elements and embeds to $(A ~\dot\cup~ \{\EMP\})^\Z$, then we define the map $f$ to be computable if there is a sequence of Turing machines with transition maps $T_i$ such that for every $x \in X$ there are $a_i \in A^*$ such that
 	\begin{align*}
 		T_i^\infty(\emb{x}, \INI) = (a_i,\ACC) ~\text{for every}~ i \in \N
 	\end{align*}
@@ -41,16 +41,18 @@ To be more precise, let us formulate the following lemma:
 \begin{Lemma}
 	\label{halting_problem:computability:lemma_decidability}
 	Let $L$ be an undecidable language
-	and $M$ be a language such that there is a Turing machine $T$ which maps $L$ to $M$ and $L^c$ to $M^c$ (compare Definition \ref{halting_problem:computability:definition}).
+	and $M$ be a language such that there is a computable map $f$ from $L$ to $M$.
 
 	Then $M$ is undecidable.
 \end{Lemma}
 \begin{proof}
+	Let $Q$ be a Turing machine which computes $f$.
+
 	Assume there was a Turing machine $S$ which decided $M$.
-	Then $S \circ T$ would decide $L$.
+	Then $S \circ Q$ would decide $L$.
 	To see this, let $l \in L \cup L^c$. Then 
 	\begin{align*}
-		T_{state}^\infty(S \circ T)(l) = T_{state}^\infty(S) (T^\infty(T)(l)) = \begin{cases} \ACC &~\text{if}~ l \in L \\ \REJ &~\text{if}~ l \in L^c\end{cases}
+		T_{state}^\infty(S \circ Q)(l) = T_{state}^\infty(S) (T^\infty(Q)(l)) = \begin{cases} \ACC &~\text{if}~ l \in L \\ \REJ &~\text{if}~ l \in L^c\end{cases}
 	\end{align*}
 	(Compare Remark \ref{turing_machines:basic_notions:remark_concatenation}.)
 	But such a Turing machine must not exist as $L$ is undecidable, leading to a contradiction to the existence of $S$.
