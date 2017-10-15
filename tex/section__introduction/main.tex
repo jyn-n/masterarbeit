@@ -4,15 +4,14 @@ A problem that has received quite some interest lately is the so called Atiyah-q
 It was originally posed by Atiyah in \cite{ati76} and has since been studied thoroughly.
 A good overview on the subject and its context may be found in \cite{luc02}.
 
-%TODO naechster satz klingonisch
-The question asks for a given group, to which \ltwo-betti-numbers this group gives rise.
+Atiyah asks, which \ltwo-betti-numbers arise from a given group.
 Several conjectures which answer this question for a certain class of groups each are collectively known as the Atiyah-conjecture.
 
 In this work, we find a link between the Atiyah-question and the decidability problem known from computer science.
 
-Using the theory introduced by Grabowski in \cite{gra14} and following his work in \cite{gra14-2}, we concern ourselves specifically with the lamplighter-group $L := \Z_2 \wr \Z$ and as our main theorem we show, that for a given $L^2$-CW-complex it is not decidable if the $n$'th \ltwo-betti-number is $0$.
+Using the theory introduced by Grabowski in \cite{gra14} and following his work in \cite{gra14-2}, we concern ourselves specifically with the lamplighter-group $H := \Z_2 \wr \Z$ and as our main theorem we show, that for a given $H^2$-CW-complex it is not decidable if the $n$'th \ltwo-betti-number is $0$.
 
-We start off with a Turing machine and end up with an \ltwo-betti-number of $L^2$.
+We start off with a Turing machine and end up with an \ltwo-betti-number of $H^2$.
 The main steps along this way can be seen in the following figure:
 \begin{figure}[H]
 	\centering
@@ -28,4 +27,3 @@ Chapter \ref{decidable_zero_divisors} then provides some context for our main th
 Finally, chapter \ref{remarks} provides some background information for several topics which is not strictly necessary but helpful nonetheless and might provide some insight on why things are done the way they are done in this work.
 Whenever there is a remark in chapter \ref{remarks} significant to a specific subject in this work, it is pointed out at the appropriate place.
 Also, this last chapter gives us an idea how we might proceed in proving that our main question - namely whether an \ltwo-betti-number is $0$ - is not decidable for the lamplighter group itself, not just $L^2$.
-

@@ -64,12 +64,12 @@
 	Now in order to apply Theorem \ref{the_zero_divisor_problem:grabowskis_theorem}, we (among other, less problematic things) require that TDS to be foolproof and have disjoint accepting chains.
 	In chapter \ref{tm_to_tds:properties}, we see that foolproofness of the Turing machine implies foolproofness of the TDS and disjoint accepting chains comes from readonlyness.
 
-	Therefore, to show that \emph{tivial \ltwo-betti-numbers} is undecidable for $\Z_2 \wr \Z$, it is probably enough to show that every Turing machine can be simulated by a foolproof Turing machine on one tape with disjoint accepting chains.
+	Therefore, to show that \emph{tivial \ltwo-betti-numbers} is undecidable for $\Z_2 \wr \Z$, it is probably sufficient to show that every Turing machine can be simulated by a foolproof Turing machine on one tape with disjoint accepting chains.
 
 	The main approach to show that every Turing machine $M$ (for simplicity, let us regard just Turing machines on two tapes) can be simulated by a Turing machine $N$ on one tape, is to use $A^2$ instead of $A$ as alphabet and then write both tapes of $M$ onto one component each of the single tape of $N$.
 	Now a problem is, that we cannot shift the tapes independently anymore.
 	To solve this, we use markings to remember the $0$-position of each tape and then simulate shifting the tape by moving the respective marking; This is similar to the underlinings in the proof of Theorem \ref{turing_machines:main_theorem:theorem}.
-	Then $N$ simulates $M$ by first simulating the behaviour on one tape, then on the other.
+	Then $N$ simulates $M$ by first simulating one step on one tape, then on the other tape, and repeating.
 	This is possible, because the state of $M$ as well as the symbols on both tapes of $M$ can be kept in memory, again similar as we do in the proof of Theorem \ref{turing_machines:main_theorem:theorem}.
 
 	It seems quite believable that this construction, when applied to a foolproof readonly Turing machine on two tapes, yields a Turing machine which in turn is foolproof itself and can easily be turned into a TDS with disjoint accepting chains.
@@ -83,7 +83,7 @@
 	This requirement is closely related to the fact, that the elements of the pontryagin dual of $\Z_2$ correspond to opposite points on the unit circle in \C.
 	There is probably no easy way of getting rid of it.
 
-	Also note, that Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} is the point where we connect the TDS to our group.
+	Also note that Theorem \ref{the_zero_divisor_problem:grabowskis_theorem} is the point where we connect the TDS to our group.
 	Even though every TDS has a group action, the configurations $X$ are merely a set.
 	We ``voluntarily'' add the group structure of $(\Z_2 \wr \Z)^2$ to $X$ when we do our construction.
 	But to get some value from that, we apply the theorem.
